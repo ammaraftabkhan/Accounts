@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Accounts/bin/Debug/net6.0
+/Accounts/obj
+/Accounts.Common/bin/Debug/net6.0
+/Accounts.Common/obj
+/Accounts.Core/bin/Debug/net6.0
+/Accounts.Core/obj/Debug/net6.0
+/Accounts.Core/obj
+/Accounts.Repository/bin/Debug/net6.0
+/Accounts.Repository/obj
+/Accounts.Services/bin/Debug/net6.0
+/Accounts.Services/obj

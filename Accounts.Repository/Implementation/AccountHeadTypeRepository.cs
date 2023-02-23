@@ -1,0 +1,133 @@
+﻿using Accounts.Core.Context;
+using Accounts.Core.Models;
+using Accounts.Repository.Repository;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Accounts.Repository.Implementation
+{
+    public class AccountHeadTypeRepository : IAccountHeadTypeRepository
+    {
+        private readonly AccuteDbContext _AccuteDbContext;
+        public AccountHeadTypeRepository(AccuteDbContext _AccuteDbContext)
+        {
+            this._AccuteDbContext = _AccuteDbContext;
+        }
+
+        public bool Add(VM_AccountHeadType _VM_AccountHeadType)
+        {
+            AccountHeadType Ob =new AccountHeadType();
+            Ob.AcHeadTypeCode= _VM_AccountHeadType.AcHeadTypeCode;
+            Ob.AcHeadTypeName= _VM_AccountHeadType.AcHeadTypeName;
+            Ob.CreatedBy= _VM_AccountHeadType.CreatedBy;
+            Ob.CreatedOn = DateTime.UtcNow;
+            Ob.PostedBy= _VM_AccountHeadType.PostedBy;
+            Ob.PostedOn= DateTime.UtcNow;
+
+            try
+            {
+                _AccuteDbContext.AccountHeadTypes.Add(Ob);
+                return  _AccuteDbContext.SaveChanges() > 0;
+                
+            }
+            catch (Exception ex) 
+            {
+                return false;
+            
+            }
+            
+        }
+
+        public bool Delete(int id)
+        {
+            if (id > 0)
+            {
+                
+                try
+                {
+                    var data = _AccuteDbContext.AccountHeadTypes.Find(id);
+                    if (data != null)
+                    {
+                    _AccuteDbContext.AccountHeadTypes.Remove(data);
+                    return _AccuteDbContext.SaveChanges() > 0;
+                    }
+                    return false;
+                  
+                }
+                catch(Exception ex) 
+                { 
+                    return false;
+                }
+            }
+
+            return false;
+
+        }
+
+        public AccountHeadType Find(int id)
+        {
+            if (id > 0)
+            {
+                try
+                {
+                    return _AccuteDbContext.AccountHeadTypes.Find(id);
+
+                }
+                catch (Exception ex)
+                {
+                    return new AccountHeadType();
+                }
+            }
+            return new AccountHeadType();
+           
+        }
+            
+        public List <AccountHeadType> GetAccountHeadType()
+        {
+            try
+            {
+                return _AccuteDbContext.AccountHeadTypes.ToList();
+            }
+            catch 
+            { 
+                return new List<AccountHeadType>(); 
+            }
+            
+        }
+
+        public bool Update(VM_AccountHeadType _VM_AccountHeadType)
+        {
+            if(_VM_AccountHeadType.AcHeadTypeId > 0)
+            {
+
+                try
+                {
+                    var data = _AccuteDbContext.AccountHeadTypes.Find(_VM_AccountHeadType.AcHeadTypeId);
+                    if (data != null)
+                    {
+                        data.AcHeadTypeName = _VM_AccountHeadType.AcHeadTypeName;
+                        data.AcHeadTypeCode = _VM_AccountHeadType.AcHeadTypeCode;
+                        data.UpdatedBy = _VM_AccountHeadType.UpdatedBy;
+                        data.UpdatedOn = DateTime.UtcNow;
+                        _AccuteDbContext.AccountHeadTypes.Update(data);
+                        return _AccuteDbContext.SaveChanges() > 0;
+                    }
+                    return  false;
+                }
+                catch
+                {
+                    return false;
+                }
+               
+            }
+           
+            return false;
+            
+        }
+    }
+}
