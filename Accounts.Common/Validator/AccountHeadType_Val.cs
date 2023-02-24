@@ -13,7 +13,9 @@ namespace Accounts.Common.Validator
     {
         public AccountHeadType_Val() 
         {
-            RuleFor(x=>x.AcHeadTypeCode).NotEmpty();
+
+            //RuleFor(x => x.AcHeadTypeCode).EmailAddress().When(x => !string.IsNullOrEmpty(x.AcHeadTypeCode)).NotEmpty();
+
         }
     }
 }

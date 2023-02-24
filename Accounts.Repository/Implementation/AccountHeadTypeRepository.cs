@@ -21,13 +21,34 @@ namespace Accounts.Repository.Implementation
 
         public bool Add(VM_AccountHeadType _VM_AccountHeadType)
         {
+            var headCode = _AccuteDbContext.AccountHeadTypes.Any() ? _AccuteDbContext.AccountHeadTypes.Max(e => e.AcHeadTypeId) + 1 : 1;
             AccountHeadType Ob =new AccountHeadType();
-            Ob.AcHeadTypeCode= _VM_AccountHeadType.AcHeadTypeCode;
             Ob.AcHeadTypeName= _VM_AccountHeadType.AcHeadTypeName;
             Ob.CreatedBy= _VM_AccountHeadType.CreatedBy;
             Ob.CreatedOn = DateTime.UtcNow;
             Ob.PostedBy= _VM_AccountHeadType.PostedBy;
             Ob.PostedOn= DateTime.UtcNow;
+
+            if (headCode < 10)
+            {
+
+                Ob.AcHeadTypeCode = "0" + headCode.ToString();
+            }
+
+            //if(headCode>9 && headCode < 100)
+            //{
+
+            //    Ob.AcHeadTypeCode = "0" + headCode.ToString();
+            //}
+
+            if (headCode == 10)
+            {
+
+                Ob.AcHeadTypeCode = headCode.ToString();
+            }
+            
+
+
 
             try
             {
@@ -111,7 +132,7 @@ namespace Accounts.Repository.Implementation
                     if (data != null)
                     {
                         data.AcHeadTypeName = _VM_AccountHeadType.AcHeadTypeName;
-                        data.AcHeadTypeCode = _VM_AccountHeadType.AcHeadTypeCode;
+                        //data.AcHeadTypeCode = _VM_AccountHeadType.AcHeadTypeCode;
                         data.UpdatedBy = _VM_AccountHeadType.UpdatedBy;
                         data.UpdatedOn = DateTime.UtcNow;
                         _AccuteDbContext.AccountHeadTypes.Update(data);

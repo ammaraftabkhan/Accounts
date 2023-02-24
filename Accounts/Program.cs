@@ -13,11 +13,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddFluentValidation(x =>
-{
-    x.ImplicitlyValidateChildProperties = true;
-    x.RegisterValidatorsFromAssemblyContaining<VM_AccountHeadType>();
-});
+builder.Services.AddControllers();
+
+//builder.Services.AddControllers().AddFluentValidation(x =>
+//{
+//    x.ImplicitlyValidateChildProperties = true;
+//    x.RegisterValidatorsFromAssemblyContaining<VM_AccountHeadType>();
+//});
 //builder.Services.AddTransient<IValidator<VM_AccountHeadType>, AccountHeadType_Val>();
 
 
