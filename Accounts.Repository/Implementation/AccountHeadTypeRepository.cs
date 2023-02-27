@@ -41,7 +41,7 @@ namespace Accounts.Repository.Implementation
             //    Ob.AcHeadTypeCode = "0" + headCode.ToString();
             //}
 
-            if (headCode == 10)
+            if (headCode == 99)
             {
 
                 Ob.AcHeadTypeCode = headCode.ToString();
