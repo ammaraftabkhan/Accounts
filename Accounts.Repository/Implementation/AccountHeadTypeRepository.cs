@@ -112,9 +112,10 @@ namespace Accounts.Repository.Implementation
         {
             try
             {
-                return _AccuteDbContext.AccountHeadTypes.ToList();
+                var list= _AccuteDbContext.AccountHeadTypes.ToList();
+                return list;
             }
-            catch 
+            catch (Exception ex)
             { 
                 return new List<AccountHeadType>(); 
             }
