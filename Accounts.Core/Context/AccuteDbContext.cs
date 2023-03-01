@@ -205,7 +205,7 @@ namespace Accounts.Core.Context
                     .WithMany(p => p.AccountVoucherDetails)
                     .HasForeignKey(d => d.AcVoucherMasterId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AccountVoucherDetail_AccountVoucherMaster");
+                    .HasConstraintName("FK_AccountVoucherDetail_AccountVoucherMaster1");
             });
 
             modelBuilder.Entity<AccountVoucherMaster>(entity =>
@@ -217,12 +217,6 @@ namespace Accounts.Core.Context
                     .HasForeignKey(d => d.AcVoucherTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AccountVoucherMaster_AccountVoucherType");
-
-                entity.HasOne(d => d.FiscalYear)
-                    .WithMany(p => p.AccountVoucherMasters)
-                    .HasForeignKey(d => d.FiscalYearId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AccountVoucherMaster_AccountFiscalYear");
             });
 
             modelBuilder.Entity<AccountVoucherType>(entity =>

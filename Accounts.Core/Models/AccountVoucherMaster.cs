@@ -39,9 +39,6 @@ namespace Accounts.Core.Models
         [ForeignKey(nameof(AcVoucherTypeId))]
         [InverseProperty(nameof(AccountVoucherType.AccountVoucherMasters))]
         public virtual AccountVoucherType AcVoucherType { get; set; } = null!;
-        [ForeignKey(nameof(FiscalYearId))]
-        [InverseProperty(nameof(AccountFiscalYear.AccountVoucherMasters))]
-        public virtual AccountFiscalYear FiscalYear { get; set; } = null!;
         [InverseProperty(nameof(AccountVoucherDetail.AcVoucherMaster))]
         public virtual ICollection<AccountVoucherDetail> AccountVoucherDetails { get; set; }
     }
