@@ -12,7 +12,6 @@ namespace Accounts.Core.Models
         public AccountFiscalYear()
         {
             AccountTransMasters = new HashSet<AccountTransMaster>();
-            AccountVoucherMasters = new HashSet<AccountVoucherMaster>();
         }
 
         [Key]
@@ -38,7 +37,5 @@ namespace Accounts.Core.Models
 
         [InverseProperty(nameof(AccountTransMaster.FiscalYear))]
         public virtual ICollection<AccountTransMaster> AccountTransMasters { get; set; }
-        [InverseProperty(nameof(AccountVoucherMaster.FiscalYear))]
-        public virtual ICollection<AccountVoucherMaster> AccountVoucherMasters { get; set; }
     }
 }
