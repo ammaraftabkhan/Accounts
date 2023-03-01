@@ -178,12 +178,6 @@ namespace Accounts.Core.Context
                     .HasForeignKey(d => d.AcTransTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AccountTransMaster_AccountTransType");
-
-                entity.HasOne(d => d.FiscalYear)
-                    .WithMany(p => p.AccountTransMasters)
-                    .HasForeignKey(d => d.FiscalYearId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AccountTransMaster_AccountFiscalYear");
             });
 
             modelBuilder.Entity<AccountTransType>(entity =>
