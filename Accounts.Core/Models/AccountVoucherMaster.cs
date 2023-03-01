@@ -17,7 +17,7 @@ namespace Accounts.Core.Models
         [Key]
         public long AcVoucherMasterId { get; set; }
         public int AcVoucherTypeId { get; set; }
-        public int FiscalYearId { get; set; }
+        public long FiscalYearId { get; set; }
         [Column(TypeName = "date")]
         public DateTime AcTransDate { get; set; }
         [StringLength(50)]

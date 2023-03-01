@@ -6,20 +6,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Accounts.Core.Models
 {
-    [Table("City")]
-    public partial class City
+    public partial class CivilLevel
     {
+        public CivilLevel()
+        {
+            CivilEntities = new HashSet<CivilEntity>();
+        }
+
         [Key]
-        public long CityId { get; set; }
-        [StringLength(50)]
-        public string CityName { get; set; } = null!;
-        [StringLength(50)]
-        public string CityCode { get; set; } = null!;
-        [StringLength(50)]
-        public string PostalCodeSuffix { get; set; } = null!;
-        [StringLength(50)]
-        public string? PostalCode { get; set; }
-        public long StateProvinceId { get; set; }
+        public int CivilLevelId { get; set; }
+        public string? CivilLevelName { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }
         public int CreatedBy { get; set; }
@@ -32,5 +28,8 @@ namespace Accounts.Core.Models
         public bool IsDeleted { get; set; }
         [Required]
         public bool? IsActive { get; set; }
+
+        [InverseProperty(nameof(CivilEntity.CivilLevel))]
+        public virtual ICollection<CivilEntity> CivilEntities { get; set; }
     }
 }

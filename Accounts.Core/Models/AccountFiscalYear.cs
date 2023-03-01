@@ -16,7 +16,7 @@ namespace Accounts.Core.Models
         }
 
         [Key]
-        public int FiscalYearId { get; set; }
+        public long FiscalYearId { get; set; }
         [StringLength(50)]
         public string? FiscalYearName { get; set; }
         [Column(TypeName = "date")]

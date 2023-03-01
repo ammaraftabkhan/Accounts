@@ -6,20 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Accounts.Core.Models
 {
-    [Table("City")]
-    public partial class City
+    public partial class CivilEntitiesLanguage
     {
         [Key]
-        public long CityId { get; set; }
-        [StringLength(50)]
-        public string CityName { get; set; } = null!;
-        [StringLength(50)]
-        public string CityCode { get; set; } = null!;
-        [StringLength(50)]
-        public string PostalCodeSuffix { get; set; } = null!;
-        [StringLength(50)]
-        public string? PostalCode { get; set; }
-        public long StateProvinceId { get; set; }
+        public int CivilEntitiessLanguagesId { get; set; }
+        public int CivilEntityId { get; set; }
+        public int LanguageId { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }
         public int CreatedBy { get; set; }

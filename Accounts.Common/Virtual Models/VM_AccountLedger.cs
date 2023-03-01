@@ -1,30 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Accounts.Core.Models
+namespace Accounts.Common.Virtual_Models
 {
-    public partial class Currency
+    public class VM_AccountLedger
     {
-        [Key]
-        public int CurrencyId { get; set; }
+        public long AcLedgerId { get; set; }
+        //public string AcLedgerCode { get; set; }
         [StringLength(50)]
-        public string? CurrencyName { get; set; }
-        [StringLength(10)]
-        public string? CurrencySign { get; set; }
+        public string AcLedgerName { get; set; } = null!;
+        //public long? AcControlId { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }
-        public int CreatedBy { get; set; }
+        public int Createdby { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? UpdatedOn { get; set; }
         public int? UpdatedBy { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? PostedOn { get; set; }
         public int? PostedBy { get; set; }
-        public bool IsDeleted { get; set; }
-        [Required]
-        public bool? IsActive { get; set; }
     }
 }

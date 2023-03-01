@@ -9,11 +9,6 @@ namespace Accounts.Core.Models
     [Table("StateProvince")]
     public partial class StateProvince
     {
-        public StateProvince()
-        {
-            Cities = new HashSet<City>();
-        }
-
         [Key]
         public long StateProvinceId { get; set; }
         [StringLength(50)]
@@ -33,11 +28,5 @@ namespace Accounts.Core.Models
         public bool IsDeleted { get; set; }
         [Required]
         public bool? IsActive { get; set; }
-
-        [ForeignKey(nameof(CountryId))]
-        [InverseProperty("StateProvinces")]
-        public virtual Country Country { get; set; } = null!;
-        [InverseProperty(nameof(City.StateProvince))]
-        public virtual ICollection<City> Cities { get; set; }
     }
 }

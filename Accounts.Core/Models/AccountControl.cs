@@ -15,7 +15,8 @@ namespace Accounts.Core.Models
 
         [Key]
         public long AcControlId { get; set; }
-        public long AcControlCode { get; set; }
+        [StringLength(50)]
+        public string AcControlCode { get; set; } = null!;
         [StringLength(50)]
         public string AcControlName { get; set; } = null!;
         public long AcHeadId { get; set; }

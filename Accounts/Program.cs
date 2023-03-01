@@ -9,6 +9,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -27,9 +28,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//builder.Services.AddDbContext<AccuteDbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("Accountsdb")));
+builder.Services.AddScoped<AccuteDbContext>();
 builder.Services.AddDbContext<AccuteDbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("Accountsdb")));
 builder.Services.AddScoped<IAccountHeadTypeRepository, AccountHeadTypeRepository>();
 builder.Services.AddScoped<IAccountHeadTypeServices, AccountHeadTypeServices>();
+builder.Services.AddScoped<IAccountHeadsServices, AccountHeadsServices>();
+builder.Services.AddScoped<IAccountHeadsRepository, AccountHeadsRepository>();
+builder.Services.AddScoped<IAccountControlRespository, AccountControlRepository>();
+builder.Services.AddScoped<IAccountControlServices, AccountControlServices>();
+builder.Services.AddScoped<IAccountLedgerRepository, AccountLedgerRepository>();
+builder.Services.AddScoped<IAccountLedgerServices, AccountLedgerServices>();
+builder.Services.AddScoped<IAccountSubLedgerRepository,AccountSubLedgerRepository>();
+builder.Services.AddScoped<IAccountSubLedgerServices,AccountSubLedgerServices>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

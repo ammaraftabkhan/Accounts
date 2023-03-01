@@ -29,11 +29,11 @@ namespace Accounts.Repository.Implementation
             Ob.PostedBy= _VM_AccountHeadType.PostedBy;
             Ob.PostedOn= DateTime.UtcNow;
 
-            if (headCode < 10)
-            {
+           
+            //Head Type Code Assignment
 
-                Ob.AcHeadTypeCode = "0" + headCode.ToString();
-            }
+            Ob.AcHeadTypeCode = headCode.ToString();
+           
 
             //if(headCode>9 && headCode < 100)
             //{
@@ -41,11 +41,11 @@ namespace Accounts.Repository.Implementation
             //    Ob.AcHeadTypeCode = "0" + headCode.ToString();
             //}
 
-            if (headCode == 99)
-            {
+            //if (headCode == 99)
+            //{
 
-                Ob.AcHeadTypeCode = headCode.ToString();
-            }
+            //    Ob.AcHeadTypeCode = headCode.ToString();
+            //}
             
 
 
@@ -72,10 +72,12 @@ namespace Accounts.Repository.Implementation
                 try
                 {
                     var data = _AccuteDbContext.AccountHeadTypes.Find(id);
-                    if (data != null)
+                    if(data != null && data.IsDeleted == false && data.IsActive == true)
                     {
-                    _AccuteDbContext.AccountHeadTypes.Remove(data);
-                    return _AccuteDbContext.SaveChanges() > 0;
+                        data.IsActive = false;
+                        data.IsDeleted = true;
+                        _AccuteDbContext.AccountHeadTypes.Update(data);
+                        return _AccuteDbContext.SaveChanges() > 0;
                     }
                     return false;
                   
@@ -96,7 +98,12 @@ namespace Accounts.Repository.Implementation
             {
                 try
                 {
-                    return _AccuteDbContext.AccountHeadTypes.Find(id);
+                    var find = _AccuteDbContext.AccountHeadTypes.Find(id);
+                    if (find.IsDeleted == false)
+                    {
+                        return find;
+                    }
+                    return new AccountHeadType();
 
                 }
                 catch (Exception ex)
@@ -112,9 +119,11 @@ namespace Accounts.Repository.Implementation
         {
             try
             {
-                return _AccuteDbContext.AccountHeadTypes.ToList();
+                var list = _AccuteDbContext.AccountHeadTypes.Where(e=>e.IsDeleted==false).ToList();
+                
+                return list;
             }
-            catch 
+            catch (Exception ex)
             { 
                 return new List<AccountHeadType>(); 
             }

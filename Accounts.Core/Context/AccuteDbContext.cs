@@ -35,8 +35,13 @@ namespace Accounts.Core.Context
         public virtual DbSet<AddressType> AddressTypes { get; set; } = null!;
         public virtual DbSet<Area> Areas { get; set; } = null!;
         public virtual DbSet<City> Cities { get; set; } = null!;
+        public virtual DbSet<CivilEntitiesCurrency> CivilEntitiesCurrencies { get; set; } = null!;
+        public virtual DbSet<CivilEntitiesLanguage> CivilEntitiesLanguages { get; set; } = null!;
+        public virtual DbSet<CivilEntity> CivilEntities { get; set; } = null!;
+        public virtual DbSet<CivilLevel> CivilLevels { get; set; } = null!;
         public virtual DbSet<Country> Countries { get; set; } = null!;
         public virtual DbSet<Currency> Currencies { get; set; } = null!;
+        public virtual DbSet<Language> Languages { get; set; } = null!;
         public virtual DbSet<ProductCategory> ProductCategories { get; set; } = null!;
         public virtual DbSet<ProductSubCategory> ProductSubCategories { get; set; } = null!;
         public virtual DbSet<StateProvince> StateProvinces { get; set; } = null!;
@@ -245,11 +250,11 @@ namespace Accounts.Core.Context
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Address_AddressType");
 
-                entity.HasOne(d => d.Area)
+                entity.HasOne(d => d.CivilEntity)
                     .WithMany(p => p.Addresses)
-                    .HasForeignKey(d => d.AreaId)
+                    .HasForeignKey(d => d.CivilEntityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Address_Area");
+                    .HasConstraintName("FK_Address_CivilEntities");
             });
 
             modelBuilder.Entity<AddressType>(entity =>
@@ -260,23 +265,37 @@ namespace Accounts.Core.Context
             modelBuilder.Entity<Area>(entity =>
             {
                 entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
-
-                entity.HasOne(d => d.City)
-                    .WithMany(p => p.Areas)
-                    .HasForeignKey(d => d.CityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Area_City");
             });
 
             modelBuilder.Entity<City>(entity =>
             {
                 entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+            });
 
-                entity.HasOne(d => d.StateProvince)
-                    .WithMany(p => p.Cities)
-                    .HasForeignKey(d => d.StateProvinceId)
+            modelBuilder.Entity<CivilEntitiesCurrency>(entity =>
+            {
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+            });
+
+            modelBuilder.Entity<CivilEntitiesLanguage>(entity =>
+            {
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+            });
+
+            modelBuilder.Entity<CivilEntity>(entity =>
+            {
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.CivilLevel)
+                    .WithMany(p => p.CivilEntities)
+                    .HasForeignKey(d => d.CivilLevelId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_City_StateProvince");
+                    .HasConstraintName("FK_CivilEntities_CivilLevels");
+            });
+
+            modelBuilder.Entity<CivilLevel>(entity =>
+            {
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
             });
 
             modelBuilder.Entity<Country>(entity =>
@@ -285,6 +304,11 @@ namespace Accounts.Core.Context
             });
 
             modelBuilder.Entity<Currency>(entity =>
+            {
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+            });
+
+            modelBuilder.Entity<Language>(entity =>
             {
                 entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
             });
@@ -302,12 +326,6 @@ namespace Accounts.Core.Context
             modelBuilder.Entity<StateProvince>(entity =>
             {
                 entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
-
-                entity.HasOne(d => d.Country)
-                    .WithMany(p => p.StateProvinces)
-                    .HasForeignKey(d => d.CountryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_StateProvince_Country");
             });
 
             modelBuilder.Entity<User>(entity =>

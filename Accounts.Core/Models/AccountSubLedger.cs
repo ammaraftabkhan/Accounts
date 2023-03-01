@@ -11,7 +11,8 @@ namespace Accounts.Core.Models
     {
         [Key]
         public long AcSubLedgerId { get; set; }
-        public long AcSubLedgerCode { get; set; }
+        [StringLength(50)]
+        public string AcSubLedgerCode { get; set; } = null!;
         [StringLength(50)]
         public string AcSubLedgerName { get; set; } = null!;
         public long AcLedgerId { get; set; }

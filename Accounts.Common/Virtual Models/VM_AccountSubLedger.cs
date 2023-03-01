@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Accounts.Core.Models
+namespace Accounts.Common.Virtual_Models
 {
-    [Table("Country")]
-    public partial class Country
+    public class VM_AccountSubLedger
     {
-        [Key]
-        public int CountryId { get; set; }
+        public long AcSubLedgerId { get; set; }
+        //public string AcSubLedgerCode { get; set; }
         [StringLength(50)]
-        public string CountryName { get; set; } = null!;
-        [StringLength(50)]
-        public string CountryCode { get; set; } = null!;
+        public string AcSubLedgerName { get; set; } = null!;
+        //public long AcLedgerId { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }
         public int CreatedBy { get; set; }
@@ -24,8 +24,5 @@ namespace Accounts.Core.Models
         [Column(TypeName = "datetime")]
         public DateTime? PostedOn { get; set; }
         public int? PostedBy { get; set; }
-        public bool IsDeleted { get; set; }
-        [Required]
-        public bool? IsActive { get; set; }
     }
 }
