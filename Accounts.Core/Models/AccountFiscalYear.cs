@@ -9,11 +9,6 @@ namespace Accounts.Core.Models
     [Table("AccountFiscalYear")]
     public partial class AccountFiscalYear
     {
-        public AccountFiscalYear()
-        {
-            AccountTransMasters = new HashSet<AccountTransMaster>();
-        }
-
         [Key]
         public long FiscalYearId { get; set; }
         [StringLength(50)]
@@ -34,8 +29,5 @@ namespace Accounts.Core.Models
         public bool IsDeleted { get; set; }
         [Required]
         public bool? IsActive { get; set; }
-
-        [InverseProperty(nameof(AccountTransMaster.FiscalYear))]
-        public virtual ICollection<AccountTransMaster> AccountTransMasters { get; set; }
     }
 }

@@ -39,9 +39,6 @@ namespace Accounts.Core.Models
         [ForeignKey(nameof(AcTransTypeId))]
         [InverseProperty(nameof(AccountTransType.AccountTransMasters))]
         public virtual AccountTransType AcTransType { get; set; } = null!;
-        [ForeignKey(nameof(FiscalYearId))]
-        [InverseProperty(nameof(AccountFiscalYear.AccountTransMasters))]
-        public virtual AccountFiscalYear FiscalYear { get; set; } = null!;
         [InverseProperty(nameof(AccountTransDetail.AcTransMaster))]
         public virtual ICollection<AccountTransDetail> AccountTransDetails { get; set; }
     }
