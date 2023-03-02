@@ -112,7 +112,9 @@ namespace Accounts.Repository.Implementation
         {
             try
             {
-                return _AccuteDbContext.AccountControls.ToList();
+                var list = _AccuteDbContext.AccountControls.Where(e => e.IsDeleted == false).ToList();
+
+                return list;
             }
             catch
             {
@@ -128,7 +130,7 @@ namespace Accounts.Repository.Implementation
                 try
                 {
                     var data = _AccuteDbContext.AccountControls.Find(_VM_AccountControl.AcControlId);
-                    if (data != null)
+                    if (data != null && data.IsActive == true && data.IsDeleted == false)
                     {
                         data.AcControlName = _VM_AccountControl.AcControlName;
                         //data.AcHeadTypeCode = _VM_AccountHeadType.AcHeadTypeCode;
