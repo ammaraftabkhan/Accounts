@@ -138,7 +138,7 @@ namespace Accounts.Repository.Implementation
                 try
                 {
                     var data = _AccuteDbContext.AccountHeadTypes.Find(_VM_AccountHeadType.AcHeadTypeId);
-                    if (data != null)
+                    if (data != null && data.IsActive==true && data.IsDeleted==false)
                     {
                         data.AcHeadTypeName = _VM_AccountHeadType.AcHeadTypeName;
                         //data.AcHeadTypeCode = _VM_AccountHeadType.AcHeadTypeCode;

@@ -110,7 +110,9 @@ namespace Accounts.Repository.Implementation
         {
             try
             {
-                return _AccuteDbContext.AccountSubLedgers.ToList();
+                var list = _AccuteDbContext.AccountSubLedgers.Where(e => e.IsDeleted == false).ToList();
+
+                return list;
             }
             catch
             {
@@ -126,7 +128,7 @@ namespace Accounts.Repository.Implementation
                 try
                 {
                     var data = _AccuteDbContext.AccountSubLedgers.Find(_VM_AccountSubLedger.AcSubLedgerId);
-                    if (data != null)
+                    if (data != null && data.IsActive == true && data.IsDeleted == false)
                     {
                         data.AcSubLedgerName = _VM_AccountSubLedger.AcSubLedgerName;
                         //data.AcHeadTypeCode = _VM_AccountHeadType.AcHeadTypeCode;
