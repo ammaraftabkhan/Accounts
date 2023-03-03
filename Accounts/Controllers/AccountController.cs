@@ -17,24 +17,30 @@ namespace Accounts.API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountHeadsServices _accountHeadsServices;
-  
+
         private readonly IAccountHeadTypeServices _IAccountHeadTypeServices;
         private readonly IAccountControlServices _IAccountControlServices;
         private readonly IAccountLedgerServices _IAccountLedgerServices;
         private readonly IAccountSubLedgerServices _IAccountSubLedgerServices;
-        public AccountController(IAccountHeadTypeServices _IAccountHeadTypeServices, IAccountHeadsServices _AccountHeadServices,IAccountControlServices accountControlServices, IAccountLedgerServices iAccountLedgerServices, IAccountSubLedgerServices iAccountSubLedgerServices)
+        private readonly IAccountProfileServices _IAccountProfileServices;
+        private readonly IAccountContactServices _IAccountContactServices;
+        private readonly IAddressTypeServices _IAddressTypeServices;
+        public AccountController(IAccountHeadTypeServices _IAccountHeadTypeServices, IAccountHeadsServices _AccountHeadServices, IAccountControlServices accountControlServices, IAccountLedgerServices iAccountLedgerServices, IAccountSubLedgerServices iAccountSubLedgerServices, IAccountProfileServices iAccountProfileServices, IAccountContactServices iAccountContactServices, IAddressTypeServices iAddressTypeServices)
         {
             this._IAccountHeadTypeServices = _IAccountHeadTypeServices;
             _accountHeadsServices = _AccountHeadServices;
             _IAccountControlServices = accountControlServices;
             _IAccountLedgerServices = iAccountLedgerServices;
             _IAccountSubLedgerServices = iAccountSubLedgerServices;
+            _IAccountProfileServices = iAccountProfileServices;
+            _IAccountContactServices = iAccountContactServices;
+            _IAddressTypeServices = iAddressTypeServices;
         }
 
         [HttpGet("login")]
         public IActionResult Login()
         {
-            
+
             return Ok();
         }
 
@@ -42,28 +48,28 @@ namespace Accounts.API.Controllers
         public IActionResult Add_AccountHeadType(VM_AccountHeadType _VM_AccountHeadType)
         {
             bool Flag = false;
-            if(ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
-                Flag= _IAccountHeadTypeServices.Add(_VM_AccountHeadType);
+                Flag = _IAccountHeadTypeServices.Add(_VM_AccountHeadType);
 
                 if (Flag == true)
                 {
                     return Ok(new { msg = "Data Saved...!" });
                 }
                 return BadRequest(new { msg = "Incomplete Data cannot be saved." });
-                
+
             }
-            return BadRequest(ModelState.Values.SelectMany(x=>x.Errors));
-            
+            return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
+
         }
 
         [HttpGet("Get_All_AccountHeadtype")]
         public IActionResult Get_All_AccountHeadtype()
         {
-            
-           var get = _IAccountHeadTypeServices.GetAccountHeadType();
-            
-            if(get!=null)
+
+            var get = _IAccountHeadTypeServices.GetAccountHeadType();
+
+            if (get != null)
             {
                 return Ok(new { list = get });
             }
@@ -71,26 +77,26 @@ namespace Accounts.API.Controllers
         }
 
         [HttpPost("Update_AccountHeadType")]
-        public IActionResult Update_AccountHeadType(VM_AccountHeadType _VM_AccountHeadType ) 
+        public IActionResult Update_AccountHeadType(VM_AccountHeadType _VM_AccountHeadType)
         {
             bool flag = false;
             if (ModelState.IsValid)
             {
                 if (_VM_AccountHeadType.AcHeadTypeId > 0)
                 {
-                    
-                     flag =  _IAccountHeadTypeServices.Update(_VM_AccountHeadType);
+
+                    flag = _IAccountHeadTypeServices.Update(_VM_AccountHeadType);
                     if (flag == true)
                     {
                         return Ok(new { msg = "Your data has been updated...!!!" });
                     }
-                    
+
                 }
-                return BadRequest(new {msg = "Your given ID not found in database." });
+                return BadRequest(new { msg = "Your given ID not found in database." });
             }
 
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
-           
+
         }
 
         //[HttpPost("FindPost")]
@@ -100,9 +106,9 @@ namespace Accounts.API.Controllers
         //}
 
         [HttpGet("Find_AccountHeadtype")]
-        public IActionResult Find_AccountHeadtype(int id) 
+        public IActionResult Find_AccountHeadtype(int id)
         {
-            if (id>0)
+            if (id > 0)
             {
 
                 var data = _IAccountHeadTypeServices.Find(id);
@@ -111,20 +117,20 @@ namespace Accounts.API.Controllers
                     return Ok(new { data = data });
                 }
             }
-            
-            return NotFound(new {msg = "No Content found against your ID"});
+
+            return NotFound(new { msg = "No Content found against your ID" });
         }
 
         [HttpDelete("Delete_AccountHeadType")]
-        public IActionResult Delete_AccountHeadType(int id) 
+        public IActionResult Delete_AccountHeadType(int id)
         {
-            if(id > 0)
+            if (id > 0)
             {
                 bool flag = false;
                 flag = _IAccountHeadTypeServices.Delete(id);
                 if (flag == true)
                 {
-                    return Ok(new { msg="Successfully Deleted...!" });
+                    return Ok(new { msg = "Successfully Deleted...!" });
                 }
                 return NotFound(new { msg = "Sorry, Required data not found in Database" });
             }
@@ -481,5 +487,272 @@ namespace Accounts.API.Controllers
             }
             return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
         }
+
+
+        // Account Profile API Starting...
+        [HttpPost("Add_AccountProfile")]
+        public IActionResult Add_AccountProfile(int id, VM_AccountProfile vM_AccountProfile)
+        {
+            bool Flag = false;
+            if (ModelState.IsValid)
+            {
+                Flag = _IAccountProfileServices.AddAccountProfile(id, vM_AccountProfile);
+
+                if (Flag == true)
+                {
+                    return Ok(new { msg = "Data Saved...!" });
+                }
+                return BadRequest(new { msg = "Incomplete Data cannot be saved." });
+
+            }
+            return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
+        }
+
+        [HttpGet("Get_All_AccountProfile")]
+        public IActionResult Get_All_AccountProfile()
+        {
+
+            var get = _IAccountProfileServices.GetAllAccountProfile();
+
+            if (get != null)
+            {
+                return Ok(new { list = get });
+            }
+            return NoContent();
+        }
+
+        [HttpGet("Find_AccountProfile")]
+        public IActionResult Find_AccountProfile(long id)
+        {
+            if (id > 0)
+            {
+
+                var data = _IAccountProfileServices.FindAccountProfile(id);
+                if (data != null)
+                {
+                    return Ok(new { data = data });
+                }
+            }
+
+            return NotFound(new { msg = "No Content found against your ID" });
+        }
+
+        [HttpPost("Update_AccountProfile")]
+        public IActionResult Update_AccountProfile(VM_AccountProfile _VM_AccountProfile)
+        {
+            bool flag = false;
+            if (ModelState.IsValid)
+            {
+                if (_VM_AccountProfile.AcProfileId > 0)
+                {
+
+                    flag = _IAccountProfileServices.UpdateAccountProfile(_VM_AccountProfile);
+                    if (flag == true)
+                    {
+                        return Ok(new { msg = "Your data has been updated...!!!" });
+                    }
+
+                }
+                return BadRequest(new { msg = "Your given ID not found in database." });
+            }
+
+            return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
+
+        }
+
+        [HttpDelete("Delete_AccountProfile")]
+        public IActionResult Delete_AccountProfile(int id)
+        {
+            if (id > 0)
+            {
+                bool flag = false;
+                flag = _IAccountProfileServices.DeleteAccountProfile(id);
+                if (flag == true)
+                {
+                    return Ok(new { msg = "Successfully Deleted...!" });
+                }
+                return NotFound(new { msg = "Sorry, Required data not found in Database" });
+            }
+            return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
+        }
+
+
+
+        // Account Contact API Starting...
+        [HttpPost("Add_AccountContact")]
+        public IActionResult Add_AccountContact(int id, VM_AccountContact vM_AccountContact)
+        {
+            bool Flag = false;
+            if (ModelState.IsValid)
+            {
+                Flag = _IAccountContactServices.AddAccountContact(id, vM_AccountContact);
+
+                if (Flag == true)
+                {
+                    return Ok(new { msg = "Data Saved...!" });
+                }
+                return BadRequest(new { msg = "Incomplete Data cannot be saved." });
+
+            }
+            return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
+        }
+
+        [HttpGet("Get_All_AccountContact")]
+        public IActionResult Get_All_AccountContact()
+        {
+
+            var get = _IAccountContactServices.GetAllAccountContact();
+
+            if (get != null)
+            {
+                return Ok(new { list = get });
+            }
+            return NoContent();
+        }
+
+        [HttpGet("Find_AccountContact")]
+        public IActionResult Find_AccountContact(long id)
+        {
+            if (id > 0)
+            {
+
+                var data = _IAccountContactServices.FindAccountContact(id);
+                if (data != null)
+                {
+                    return Ok(new { data = data });
+                }
+            }
+
+            return NotFound(new { msg = "No Content found against your ID" });
+        }
+
+        [HttpPost("Update_AccountContact")]
+        public IActionResult Update_AccountContact(VM_AccountContact _VM_AccountContact)
+        {
+            bool flag = false;
+            if (ModelState.IsValid)
+            {
+                if (_VM_AccountContact.AcContactId > 0)
+                {
+
+                    flag = _IAccountContactServices.UpdateAccountContact(_VM_AccountContact);
+                    if (flag == true)
+                    {
+                        return Ok(new { msg = "Your data has been updated...!!!" });
+                    }
+
+                }
+                return BadRequest(new { msg = "Your given ID not found in database." });
+            }
+
+            return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
+
+        }
+
+        [HttpDelete("Delete_AccountContact")]
+        public IActionResult Delete_AccountContact(int id)
+        {
+            if (id > 0)
+            {
+                bool flag = false;
+                flag = _IAccountContactServices.DeleteAccountContact(id);
+                if (flag == true)
+                {
+                    return Ok(new { msg = "Successfully Deleted...!" });
+                }
+                return NotFound(new { msg = "Sorry, Required data not found in Database" });
+            }
+            return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
+        }
+
+
+        // Account Contact API Starting...
+        [HttpPost("Add_AddressType")]
+        public IActionResult Add_AddressType(int id, VM_AddressType vM_AddressType)
+        {
+            bool Flag = false;
+            if (ModelState.IsValid)
+            {
+                Flag = _IAddressTypeServices.AddAddressType( vM_AddressType);
+
+                if (Flag == true)
+                {
+                    return Ok(new { msg = "Data Saved...!" });
+                }
+                return BadRequest(new { msg = "Incomplete Data cannot be saved." });
+
+            }
+            return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
+        }
+
+        [HttpGet("Get_All_AddressType")]
+        public IActionResult Get_All_AddressType()
+        {
+
+            var get = _IAddressTypeServices.GetAllAddressType();
+
+            if (get != null)
+            {
+                return Ok(new { list = get });
+            }
+            return NoContent();
+        }
+
+        [HttpGet("Find_AccountContact")]
+        public IActionResult Find_AddressType(int id)
+        {
+            if (id > 0)
+            {
+
+                var data = _IAddressTypeServices.FindAddressType(id);
+                if (data != null)
+                {
+                    return Ok(new { data = data });
+                }
+            }
+
+            return NotFound(new { msg = "No Content found against your ID" });
+        }
+
+        [HttpPost("Update_AddressType")]
+        public IActionResult Update_AddressType(VM_AddressType _VM_AddressType)
+        {
+            bool flag = false;
+            if (ModelState.IsValid)
+            {
+                if (_VM_AddressType.AddressTypeId > 0)
+                {
+
+                    flag = _IAddressTypeServices.UpdateAddressType(_VM_AddressType);
+                    if (flag == true)
+                    {
+                        return Ok(new { msg = "Your data has been updated...!!!" });
+                    }
+
+                }
+                return BadRequest(new { msg = "Your given ID not found in database." });
+            }
+
+            return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
+
+        }
+
+        [HttpDelete("Delete_AddressType")]
+        public IActionResult Delete_AddressType(int id)
+        {
+            if (id > 0)
+            {
+                bool flag = false;
+                flag = _IAddressTypeServices.DeleteAddressType(id);
+                if (flag == true)
+                {
+                    return Ok(new { msg = "Successfully Deleted...!" });
+                }
+                return NotFound(new { msg = "Sorry, Required data not found in Database" });
+            }
+            return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
+        }
+
     }
+
 }

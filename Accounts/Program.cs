@@ -41,6 +41,10 @@ builder.Services.AddScoped<IAccountLedgerRepository, AccountLedgerRepository>();
 builder.Services.AddScoped<IAccountLedgerServices, AccountLedgerServices>();
 builder.Services.AddScoped<IAccountSubLedgerRepository,AccountSubLedgerRepository>();
 builder.Services.AddScoped<IAccountSubLedgerServices,AccountSubLedgerServices>();
+builder.Services.AddScoped<IAccountProfileServices, AccountProfileServices>();
+builder.Services.AddScoped<IAccountProfileRepository, AccountProfileRepository>();
+builder.Services.AddScoped<IAccountContactServices, AccountContactServices>();
+builder.Services.AddScoped<IAccountsContactRepository, AccountContactRopository>();
 
 var app = builder.Build();
 
