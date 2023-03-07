@@ -14,13 +14,12 @@ namespace Accounts.Common.Virtual_Models
         public int AddressTypeId { get; set; }
         public long? AcProfileId { get; set; }
         public long? AcContactId { get; set; }
+        public int CivilEntityId { get; set; }
         [StringLength(50)]
         public string? Long { get; set; }
         [StringLength(50)]
         public string? Lat { get; set; }
         public string? Tag { get; set; }
-        public int CivilEntityId { get; set; }
-        [StringLength(250)]
         public string? Line5 { get; set; }
         [StringLength(250)]
         public string? Line4 { get; set; }

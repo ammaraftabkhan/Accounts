@@ -24,3 +24,4 @@ namespace Accounts.Common.Virtual_Models
         public DateTime? PostedOn { get; set; }
         public int? PostedBy { get; set; }
     }
+}

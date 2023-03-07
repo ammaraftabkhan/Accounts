@@ -57,7 +57,10 @@ namespace Accounts.Repository.Implementation
             }
         }
 
-       
+        public bool AddAccountControl(VM_AccountControl _VM_AccountControl)
+        {
+            throw new NotImplementedException();
+        }
 
         public bool DeleteAccountControl(int id)
         {
@@ -93,7 +96,7 @@ namespace Accounts.Repository.Implementation
                 try
                 {
                     var find = _AccuteDbContext.AccountControls.Find(id);
-                    if (find.IsDeleted == false)
+                    if (find != null && find.IsDeleted == false)
                     {
                         return find;
                     }

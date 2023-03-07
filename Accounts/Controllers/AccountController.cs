@@ -31,6 +31,7 @@ namespace Accounts.API.Controllers
         private readonly ICivilLevelServices _ICivilLevelServices;
         private readonly ICivilEntitiesLanguageServices _ICivilEntitiesLanguageServices;
         private readonly ICivilEntitiesCurrencyServices _ICivilEntitiesCurrencyServices;
+        private readonly IAddressServices _IAddressServices;
         public AccountController(
             IAccountHeadTypeServices _IAccountHeadTypeServices,
             IAccountHeadsServices _AccountHeadServices, 
@@ -45,7 +46,8 @@ namespace Accounts.API.Controllers
             ICivilEntitiesServices iCivilEntitiesServices, 
             ICivilLevelServices iCivilLevelServices, 
             ICivilEntitiesLanguageServices iCivilEntitiesLanguageServices, 
-            ICivilEntitiesCurrencyServices iCivilEntitiesCurrencyServices
+            ICivilEntitiesCurrencyServices iCivilEntitiesCurrencyServices,
+            IAddressServices iAddressServices
             )
         {
             this._IAccountHeadTypeServices = _IAccountHeadTypeServices;
@@ -62,6 +64,7 @@ namespace Accounts.API.Controllers
             _ICivilLevelServices = iCivilLevelServices;
             _ICivilEntitiesLanguageServices = iCivilEntitiesLanguageServices;
             _ICivilEntitiesCurrencyServices = iCivilEntitiesCurrencyServices;
+            _IAddressServices = iAddressServices;
         }
 
         [HttpGet("login")]
@@ -139,13 +142,14 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _IAccountHeadTypeServices.Find(id);
-                if (data != null)
+                if (data.AcHeadTypeId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                return BadRequest(new { msg = "Your ID is not Found" });
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
 
         [HttpDelete("Delete_AccountHeadType")]
@@ -220,13 +224,17 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _accountHeadsServices.FindAccountHead(id);
-                if (data != null)
+                if (data.AcHeadId!=0&&data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                
+                    return BadRequest(new { msg = "Your ID is not Found" });
+                
+                
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
         [HttpPost("Update_AccountHead")]
         public IActionResult Update_AccountHead(VM_AccountHeads _VM_AccountHeads)
@@ -291,13 +299,14 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _IAccountControlServices.FindAccountControl(id);
-                if (data != null)
+                if (data.AcControlId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                return BadRequest(new { msg = "Your ID is not Found" });
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
 
         [HttpPost("Update_AccountControl")]
@@ -379,13 +388,14 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _IAccountLedgerServices.FindAccountLedger(id);
-                if (data != null)
+                if (data.AcLedgerId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                return BadRequest(new { msg = "Your ID is not Found" });
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
 
         [HttpPost("Update_AccountLedger")]
@@ -467,13 +477,14 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _IAccountSubLedgerServices.FindAccountSubLedger(id);
-                if (data != null)
+                if (data.AcSubLedgerId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                return BadRequest(new { msg = "Your ID is not Found" });
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
 
         [HttpPost("Update_AccountSubLedger")]
@@ -555,13 +566,14 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _IAccountProfileServices.FindAccountProfile(id);
-                if (data != null)
+                if (data.AcProfileId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                return BadRequest(new { msg = "Your ID is not Found" });
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
 
         [HttpPost("Update_AccountProfile")]
@@ -644,13 +656,14 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _IAccountContactServices.FindAccountContact(id);
-                if (data != null)
+                if (data.AcContactId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                return BadRequest(new { msg = "Your ID is not Found" });
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
 
         [HttpPost("Update_AccountContact")]
@@ -725,20 +738,21 @@ namespace Accounts.API.Controllers
             return NoContent();
         }
 
-        [HttpGet("Find_AccountContact")]
+        [HttpGet("Find_AddressType")]
         public IActionResult Find_AddressType(int id)
         {
             if (id > 0)
             {
 
                 var data = _IAddressTypeServices.FindAddressType(id);
-                if (data != null)
+                if (data.AddressTypeId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                return BadRequest(new { msg = "Your ID is not Found" });
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
 
         [HttpPost("Update_AddressType")]
@@ -819,16 +833,17 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _ILanguageServices.FindLanguage(id);
-                if (data != null)
+                if (data.LanguageId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                return BadRequest(new { msg = "Your ID is not Found" });
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
 
-        [HttpPost("Updat_Language")]
+        [HttpPost("Update_Language")]
         public IActionResult Update_Language(VM_Language _VM_Language)
         {
             bool flag = false;
@@ -905,13 +920,14 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _ICurrencyServices.FindCurrency(id);
-                if (data != null)
+                if (data.CurrencyId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                return BadRequest(new { msg = "Your ID is not Found" });
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
 
         [HttpPost("Update_Currency")]
@@ -991,13 +1007,14 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _ICivilEntitiesServices.FindCivilEntity(id);
-                if (data != null)
+                if (data.CivilEntityId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                return BadRequest(new { msg = "Your ID is not Found" });
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
 
         [HttpPost("Update_CivilEntity")]
@@ -1040,7 +1057,7 @@ namespace Accounts.API.Controllers
         }
         // Civil Language API Starting...
         [HttpPost("Add_CivilLevel")]
-        public IActionResult Add_CivilLanguage(int id, VM_CivilLevel vM_CivilLevel)
+        public IActionResult Add_Civilevel(int id, VM_CivilLevel vM_CivilLevel)
         {
             bool Flag = false;
             if (ModelState.IsValid)
@@ -1077,13 +1094,14 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _ICivilLevelServices.FindCivilLevel(id);
-                if (data != null)
+                if (data.CivilLevelId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                return BadRequest(new { msg = "Your ID is not Found" });
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
 
         [HttpPost("Update_CivilLevel")]
@@ -1165,13 +1183,14 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _ICivilEntitiesLanguageServices.FindCivilEntitiesLanguage(id);
-                if (data != null)
+                if (data.CivilEntitiessLanguagesId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                return BadRequest(new { msg = "Your ID is not Found" });
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
 
         [HttpPost("Update_CivilEntityLanguage")]
@@ -1252,13 +1271,15 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _ICivilEntitiesCurrencyServices.FindCivilEntitesCurrency(id);
-                if (data != null)
+                if (data.CivilEntitiesCurrencyId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
+                return BadRequest(new { msg = "Your ID is not Found" });
+
             }
 
-            return NotFound(new { msg = "No Content found against your ID" });
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
         }
 
         [HttpPost("Update_CivilEntityCurrency")]
@@ -1291,6 +1312,94 @@ namespace Accounts.API.Controllers
             {
                 bool flag = false;
                 flag = _ICivilEntitiesCurrencyServices.DeleteCivilEntitiesCurrency(id);
+                if (flag == true)
+                {
+                    return Ok(new { msg = "Successfully Deleted...!" });
+                }
+                return NotFound(new { msg = "Sorry, Required data not found in Database" });
+            }
+            return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
+        }
+
+        //Addresses API Starting...
+        [HttpPost("Add_Address")]
+        public IActionResult Add_Address(int id, VM_Address vM_Address)
+        {
+            bool Flag = false;
+            if (ModelState.IsValid)
+            {
+                Flag = _IAddressServices.AddAddress(vM_Address);
+
+                if (Flag == true)
+                {
+                    return Ok(new { msg = "Data Saved...!" });
+                }
+                return BadRequest(new { msg = "Incomplete Data cannot be saved." });
+
+            }
+            return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
+        }
+
+        [HttpGet("Get_All_Addresses")]
+        public IActionResult Get_AllAddresses()
+        {
+
+            var get = _IAddressServices.GetAllAddress();
+
+            if (get != null)
+            {
+                return Ok(new { list = get });
+            }
+            return NoContent();
+        }
+
+        [HttpGet("Find_Address")]
+        public IActionResult Find_Address(int id)
+        {
+            if (id > 0)
+            {
+
+                var data = _IAddressServices.FindAddress(id);
+                if (data.AddressId != 0 && data != null && data.IsDeleted == false)
+                {
+                    return Ok(new { data = data });
+                }
+                return BadRequest(new { msg = "Your ID is not Found" });
+            }
+
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
+        }
+
+        [HttpPost("Update_Address")]
+        public IActionResult Update_Address(VM_Address vM_Address)
+        {
+            bool flag = false;
+            if (ModelState.IsValid)
+            {
+                if (vM_Address.AddressId > 0)
+                {
+
+                    flag = _IAddressServices.UpdateAddress(vM_Address);
+                    if (flag == true)
+                    {
+                        return Ok(new { msg = "Your data has been updated...!!!" });
+                    }
+
+                }
+                return BadRequest(new { msg = "Your given ID not found in database." });
+            }
+
+            return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
+
+        }
+
+        [HttpDelete("Delete_Address")]
+        public IActionResult Delete_Address(int id)
+        {
+            if (id > 0)
+            {
+                bool flag = false;
+                flag = _IAddressServices.DeleteAddress(id);
                 if (flag == true)
                 {
                     return Ok(new { msg = "Successfully Deleted...!" });

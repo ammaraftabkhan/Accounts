@@ -29,21 +29,6 @@ namespace Accounts.Repository.Implementation
             
             ob.IsDeleted = false;
 
-            //if (id < 10)
-            //{
-            //    id.ToString();
-            //    ob.AcSubLedgerCode = AccountLedgerCode + "-00" + getId.ToString();
-            //}
-            //else if (id < 100 && id > 9)
-            //{
-            //    id.ToString();
-            //    ob.AcSubLedgerCode = AccountLedgerCode + "-0" + getId.ToString();
-            //}
-            //else if (id < 1000 && id > 99)
-            //{
-            //    id.ToString();
-            //    ob.AcSubLedgerCode = AccountLedgerCode + "-" + getId.ToString();
-            //}
             try
             {
                 _AccuteDbContext.AddressTypes.Add(ob);
@@ -89,7 +74,7 @@ namespace Accounts.Repository.Implementation
             try
             {
                 var find = _AccuteDbContext.AddressTypes.Find(id);
-                if (find.IsDeleted == false)
+                if (find != null && find.IsDeleted == false)
                 {
                     return find;
                 }

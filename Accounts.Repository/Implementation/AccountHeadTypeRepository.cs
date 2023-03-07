@@ -21,7 +21,7 @@ namespace Accounts.Repository.Implementation
 
         public bool Add(VM_AccountHeadType _VM_AccountHeadType)
         {
-            var headCode = _AccuteDbContext.AccountHeadTypes.Any() ? _AccuteDbContext.AccountHeadTypes.Max(e => e.AcHeadTypeId) + 1 : 1;
+            var code = _AccuteDbContext.AccountHeadTypes.Any() ? _AccuteDbContext.AccountHeadTypes.Max(e => e.AcHeadTypeId) + 1 : 1;
             AccountHeadType Ob =new AccountHeadType();
             Ob.AcHeadTypeName= _VM_AccountHeadType.AcHeadTypeName;
             Ob.CreatedBy= _VM_AccountHeadType.CreatedBy;
@@ -32,7 +32,7 @@ namespace Accounts.Repository.Implementation
            
             //Head Type Code Assignment
 
-            Ob.AcHeadTypeCode = headCode.ToString();
+            Ob.AcHeadTypeCode = code.ToString();
            
 
             //if(headCode>9 && headCode < 100)
@@ -99,7 +99,7 @@ namespace Accounts.Repository.Implementation
                 try
                 {
                     var find = _AccuteDbContext.AccountHeadTypes.Find(id);
-                    if (find.IsDeleted == false)
+                    if (find != null && find.IsDeleted == false)
                     {
                         return find;
                     }

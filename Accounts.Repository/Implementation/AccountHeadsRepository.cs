@@ -91,7 +91,7 @@ namespace Accounts.Repository.Implementation
                 try
                 { 
                 var find = _AccuteDbContext.AccountHeads.Find(id);
-                if (find.IsDeleted == false)
+                if (find != null && find.IsDeleted == false)
                 {
                     return find;
                 }

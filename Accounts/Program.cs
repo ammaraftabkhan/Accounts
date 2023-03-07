@@ -57,6 +57,10 @@ builder.Services.AddScoped<ICivilLevelRepository, CivilLevelRepository>();
 builder.Services.AddScoped<ICivilLevelServices, CivilLevelServices>();
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 builder.Services.AddScoped<ICurrencyServices, CurrencyServices>();
+builder.Services.AddScoped<IAddressTypeRepository, AddressTypeRpository>();
+builder.Services.AddScoped<IAddressTypeServices, AddressTypeServices>();
+builder.Services.AddScoped<IAddressServices, AddressServices>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
 var app = builder.Build();
 
