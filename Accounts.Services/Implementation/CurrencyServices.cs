@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Accounts.Repository.Implementation
 {
-    public class CurrencyServices : ICuurencyServices
+    public class CurrencyServices : ICurrencyServices
     {
         private readonly ICurrencyRepository _currencyRepository;
         public CurrencyServices(ICurrencyRepository currencyRepository) 

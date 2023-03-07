@@ -26,7 +26,7 @@ namespace Accounts.API.Controllers
         private readonly IAccountContactServices _IAccountContactServices;
         private readonly IAddressTypeServices _IAddressTypeServices;
         private readonly ILanguageServices _ILanguageServices;
-        private readonly ICuurencyServices _ICurrencyDervices;
+        private readonly ICurrencyServices _ICurrencyServices;
         private readonly ICivilEntitiesServices _ICivilEntitiesServices;
         private readonly ICivilLevelServices _ICivilLevelServices;
         private readonly ICivilEntitiesLanguageServices _ICivilEntitiesLanguageServices;
@@ -41,7 +41,7 @@ namespace Accounts.API.Controllers
             IAccountContactServices iAccountContactServices, 
             IAddressTypeServices iAddressTypeServices, 
             ILanguageServices iLanguageServices, 
-            ICuurencyServices iCurrencyDervices, 
+            ICurrencyServices iCurrencyServices, 
             ICivilEntitiesServices iCivilEntitiesServices, 
             ICivilLevelServices iCivilLevelServices, 
             ICivilEntitiesLanguageServices iCivilEntitiesLanguageServices, 
@@ -57,7 +57,7 @@ namespace Accounts.API.Controllers
             _IAccountContactServices = iAccountContactServices;
             _IAddressTypeServices = iAddressTypeServices;
             _ILanguageServices = iLanguageServices;
-            _ICurrencyDervices = iCurrencyDervices;
+            _ICurrencyServices = iCurrencyServices;
             _ICivilEntitiesServices = iCivilEntitiesServices;
             _ICivilLevelServices = iCivilLevelServices;
             _ICivilEntitiesLanguageServices = iCivilEntitiesLanguageServices;
@@ -873,7 +873,7 @@ namespace Accounts.API.Controllers
             bool Flag = false;
             if (ModelState.IsValid)
             {
-                Flag = _ICurrencyDervices.AddCurrency(vM_Currency);
+                Flag = _ICurrencyServices.AddCurrency(vM_Currency);
 
                 if (Flag == true)
                 {
@@ -889,7 +889,7 @@ namespace Accounts.API.Controllers
         public IActionResult Get_All_Currency()
         {
 
-            var get = _ICurrencyDervices.GetAllCurrency();
+            var get = _ICurrencyServices.GetAllCurrency();
 
             if (get != null)
             {
@@ -904,7 +904,7 @@ namespace Accounts.API.Controllers
             if (id > 0)
             {
 
-                var data = _ICurrencyDervices.FindCurrency(id);
+                var data = _ICurrencyServices.FindCurrency(id);
                 if (data != null)
                 {
                     return Ok(new { data = data });
@@ -923,7 +923,7 @@ namespace Accounts.API.Controllers
                 if (_VM_Currency.CurrencyId > 0)
                 {
 
-                    flag = _ICurrencyDervices.UpdateCurrency(_VM_Currency);
+                    flag = _ICurrencyServices.UpdateCurrency(_VM_Currency);
                     if (flag == true)
                     {
                         return Ok(new { msg = "Your data has been updated...!!!" });
@@ -943,7 +943,7 @@ namespace Accounts.API.Controllers
             if (id > 0)
             {
                 bool flag = false;
-                flag = _ICurrencyDervices.DeleteCurrency(id);
+                flag = _ICurrencyServices.DeleteCurrency(id);
                 if (flag == true)
                 {
                     return Ok(new { msg = "Successfully Deleted...!" });
@@ -959,7 +959,7 @@ namespace Accounts.API.Controllers
             bool Flag = false;
             if (ModelState.IsValid)
             {
-                Flag = _ICivilEntitiesServices.AddACivilEntity(vM_CivilEntity);
+                Flag = _ICivilEntitiesServices.AddACivilEntity(id,vM_CivilEntity);
 
                 if (Flag == true)
                 {

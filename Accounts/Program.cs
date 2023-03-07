@@ -55,6 +55,8 @@ builder.Services.AddScoped<ICivilEntitiesLanguageRepository, CivilEntitesLanguag
 builder.Services.AddScoped<ICivilEntitiesLanguageServices, CivilEntitesLanguageServices>();
 builder.Services.AddScoped<ICivilLevelRepository, CivilLevelRepository>();
 builder.Services.AddScoped<ICivilLevelServices, CivilLevelServices>();
+builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+builder.Services.AddScoped<ICurrencyServices, CurrencyServices>();
 
 var app = builder.Build();
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Accounts.Repository.Repository
 {
-    public interface ICuurencyServices
+    public interface ICurrencyServices
     {
         List<Currency> GetAllCurrency();
         Currency FindCurrency(int id);
