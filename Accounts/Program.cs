@@ -45,6 +45,16 @@ builder.Services.AddScoped<IAccountProfileServices, AccountProfileServices>();
 builder.Services.AddScoped<IAccountProfileRepository, AccountProfileRepository>();
 builder.Services.AddScoped<IAccountContactServices, AccountContactServices>();
 builder.Services.AddScoped<IAccountsContactRepository, AccountContactRopository>();
+builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
+builder.Services.AddScoped<ILanguageServices, LanguageServices>();
+builder.Services.AddScoped<ICivilEntitesCurrencyRepository, CivilEntitesCurrencyRepository>();
+builder.Services.AddScoped<ICivilEntitiesCurrencyServices, CivilEntitesCurrencyServices>();
+builder.Services.AddScoped<ICivilEntitiesRpository, CivilEntitiesRepository>();
+builder.Services.AddScoped<ICivilEntitiesServices, CivilEntitiesServices>();
+builder.Services.AddScoped<ICivilEntitiesLanguageRepository, CivilEntitesLanguageRepository>();
+builder.Services.AddScoped<ICivilEntitiesLanguageServices, CivilEntitesLanguageServices>();
+builder.Services.AddScoped<ICivilLevelRepository, CivilLevelRepository>();
+builder.Services.AddScoped<ICivilLevelServices, CivilLevelServices>();
 
 var app = builder.Build();
 

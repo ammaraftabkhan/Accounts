@@ -14,3 +14,6 @@
 /Accounts.Repository/obj
 /Accounts.Services/bin/Debug/net6.0
 /Accounts.Services/obj
+Accounts/appsettings.Development.json
+Accounts/appsettings.Development.json
+Accounts/appsettings.json

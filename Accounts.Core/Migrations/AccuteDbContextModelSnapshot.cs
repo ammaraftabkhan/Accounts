@@ -652,8 +652,6 @@ namespace Accounts.Core.Migrations
 
                     b.HasIndex("AcTransTypeId");
 
-                    b.HasIndex("FiscalYearId");
-
                     b.ToTable("AccountTransMaster");
                 });
 
@@ -815,8 +813,6 @@ namespace Accounts.Core.Migrations
                     b.HasKey("AcVoucherMasterId");
 
                     b.HasIndex("AcVoucherTypeId");
-
-                    b.HasIndex("FiscalYearId");
 
                     b.ToTable("AccountVoucherMaster");
                 });
@@ -1790,15 +1786,7 @@ namespace Accounts.Core.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_AccountTransMaster_AccountTransType");
 
-                    b.HasOne("Accounts.Core.Models.AccountFiscalYear", "FiscalYear")
-                        .WithMany("AccountTransMasters")
-                        .HasForeignKey("FiscalYearId")
-                        .IsRequired()
-                        .HasConstraintName("FK_AccountTransMaster_AccountFiscalYear");
-
                     b.Navigation("AcTransType");
-
-                    b.Navigation("FiscalYear");
                 });
 
             modelBuilder.Entity("Accounts.Core.Models.AccountVoucherDetail", b =>
@@ -1807,7 +1795,7 @@ namespace Accounts.Core.Migrations
                         .WithMany("AccountVoucherDetails")
                         .HasForeignKey("AcVoucherMasterId")
                         .IsRequired()
-                        .HasConstraintName("FK_AccountVoucherDetail_AccountVoucherMaster");
+                        .HasConstraintName("FK_AccountVoucherDetail_AccountVoucherMaster1");
 
                     b.Navigation("AcVoucherMaster");
                 });
@@ -1820,15 +1808,7 @@ namespace Accounts.Core.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_AccountVoucherMaster_AccountVoucherType");
 
-                    b.HasOne("Accounts.Core.Models.AccountFiscalYear", "FiscalYear")
-                        .WithMany("AccountVoucherMasters")
-                        .HasForeignKey("FiscalYearId")
-                        .IsRequired()
-                        .HasConstraintName("FK_AccountVoucherMaster_AccountFiscalYear");
-
                     b.Navigation("AcVoucherType");
-
-                    b.Navigation("FiscalYear");
                 });
 
             modelBuilder.Entity("Accounts.Core.Models.Address", b =>
@@ -1883,13 +1863,6 @@ namespace Accounts.Core.Migrations
             modelBuilder.Entity("Accounts.Core.Models.AccountControl", b =>
                 {
                     b.Navigation("AccountLedgers");
-                });
-
-            modelBuilder.Entity("Accounts.Core.Models.AccountFiscalYear", b =>
-                {
-                    b.Navigation("AccountTransMasters");
-
-                    b.Navigation("AccountVoucherMasters");
                 });
 
             modelBuilder.Entity("Accounts.Core.Models.AccountHead", b =>
