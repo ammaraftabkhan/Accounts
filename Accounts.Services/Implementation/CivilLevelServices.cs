@@ -21,9 +21,9 @@ namespace Accounts.Repository.Implementation
             return _repository.AddCivilLevel(_VM_CivilLevel);
         }
 
-        public bool DeleteCivilLevele(int id)
+        public bool DeleteCivilLevel(int id)
         {
-            return _repository.DeleteCivilLevele(id);
+            return _repository.DeleteCivilLevel(id);
         }
 
         public CivilLevel FindCivilLevel(int id)

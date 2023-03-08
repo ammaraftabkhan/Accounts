@@ -708,12 +708,12 @@ namespace Accounts.API.Controllers
 
         // Account Contact API Starting...
         [HttpPost("Add_AddressType")]
-        public IActionResult Add_AddressType(int id, VM_AddressType vM_AddressType)
+        public IActionResult Add_AddressType(VM_AddressType vM_AddressType)
         {
             bool Flag = false;
             if (ModelState.IsValid)
             {
-                Flag = _IAddressTypeServices.AddAddressType( vM_AddressType);
+                Flag = _IAddressTypeServices.AddAddressType(vM_AddressType);
 
                 if (Flag == true)
                 {
@@ -796,7 +796,7 @@ namespace Accounts.API.Controllers
 
         // Language API Starting...
         [HttpPost("Add_Language")]
-        public IActionResult Add_Language( VM_Language vM_Language)
+        public IActionResult Add_Language(VM_Language vM_Language)
         {
             bool Flag = false;
             if (ModelState.IsValid)
@@ -883,7 +883,7 @@ namespace Accounts.API.Controllers
         }
         // Account Contact API Starting...
         [HttpPost("Add_Currency")]
-        public IActionResult AddCurrency( VM_Currency vM_Currency)
+        public IActionResult AddCurrency(VM_Currency vM_Currency)
         {
             bool Flag = false;
             if (ModelState.IsValid)
@@ -970,12 +970,12 @@ namespace Accounts.API.Controllers
         }
         //Civil Entity API Starting...
         [HttpPost("Add_CivilEntity")]
-        public IActionResult Add_CivilEntity(int id, VM_CivilEntity vM_CivilEntity)
+        public IActionResult Add_CivilEntity(VM_CivilEntity vM_CivilEntity)
         {
             bool Flag = false;
             if (ModelState.IsValid)
             {
-                Flag = _ICivilEntitiesServices.AddACivilEntity(id,vM_CivilEntity);
+                Flag = _ICivilEntitiesServices.AddACivilEntity(vM_CivilEntity);
 
                 if (Flag == true)
                 {
@@ -1057,7 +1057,7 @@ namespace Accounts.API.Controllers
         }
         // Civil Language API Starting...
         [HttpPost("Add_CivilLevel")]
-        public IActionResult Add_Civilevel(int id, VM_CivilLevel vM_CivilLevel)
+        public IActionResult Add_Civilevel(VM_CivilLevel vM_CivilLevel)
         {
             bool Flag = false;
             if (ModelState.IsValid)
@@ -1133,7 +1133,7 @@ namespace Accounts.API.Controllers
             if (id > 0)
             {
                 bool flag = false;
-                flag = _ICivilLevelServices.DeleteCivilLevele(id);
+                flag = _ICivilLevelServices.DeleteCivilLevel(id);
                 if (flag == true)
                 {
                     return Ok(new { msg = "Successfully Deleted...!" });

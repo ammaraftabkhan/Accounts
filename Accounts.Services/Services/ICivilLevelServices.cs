@@ -13,7 +13,7 @@ namespace Accounts.Repository.Repository
         List<CivilLevel> GetAllCivilLevel();
         CivilLevel FindCivilLevel(int id);
         bool UpdateCivilLevel(VM_CivilLevel _VM_CivilLevel);
-        bool DeleteCivilLevele(int id);
+        bool DeleteCivilLevel(int id);
         bool AddCivilLevel(VM_CivilLevel _VM_CivilLevel);
     }
 }

@@ -22,6 +22,7 @@ namespace Accounts.Repository.Implementation
         {
             Language ob = new Language();
             ob.LanguageName = _VM_Language.LanguageName;
+            ob.LanguageCode = _VM_Language.LanguageCode;
 
             ob.CreatedBy = _VM_Language.CreatedBy;
             ob.CreatedOn = DateTime.UtcNow;
@@ -114,7 +115,8 @@ namespace Accounts.Repository.Implementation
                     var data = _AccuteDbContext.Languages.Find(_VM_Language.LanguageId);
                     if (data != null && data.IsActive == true && data.IsDeleted == false)
                     {
-                        _VM_Language.LanguageId = _VM_Language.LanguageId;
+                        data.LanguageName= _VM_Language.LanguageName;
+                        data.LanguageCode= _VM_Language.LanguageCode;
 
                         data.UpdatedBy = _VM_Language.LanguageId;
                         data.UpdatedOn = DateTime.UtcNow;

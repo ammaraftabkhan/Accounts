@@ -21,12 +21,13 @@ namespace Accounts.Repository.Implementation
         public bool AddCurrency(VM_Currency _VM_Currency)
         {
             Currency ob = new Currency();
-            _VM_Currency.CurrencyName = _VM_Currency.CurrencyName;
-
-            _VM_Currency.CurrencyName = _VM_Currency.CurrencyName;
+            ob.CurrencyName = _VM_Currency.CurrencyName;
+            ob.CurrencyCode = _VM_Currency.CurrencyCode;
+            ob.CurrencySign = _VM_Currency.CurrencySign;
             ob.CreatedOn = DateTime.UtcNow;
-            _VM_Currency.CurrencyName = _VM_Currency.CurrencyName;
+            ob.CreatedBy = _VM_Currency.CreatedBy;
             ob.PostedOn = DateTime.UtcNow;
+            ob.PostedBy = _VM_Currency.PostedBy;
 
             ob.IsDeleted = false;
             try
@@ -114,8 +115,9 @@ namespace Accounts.Repository.Implementation
                     if (data != null && data.IsActive == true && data.IsDeleted == false)
                     {
                         data.CurrencyId = _VM_Currency.CurrencyId;
-
-                        data.UpdatedBy = _VM_Currency.CurrencyId;
+                        data.CurrencyCode = _VM_Currency.CurrencyCode;
+                        data.CurrencyName = _VM_Currency.CurrencyName;
+                        data.UpdatedBy = _VM_Currency.UpdatedBy;
                         data.UpdatedOn = DateTime.UtcNow;
                         _AccuteDbContext.Currencies.Update(data);
                         return _AccuteDbContext.SaveChanges() > 0;

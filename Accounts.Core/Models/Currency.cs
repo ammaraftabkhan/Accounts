@@ -11,9 +11,11 @@ namespace Accounts.Core.Models
         [Key]
         public int CurrencyId { get; set; }
         [StringLength(50)]
-        public string? CurrencyName { get; set; }
+        public string CurrencyName { get; set; } = null!;
+        [StringLength(50)]
+        public string CurrencyCode { get; set; } = null!;
         [StringLength(10)]
-        public string? CurrencySign { get; set; }
+        public string CurrencySign { get; set; } = null!;
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }
         public int CreatedBy { get; set; }

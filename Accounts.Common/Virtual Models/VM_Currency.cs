@@ -13,6 +13,8 @@ namespace Accounts.Common.Virtual_Models
         public int CurrencyId { get; set; }
         [StringLength(50)]
         public string? CurrencyName { get; set; }
+        [StringLength(50)]
+        public string? CurrencyCode { get; set; }
         [StringLength(10)]
         public string? CurrencySign { get; set; }
         [Column(TypeName = "datetime")]

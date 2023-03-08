@@ -12,6 +12,8 @@ namespace Accounts.Core.Models
         public int LanguageId { get; set; }
         [StringLength(100)]
         public string LanguageName { get; set; } = null!;
+        [StringLength(50)]
+        public string LanguageCode { get; set; } = null!;
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }
         public int CreatedBy { get; set; }

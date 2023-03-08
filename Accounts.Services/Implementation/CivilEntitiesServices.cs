@@ -18,9 +18,9 @@ namespace Accounts.Repository.Implementation
             _ICivilEntitiesRepository = iCivilEntitiesRepository;
         }
 
-        public bool AddACivilEntity(int id, VM_CivilEntity _VM_CivilEntity)
+        public bool AddACivilEntity(VM_CivilEntity _VM_CivilEntity)
         {
-            return _ICivilEntitiesRepository.AddACivilEntity(id, _VM_CivilEntity);
+            return _ICivilEntitiesRepository.AddACivilEntity(_VM_CivilEntity);
         }
 
         public bool DeleteCivilEntity(int id)
@@ -28,7 +28,7 @@ namespace Accounts.Repository.Implementation
             return _ICivilEntitiesRepository.DeleteCivilEntity(id);
         }
 
-        public CivilEntity FindCivilEntity(long id)
+        public CivilEntity FindCivilEntity(int id)
         {
             return _ICivilEntitiesRepository.FindCivilEntity(id);
         }

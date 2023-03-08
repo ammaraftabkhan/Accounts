@@ -23,10 +23,10 @@ namespace Accounts.Repository.Implementation
             CivilLevel ob = new CivilLevel();
             ob.CivilLevelName = _VM_CivilLevel.CivilLevelName;
 
-            ob.CivilLevelName = _VM_CivilLevel.CivilLevelName;
             ob.CreatedOn = DateTime.UtcNow;
-            ob.CivilLevelName = _VM_CivilLevel.CivilLevelName;
+            ob.CreatedBy = _VM_CivilLevel.CreatedBy;
             ob.PostedOn = DateTime.UtcNow;
+            ob.PostedBy= _VM_CivilLevel.PostedBy;
 
             ob.IsDeleted = false;
             try
@@ -42,7 +42,7 @@ namespace Accounts.Repository.Implementation
             }
         }
 
-        public bool DeleteCivilLevele(int id)
+        public bool DeleteCivilLevel(int id)
         {
             if (id > 0)
             {
@@ -113,9 +113,8 @@ namespace Accounts.Repository.Implementation
                     var data = _AccuteDbContext.CivilLevels.Find(_VM_CivilLevel.CivilLevelId);
                     if (data != null && data.IsActive == true && data.IsDeleted == false)
                     {
-                        data.CivilLevelId = _VM_CivilLevel.CivilLevelId;
-
-                        data.UpdatedBy = _VM_CivilLevel.CivilLevelId;
+                        data.CivilLevelName = _VM_CivilLevel.CivilLevelName;
+                        data.UpdatedBy = _VM_CivilLevel.UpdatedBy;
                         data.UpdatedOn = DateTime.UtcNow;
                         _AccuteDbContext.CivilLevels.Update(data);
                         return _AccuteDbContext.SaveChanges() > 0;

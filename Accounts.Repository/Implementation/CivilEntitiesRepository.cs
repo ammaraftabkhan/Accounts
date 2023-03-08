@@ -19,16 +19,15 @@ namespace Accounts.Repository.Implementation
             this._AccuteDbContext = _AccuteDbContext;
         }
 
-        public bool AddACivilEntity(int id, VM_CivilEntity _VM_CivilEntity)
+        public bool AddACivilEntity(VM_CivilEntity _VM_CivilEntity)
         {
             CivilEntity ob = new CivilEntity();
             ob.CivilEntityName = _VM_CivilEntity.CivilEntityName;
-
             ob.CreatedBy = _VM_CivilEntity.CreatedBy;
             ob.CreatedOn = DateTime.UtcNow;
             ob.PostedBy = _VM_CivilEntity.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
-            ob.CivilLevelId = id;
+            ob.CivilLevelId = _VM_CivilEntity.CivilLevelId;
             ob.CivilParentId = _VM_CivilEntity.CivilParentId;
             ob.FlagImage = _VM_CivilEntity.FlagImage;
 
@@ -72,7 +71,7 @@ namespace Accounts.Repository.Implementation
             return false;
         }
 
-        public CivilEntity FindCivilEntity(long id)
+        public CivilEntity FindCivilEntity(int id)
         {
             try
             {
@@ -116,9 +115,11 @@ namespace Accounts.Repository.Implementation
                     var data = _AccuteDbContext.CivilEntities.Find(_VM_CivilEntity.CivilEntityId);
                     if (data != null && data.IsActive == true && data.IsDeleted == false)
                     {
-                        data.CivilEntityId = _VM_CivilEntity.CivilEntityId;
+                        data.CivilEntityName = _VM_CivilEntity.CivilEntityName;
                         data.FlagImage = _VM_CivilEntity.FlagImage;
-                        data.UpdatedBy = _VM_CivilEntity.CivilEntityId;
+                        data.CivilLevelId = _VM_CivilEntity.CivilLevelId;
+                        data.CivilParentId = _VM_CivilEntity.CivilParentId;
+                        data.UpdatedBy = _VM_CivilEntity.UpdatedBy;
                         data.UpdatedOn = DateTime.UtcNow;
                         _AccuteDbContext.CivilEntities.Update(data);
                         return _AccuteDbContext.SaveChanges() > 0;

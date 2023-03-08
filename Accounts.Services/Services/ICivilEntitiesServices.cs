@@ -11,9 +11,9 @@ namespace Accounts.Services.Services
     public interface ICivilEntitiesServices
     {
         List<CivilEntity> GetAllCivilEntity();
-        CivilEntity FindCivilEntity(long id);
+        CivilEntity FindCivilEntity(int id);
         bool UpdateCivilEntity(VM_CivilEntity _VM_CivilEntity);
         bool DeleteCivilEntity(int id);
-        bool AddACivilEntity(int id, VM_CivilEntity _VM_CivilEntity);
+        bool AddACivilEntity(VM_CivilEntity _VM_CivilEntity);
     }
 }
