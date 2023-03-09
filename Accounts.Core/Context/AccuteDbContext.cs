@@ -65,12 +65,6 @@ namespace Accounts.Core.Context
                     .HasName("PK_Contact");
 
                 entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
-
-                entity.HasOne(d => d.AcProfile)
-                    .WithMany(p => p.AccountContacts)
-                    .HasForeignKey(d => d.AcProfileId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AccountContact_AccountProfile");
             });
 
             modelBuilder.Entity<AccountControl>(entity =>
@@ -139,6 +133,12 @@ namespace Accounts.Core.Context
                     .HasForeignKey(d => d.AcLedgerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AccountProfile_AccountLedger");
+
+                entity.HasOne(d => d.Currency)
+                    .WithMany(p => p.AccountProfiles)
+                    .HasForeignKey(d => d.CurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AccountProfile_Currencies");
             });
 
             modelBuilder.Entity<AccountSubLedger>(entity =>
@@ -227,11 +227,6 @@ namespace Accounts.Core.Context
                     .HasForeignKey(d => d.AcContactId)
                     .HasConstraintName("FK_Address_AccountContact");
 
-                entity.HasOne(d => d.AcProfile)
-                    .WithMany(p => p.Addresses)
-                    .HasForeignKey(d => d.AcProfileId)
-                    .HasConstraintName("FK_Address_AccountProfile");
-
                 entity.HasOne(d => d.AddressType)
                     .WithMany(p => p.Addresses)
                     .HasForeignKey(d => d.AddressTypeId)
@@ -263,11 +258,35 @@ namespace Accounts.Core.Context
             modelBuilder.Entity<CivilEntitiesCurrency>(entity =>
             {
                 entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.CivilEntity)
+                    .WithMany(p => p.CivilEntitiesCurrencies)
+                    .HasForeignKey(d => d.CivilEntityId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CivilEntitiesCurrencies_CivilEntities");
+
+                entity.HasOne(d => d.Currency)
+                    .WithMany(p => p.CivilEntitiesCurrencies)
+                    .HasForeignKey(d => d.CurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CivilEntitiesCurrencies_Currencies");
             });
 
             modelBuilder.Entity<CivilEntitiesLanguage>(entity =>
             {
                 entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.CivilEntity)
+                    .WithMany(p => p.CivilEntitiesLanguages)
+                    .HasForeignKey(d => d.CivilEntityId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CivilEntitiesLanguages_CivilEntities");
+
+                entity.HasOne(d => d.Language)
+                    .WithMany(p => p.CivilEntitiesLanguages)
+                    .HasForeignKey(d => d.LanguageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CivilEntitiesLanguages_Languages");
             });
 
             modelBuilder.Entity<CivilEntity>(entity =>

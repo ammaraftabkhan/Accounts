@@ -22,10 +22,10 @@ namespace Accounts.Repository.Implementation
         {
             CivilEntitiesLanguage ob = new CivilEntitiesLanguage();
             ob.LanguageId = _VM_CivilEntitiesLanguage.LanguageId;
-            ob.CivilEntityId = ob.CivilEntityId;
+            ob.CivilEntityId = _VM_CivilEntitiesLanguage.CivilEntityId;
             ob.CreatedBy = _VM_CivilEntitiesLanguage.CreatedBy;
             ob.CreatedOn = DateTime.UtcNow;
-            ob.LanguageId = _VM_CivilEntitiesLanguage.LanguageId;
+            ob.PostedBy = _VM_CivilEntitiesLanguage.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
 
             ob.IsDeleted = false;
@@ -113,9 +113,9 @@ namespace Accounts.Repository.Implementation
                     var data = _AccuteDbContext.CivilEntitiesLanguages.Find(_VM_CivilEntitiesLanguage.CivilEntitiessLanguagesId);
                     if (data != null && data.IsActive == true && data.IsDeleted == false)
                     {
-                        data.CivilEntitiessLanguagesId = _VM_CivilEntitiesLanguage.LanguageId;
+                        data.LanguageId = _VM_CivilEntitiesLanguage.LanguageId;
                         data.CivilEntityId = _VM_CivilEntitiesLanguage.CivilEntityId;
-                        data.UpdatedBy = _VM_CivilEntitiesLanguage.CivilEntitiessLanguagesId;
+                        data.UpdatedBy = _VM_CivilEntitiesLanguage.UpdatedBy;
                         data.UpdatedOn = DateTime.UtcNow;
                         _AccuteDbContext.CivilEntitiesLanguages.Update(data);
                         return _AccuteDbContext.SaveChanges() > 0;

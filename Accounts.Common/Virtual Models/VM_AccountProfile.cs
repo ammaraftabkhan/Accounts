@@ -11,7 +11,7 @@ namespace Accounts.Common.Virtual_Models
     public class VM_AccountProfile
     {
         public long AcProfileId { get; set; }
-        //public long AcLedgerId { get; set; }
+        public long AcLedgerId { get; set; }
         public int CurrencyId { get; set; }
         [StringLength(50)]
         public string? BusinessName { get; set; }

@@ -529,12 +529,12 @@ namespace Accounts.API.Controllers
 
         // Account Profile API Starting...
         [HttpPost("Add_AccountProfile")]
-        public IActionResult Add_AccountProfile(int id, VM_AccountProfile vM_AccountProfile)
+        public IActionResult Add_AccountProfile(VM_AccountProfile vM_AccountProfile)
         {
             bool Flag = false;
             if (ModelState.IsValid)
             {
-                Flag = _IAccountProfileServices.AddAccountProfile(id, vM_AccountProfile);
+                Flag = _IAccountProfileServices.AddAccountProfile(vM_AccountProfile);
 
                 if (Flag == true)
                 {
@@ -619,12 +619,12 @@ namespace Accounts.API.Controllers
 
         // Account Contact API Starting...
         [HttpPost("Add_AccountContact")]
-        public IActionResult Add_AccountContact(int id, VM_AccountContact vM_AccountContact)
+        public IActionResult Add_AccountContact(VM_AccountContact vM_AccountContact)
         {
             bool Flag = false;
             if (ModelState.IsValid)
             {
-                Flag = _IAccountContactServices.AddAccountContact(id, vM_AccountContact);
+                Flag = _IAccountContactServices.AddAccountContact(vM_AccountContact);
 
                 if (Flag == true)
                 {
@@ -1146,7 +1146,7 @@ namespace Accounts.API.Controllers
 
         //Civil Entity Language API Starting...
         [HttpPost("Add_CivilEntityLanguage")]
-        public IActionResult Add_CivilEntityLanguage(int id, VM_CivilEntitiesLanguage vM_CivilEntityLanguage)
+        public IActionResult Add_CivilEntityLanguage(VM_CivilEntitiesLanguage vM_CivilEntityLanguage)
         {
             bool Flag = false;
             if (ModelState.IsValid)
@@ -1234,7 +1234,7 @@ namespace Accounts.API.Controllers
 
         //Civil Entity API Starting...
         [HttpPost("Add_CivilEntityCurrency")]
-        public IActionResult Add_CivilEntityCurrency(int id, VM_CivilEntitiesCurrency vM_CivilEntityCurrency)
+        public IActionResult Add_CivilEntityCurrency(VM_CivilEntitiesCurrency vM_CivilEntityCurrency)
         {
             bool Flag = false;
             if (ModelState.IsValid)
@@ -1323,7 +1323,7 @@ namespace Accounts.API.Controllers
 
         //Addresses API Starting...
         [HttpPost("Add_Address")]
-        public IActionResult Add_Address(int id, VM_Address vM_Address)
+        public IActionResult Add_Address(VM_Address vM_Address)
         {
             bool Flag = false;
             if (ModelState.IsValid)

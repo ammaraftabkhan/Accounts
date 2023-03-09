@@ -17,7 +17,7 @@ namespace Accounts.Repository.Implementation
         {
             this._AccuteDbContext = _AccuteDbContext;
         }
-        public bool AddAccountContact(int id, VM_AccountContact _VM_AccountContact)
+        public bool AddAccountContact(VM_AccountContact _VM_AccountContact)
         {
             AccountContact ob = new AccountContact();
             ob.FirstName= _VM_AccountContact.FirstName;
@@ -34,35 +34,26 @@ namespace Accounts.Repository.Implementation
             ob.CreatedOn = DateTime.UtcNow;
             ob.PostedBy = _VM_AccountContact.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
-            ob.AcProfileId = Convert.ToInt64(id);
-            ob.IsDeleted = false;
+            ob.AcProfileId = _VM_AccountContact.AcProfileId;
 
-            //if (id < 10)
-            //{
-            //    id.ToString();
-            //    ob.AcSubLedgerCode = AccountLedgerCode + "-00" + getId.ToString();
-            //}
-            //else if (id < 100 && id > 9)
-            //{
-            //    id.ToString();
-            //    ob.AcSubLedgerCode = AccountLedgerCode + "-0" + getId.ToString();
-            //}
-            //else if (id < 1000 && id > 99)
-            //{
-            //    id.ToString();
-            //    ob.AcSubLedgerCode = AccountLedgerCode + "-" + getId.ToString();
-            //}
-            try
+            var ProfileId = _AccuteDbContext.AccountProfiles.Where(e => e.AcProfileId == _VM_AccountContact.AcProfileId).FirstOrDefault();
+
+            if (ProfileId != null)
             {
-                _AccuteDbContext.AccountContacts.Add(ob);
-                return _AccuteDbContext.SaveChanges() > 0;
+                try
+                {
+                    _AccuteDbContext.AccountContacts.Add(ob);
+                    return _AccuteDbContext.SaveChanges() > 0;
 
-            }
-            catch (Exception ex)
-            {
-                return false;
+                }
+                catch (Exception ex)
+                {
+                    return false;
 
+                }
             }
+            return false;
+                
         }
 
         public bool DeleteAccountContact(int id)
@@ -138,7 +129,7 @@ namespace Accounts.Repository.Implementation
                     {
                         data.FirstName= _VM_AccountContact.FirstName;
                         data.LastName = _VM_AccountContact.LastName;
-                        //data.AcHeadTypeCode = _VM_AccountHeadType.AcHeadTypeCode;
+                        data.AcProfileId=_VM_AccountContact.AcProfileId;
                         data.Position = _VM_AccountContact.Position;
                         data.Cell1 = _VM_AccountContact.Cell1;
                         data.Cell2 = _VM_AccountContact.Cell2;

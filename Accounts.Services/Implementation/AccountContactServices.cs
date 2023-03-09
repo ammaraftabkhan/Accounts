@@ -18,9 +18,9 @@ namespace Accounts.Services.Implementation
             _accountsContactRepository = accountsContactRepository;
         }
 
-        public bool AddAccountContact(int id, VM_AccountContact _VM_AccountContact)
+        public bool AddAccountContact(VM_AccountContact _VM_AccountContact)
         {
-            return _accountsContactRepository.AddAccountContact(id,_VM_AccountContact);
+            return _accountsContactRepository.AddAccountContact(_VM_AccountContact);
         }
 
         public bool DeleteAccountContact(int id)

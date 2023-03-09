@@ -14,6 +14,6 @@ namespace Accounts.Repository.Repository
         AccountProfile FindAccountProfile(long id);
         bool UpdateAccountProfile(VM_AccountProfile _VM_AccountProfile);
         bool DeleteAccountProfile(int id);
-        bool AddAccountProfile(int id, VM_AccountProfile _VM_AccountProfile);
+        bool AddAccountProfile(VM_AccountProfile _VM_AccountProfile);
     }
 }

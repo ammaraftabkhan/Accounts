@@ -116,7 +116,7 @@ namespace Accounts.Repository.Implementation
                         
                         data.CurrencyId = _VM_CivilEntitiesCurrency.CurrencyId;
                         data.CivilEntityId = _VM_CivilEntitiesCurrency.CivilEntityId;
-                        data.UpdatedBy = _VM_CivilEntitiesCurrency.CivilEntitiesCurrencyId;
+                        data.UpdatedBy = _VM_CivilEntitiesCurrency.UpdatedBy;
                         data.UpdatedOn = DateTime.UtcNow;
                         _AccuteDbContext.CivilEntitiesCurrencies.Update(data);
                         return _AccuteDbContext.SaveChanges() > 0;

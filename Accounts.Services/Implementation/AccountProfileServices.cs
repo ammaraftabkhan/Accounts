@@ -18,9 +18,9 @@ namespace Accounts.Services.Implementation
             _repository = repository;
         }
 
-        public bool AddAccountProfile(int id, VM_AccountProfile _VM_AccountProfile)
+        public bool AddAccountProfile(VM_AccountProfile _VM_AccountProfile)
         {
-            return _repository.AddAccountProfile(id,_VM_AccountProfile);
+            return _repository.AddAccountProfile(_VM_AccountProfile);
         }
 
         public bool DeleteAccountProfile(int id)

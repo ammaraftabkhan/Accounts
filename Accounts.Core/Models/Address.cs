@@ -47,9 +47,6 @@ namespace Accounts.Core.Models
         [ForeignKey(nameof(AcContactId))]
         [InverseProperty(nameof(AccountContact.Addresses))]
         public virtual AccountContact? AcContact { get; set; }
-        [ForeignKey(nameof(AcProfileId))]
-        [InverseProperty(nameof(AccountProfile.Addresses))]
-        public virtual AccountProfile? AcProfile { get; set; }
         [ForeignKey(nameof(AddressTypeId))]
         [InverseProperty("Addresses")]
         public virtual AddressType AddressType { get; set; } = null!;

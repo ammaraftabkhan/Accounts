@@ -8,6 +8,11 @@ namespace Accounts.Core.Models
 {
     public partial class Language
     {
+        public Language()
+        {
+            CivilEntitiesLanguages = new HashSet<CivilEntitiesLanguage>();
+        }
+
         [Key]
         public int LanguageId { get; set; }
         [StringLength(100)]
@@ -26,5 +31,8 @@ namespace Accounts.Core.Models
         public bool IsDeleted { get; set; }
         [Required]
         public bool? IsActive { get; set; }
+
+        [InverseProperty(nameof(CivilEntitiesLanguage.Language))]
+        public virtual ICollection<CivilEntitiesLanguage> CivilEntitiesLanguages { get; set; }
     }
 }

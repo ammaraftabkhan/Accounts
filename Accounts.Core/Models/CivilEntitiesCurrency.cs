@@ -24,5 +24,12 @@ namespace Accounts.Core.Models
         public bool IsDeleted { get; set; }
         [Required]
         public bool? IsActive { get; set; }
+
+        [ForeignKey(nameof(CivilEntityId))]
+        [InverseProperty("CivilEntitiesCurrencies")]
+        public virtual CivilEntity CivilEntity { get; set; } = null!;
+        [ForeignKey(nameof(CurrencyId))]
+        [InverseProperty("CivilEntitiesCurrencies")]
+        public virtual Currency Currency { get; set; } = null!;
     }
 }

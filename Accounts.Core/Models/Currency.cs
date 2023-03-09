@@ -8,6 +8,12 @@ namespace Accounts.Core.Models
 {
     public partial class Currency
     {
+        public Currency()
+        {
+            AccountProfiles = new HashSet<AccountProfile>();
+            CivilEntitiesCurrencies = new HashSet<CivilEntitiesCurrency>();
+        }
+
         [Key]
         public int CurrencyId { get; set; }
         [StringLength(50)]
@@ -28,5 +34,10 @@ namespace Accounts.Core.Models
         public bool IsDeleted { get; set; }
         [Required]
         public bool? IsActive { get; set; }
+
+        [InverseProperty(nameof(AccountProfile.Currency))]
+        public virtual ICollection<AccountProfile> AccountProfiles { get; set; }
+        [InverseProperty(nameof(CivilEntitiesCurrency.Currency))]
+        public virtual ICollection<CivilEntitiesCurrency> CivilEntitiesCurrencies { get; set; }
     }
 }

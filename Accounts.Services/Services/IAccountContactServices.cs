@@ -14,6 +14,6 @@ namespace Accounts.Services.Services
         AccountContact FindAccountContact(long id);
         bool UpdateAccountContact(VM_AccountContact _VM_AccountContact);
         bool DeleteAccountContact(int id);
-        bool AddAccountContact(int id, VM_AccountContact _VM_AccountContact);
+        bool AddAccountContact(VM_AccountContact _VM_AccountContact);
     }
 }

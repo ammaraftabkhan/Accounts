@@ -17,10 +17,10 @@ namespace Accounts.Repository.Implementation
         {
             this._AccuteDbContext = _AccuteDbContext;
         }
-        public bool AddAccountProfile(int id, VM_AccountProfile _VM_AccountProfile)
+        public bool AddAccountProfile(VM_AccountProfile _VM_AccountProfile)
         {
             //var getId = _AccuteDbContext.AccountProfiles.Any() ? _AccuteDbContext.AccountProfiles.Max(e => e.AcProfileId) + 1 : 1;
-            //var AccountLedgerCode = _AccuteDbContext.AccountLedgers.Where(e => e.AcLedgerId == id).Select(e => e.AcLedgerCode).FirstOrDefault();
+            
             AccountProfile ob = new AccountProfile();
             ob.BusinessName = _VM_AccountProfile.BusinessName;
             ob.ChqName = _VM_AccountProfile.ChqName;
@@ -35,35 +35,28 @@ namespace Accounts.Repository.Implementation
             ob.CreatedOn = DateTime.UtcNow;
             ob.PostedBy = _VM_AccountProfile.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
-            ob.AcLedgerId = Convert.ToInt64(id);
-            ob.IsDeleted = false;
+            ob.AcLedgerId = _VM_AccountProfile.AcLedgerId;
+            ob.CurrencyId = _VM_AccountProfile.CurrencyId;
 
-            //if (id < 10)
-            //{
-            //    id.ToString();
-            //    ob.AcSubLedgerCode = AccountLedgerCode + "-00" + getId.ToString();
-            //}
-            //else if (id < 100 && id > 9)
-            //{
-            //    id.ToString();
-            //    ob.AcSubLedgerCode = AccountLedgerCode + "-0" + getId.ToString();
-            //}
-            //else if (id < 1000 && id > 99)
-            //{
-            //    id.ToString();
-            //    ob.AcSubLedgerCode = AccountLedgerCode + "-" + getId.ToString();
-            //}
-            try
+            var CurrencyId = _AccuteDbContext.Currencies.Where(e => e.CurrencyId == _VM_AccountProfile.CurrencyId).FirstOrDefault();
+            var LedgerId = _AccuteDbContext.AccountLedgers.Where(e => e.AcLedgerId == _VM_AccountProfile.AcLedgerId).FirstOrDefault();
+
+            if (CurrencyId!=null && LedgerId!=null)
             {
-                _AccuteDbContext.AccountProfiles.Add(ob);
-                return _AccuteDbContext.SaveChanges() > 0;
+                try
+                {
+                    _AccuteDbContext.AccountProfiles.Add(ob);
+                    return _AccuteDbContext.SaveChanges() > 0;
 
-            }
-            catch (Exception ex)
-            {
-                return false;
+                }
+                catch (Exception ex)
+                {
+                    return false;
 
+                }
             }
+            return false;
+           
         }
 
         public bool DeleteAccountProfile(int id)
@@ -138,7 +131,8 @@ namespace Accounts.Repository.Implementation
                     if (data != null && data.IsActive == true && data.IsDeleted == false)
                     {
                         data.BusinessName= _VM_AccountProfile.BusinessName;
-                        //data.AcHeadTypeCode = _VM_AccountHeadType.AcHeadTypeCode;
+                        data.AcLedgerId = _VM_AccountProfile.AcLedgerId;
+                        data.CurrencyId = _VM_AccountProfile.CurrencyId;
                         data.ChqName = _VM_AccountProfile.ChqName;
                         data.Cell1 = _VM_AccountProfile.Cell1;
                         data.Cell2 = _VM_AccountProfile.Cell2;

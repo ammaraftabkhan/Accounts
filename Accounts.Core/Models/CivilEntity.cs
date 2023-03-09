@@ -11,6 +11,8 @@ namespace Accounts.Core.Models
         public CivilEntity()
         {
             Addresses = new HashSet<Address>();
+            CivilEntitiesCurrencies = new HashSet<CivilEntitiesCurrency>();
+            CivilEntitiesLanguages = new HashSet<CivilEntitiesLanguage>();
         }
 
         [Key]
@@ -37,5 +39,9 @@ namespace Accounts.Core.Models
         public virtual CivilLevel CivilLevel { get; set; } = null!;
         [InverseProperty(nameof(Address.CivilEntity))]
         public virtual ICollection<Address> Addresses { get; set; }
+        [InverseProperty(nameof(CivilEntitiesCurrency.CivilEntity))]
+        public virtual ICollection<CivilEntitiesCurrency> CivilEntitiesCurrencies { get; set; }
+        [InverseProperty(nameof(CivilEntitiesLanguage.CivilEntity))]
+        public virtual ICollection<CivilEntitiesLanguage> CivilEntitiesLanguages { get; set; }
     }
 }
