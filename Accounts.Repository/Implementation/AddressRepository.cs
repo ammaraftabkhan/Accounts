@@ -38,18 +38,26 @@ namespace Accounts.Repository.Implementation
             ob.PostedBy = _VM_Address.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
             ob.IsDeleted = false;
-
-            try
+            var ContactId = _AccuteDbContext.AccountContacts.Where(e => e.AcContactId ==  _VM_Address.AcContactId).FirstOrDefault();
+            var ProfileId = _AccuteDbContext.AccountProfiles.Where(e => e.AcProfileId == _VM_Address.AcProfileId).FirstOrDefault();
+            var AddressTypeId = _AccuteDbContext.AddressTypes.Where(e => e.AddressTypeId == _VM_Address.AddressTypeId).FirstOrDefault();
+            var CivilEntityId = _AccuteDbContext.CivilEntities.Where(e => e.CivilEntityId== _VM_Address.CivilEntityId).FirstOrDefault();
+            if (ContactId != null && ProfileId != null && AddressTypeId != null && CivilEntityId != null)
             {
-                _AccuteDbContext.Addresses.Add(ob);
-                return _AccuteDbContext.SaveChanges() > 0;
+                try
+                {
+                    _AccuteDbContext.Addresses.Add(ob);
+                    return _AccuteDbContext.SaveChanges() > 0;
 
-            }
-            catch (Exception ex)
-            {
-                return false;
+                }
+                catch (Exception ex)
+                {
+                    return false;
 
+                }
             }
+            return false;
+            
         }
 
         public bool DeleteAddress(int id)

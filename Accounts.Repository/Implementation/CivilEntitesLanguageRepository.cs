@@ -29,17 +29,23 @@ namespace Accounts.Repository.Implementation
             ob.PostedOn = DateTime.UtcNow;
 
             ob.IsDeleted = false;
-            try
+            var LanguageId = _AccuteDbContext.Languages.Where(e => e.LanguageId == _VM_CivilEntitiesLanguage.LanguageId).FirstOrDefault();
+            var CivilEntityId = _AccuteDbContext.CivilEntities.Where(e => e.CivilEntityId == _VM_CivilEntitiesLanguage.CivilEntityId).FirstOrDefault();
+            if(LanguageId != null && CivilEntityId != null)
             {
-                _AccuteDbContext.CivilEntitiesLanguages.Add(ob);
-                return _AccuteDbContext.SaveChanges() > 0;
+                try
+                {
+                    _AccuteDbContext.CivilEntitiesLanguages.Add(ob);
+                    return _AccuteDbContext.SaveChanges() > 0;
 
-            }
-            catch (Exception ex)
-            {
-                return false;
+                }
+                catch (Exception ex)
+                {
+                    return false;
 
+                }
             }
+            return false;
         }
 
         public bool DeleteCivilEntitiesLanguage(int id)

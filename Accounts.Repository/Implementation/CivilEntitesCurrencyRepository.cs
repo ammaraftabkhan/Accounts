@@ -23,23 +23,30 @@ namespace Accounts.Repository.Implementation
             CivilEntitiesCurrency ob = new CivilEntitiesCurrency();
            ob.CivilEntityId = _VM_CivilEntitiesCurrencye.CivilEntityId;
             ob.CurrencyId = _VM_CivilEntitiesCurrencye.CurrencyId;
-            ob.CivilEntityId = _VM_CivilEntitiesCurrencye.CivilEntityId;
+            
             ob.CreatedOn = DateTime.UtcNow;
-            ob.CivilEntityId = _VM_CivilEntitiesCurrencye.CivilEntityId;
+            
             ob.PostedOn = DateTime.UtcNow;
 
             ob.IsDeleted = false;
-            try
+            var CurrencyId = _AccuteDbContext.Currencies.Where(e => e.CurrencyId == _VM_CivilEntitiesCurrencye.CurrencyId).FirstOrDefault();
+            var CivilEntityID = _AccuteDbContext.CivilEntities.Where(e => e.CivilEntityId == _VM_CivilEntitiesCurrencye.CivilEntityId).FirstOrDefault();
+            if (CurrencyId != null && CivilEntityID != null)
             {
-                _AccuteDbContext.CivilEntitiesCurrencies.Add(ob);
-                return _AccuteDbContext.SaveChanges() > 0;
+                try
+                {
+                    _AccuteDbContext.CivilEntitiesCurrencies.Add(ob);
+                    return _AccuteDbContext.SaveChanges() > 0;
 
-            }
-            catch (Exception ex)
-            {
-                return false;
+                }
+                catch (Exception ex)
+                {
+                    return false;
 
+                }
             }
+            return false;
+            
         }
 
         public bool DeleteCivilEntitiesCurrency(int id)

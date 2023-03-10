@@ -41,19 +41,23 @@ namespace Accounts.Repository.Implementation
 
                 ob.AcHeadCode = AccountHeadTypeCode + getId.ToString();
             }
-          
-            try
+            var AcHeadtypeID = _AccuteDbContext.AccountHeadTypes.Where(e => e.AcHeadTypeId == id).FirstOrDefault();
+            if(AcHeadtypeID != null)
             {
-                _AccuteDbContext.AccountHeads.Add(ob);
-                return _AccuteDbContext.SaveChanges() > 0;
+                try
+                {
+                    _AccuteDbContext.AccountHeads.Add(ob);
+                    return _AccuteDbContext.SaveChanges() > 0;
+
+                }
+                catch (Exception ex)
+                {
+                    return false;
+
+                }
 
             }
-            catch (Exception ex)
-            {
-                return false;
-
-            }
-
+            return false;
         }
 
         public bool DeleteAccountHead(int id)
