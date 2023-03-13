@@ -61,6 +61,10 @@ builder.Services.AddScoped<IAddressTypeRepository, AddressTypeRpository>();
 builder.Services.AddScoped<IAddressTypeServices, AddressTypeServices>();
 builder.Services.AddScoped<IAddressServices, AddressServices>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IAccountTransTypeRepository, AccountTransTypeRepository>();
+builder.Services.AddScoped<IAccountTransTypeServices, AccountTransTypeServices>();
+builder.Services.AddScoped<IAccountFiscalYearRepository, AccountFiscalYearRepository>();
+builder.Services.AddScoped<IAccountFiscalYearServices, AccountFiscalYearServices>();
 
 var app = builder.Build();
 
