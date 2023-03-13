@@ -14,6 +14,6 @@ namespace Accounts.Repository.Repository
         AccountLedger FindAccountLedger(long id);
         bool UpdateAccountLedger(VM_AccountLedger _VM_AccountLedger);
         bool DeleteAccountLedger(int id);
-        bool AddAccountLedger(int id, VM_AccountLedger _VM_AccountLedger);
+        bool AddAccountLedger(VM_AccountLedger _VM_AccountLedger);
     }
 }

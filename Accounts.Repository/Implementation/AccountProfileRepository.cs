@@ -38,8 +38,8 @@ namespace Accounts.Repository.Implementation
             ob.AcLedgerId = _VM_AccountProfile.AcLedgerId;
             ob.CurrencyId = _VM_AccountProfile.CurrencyId;
 
-            var CurrencyId = _AccuteDbContext.Currencies.Where(e => e.CurrencyId == _VM_AccountProfile.CurrencyId).FirstOrDefault();
-            var LedgerId = _AccuteDbContext.AccountLedgers.Where(e => e.AcLedgerId == _VM_AccountProfile.AcLedgerId).FirstOrDefault();
+            int? CurrencyId = _AccuteDbContext.Currencies.FirstOrDefault(e => e.CurrencyId == _VM_AccountProfile.CurrencyId)?.CurrencyId;
+            long? LedgerId = _AccuteDbContext.AccountLedgers.FirstOrDefault(e => e.AcLedgerId == _VM_AccountProfile.AcLedgerId)?.AcLedgerId;
 
             if (CurrencyId!=null && LedgerId!=null)
             {

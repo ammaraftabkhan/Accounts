@@ -10,7 +10,7 @@ namespace Accounts.Core.Models
     {
         [Key]
         public int CivilEntitiesCurrencyId { get; set; }
-        public int CivilEntityId { get; set; }
+        public long CivilEntityId { get; set; }
         public int CurrencyId { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }

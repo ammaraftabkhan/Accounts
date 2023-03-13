@@ -36,7 +36,7 @@ namespace Accounts.Repository.Implementation
             ob.PostedOn = DateTime.UtcNow;
             ob.AcProfileId = _VM_AccountContact.AcProfileId;
 
-            var ProfileId = _AccuteDbContext.AccountProfiles.Where(e => e.AcProfileId == _VM_AccountContact.AcProfileId).FirstOrDefault();
+            long? ProfileId = _AccuteDbContext.AccountProfiles.FirstOrDefault(e => e.AcProfileId == _VM_AccountContact.AcProfileId)?.AcProfileId;
 
             if (ProfileId != null)
             {

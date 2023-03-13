@@ -65,6 +65,12 @@ namespace Accounts.Core.Context
                     .HasName("PK_Contact");
 
                 entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.AcProfile)
+                    .WithMany(p => p.AccountContacts)
+                    .HasForeignKey(d => d.AcProfileId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AccountContact_AccountProfile");
             });
 
             modelBuilder.Entity<AccountControl>(entity =>
@@ -226,6 +232,11 @@ namespace Accounts.Core.Context
                     .WithMany(p => p.Addresses)
                     .HasForeignKey(d => d.AcContactId)
                     .HasConstraintName("FK_Address_AccountContact");
+
+                entity.HasOne(d => d.AcProfile)
+                    .WithMany(p => p.Addresses)
+                    .HasForeignKey(d => d.AcProfileId)
+                    .HasConstraintName("FK_Address_AccountProfile");
 
                 entity.HasOne(d => d.AddressType)
                     .WithMany(p => p.Addresses)

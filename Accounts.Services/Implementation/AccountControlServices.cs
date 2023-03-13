@@ -18,9 +18,9 @@ namespace Accounts.Services.Implementation
             this.accountControlRespository = accountControlRespository;
         }
 
-        public bool AddAccountControl(int id, VM_AccountControl _VM_AccountControl)
+        public bool AddAccountControl(VM_AccountControl _VM_AccountControl)
         {
-            return accountControlRespository.AddAccountControl(id,_VM_AccountControl);
+            return accountControlRespository.AddAccountControl(_VM_AccountControl);
         }
 
         public bool DeleteAccountControl(int id)
