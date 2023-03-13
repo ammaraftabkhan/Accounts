@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Accounts.Common.DataTable_Model
 {
-    public class datatable
+    public class FilterModel
     {
-        public int @PageSize { get; set; }
-        public int @PageNumber { get; set; }
+        public int PageSize { get; set; }
+        public int PageNumber { get; set; }
         [StringLength(50)]
-        public string @SortColumn { get; set; }
+        public string SortColumn { get; set; }
         [StringLength(4)]
-        public string @SortOrder { get; set; }
+        public string SortOrder { get; set; }
         [StringLength(50)]
-        public string @SearchTerm { get; set; }
+        public string SearchTerm { get; set; }
     }
 }
