@@ -23,12 +23,12 @@ namespace Accounts.Repository.Implementation
             return _ICivilEntitiesRepository.AddACivilEntity(_VM_CivilEntity);
         }
 
-        public bool DeleteCivilEntity(int id)
+        public bool DeleteCivilEntity(long id)
         {
             return _ICivilEntitiesRepository.DeleteCivilEntity(id);
         }
 
-        public CivilEntity FindCivilEntity(int id)
+        public CivilEntity FindCivilEntity(long id)
         {
             return _ICivilEntitiesRepository.FindCivilEntity(id);
         }

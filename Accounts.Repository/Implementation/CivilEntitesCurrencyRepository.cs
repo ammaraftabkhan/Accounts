@@ -28,9 +28,10 @@ namespace Accounts.Repository.Implementation
             
             ob.PostedOn = DateTime.UtcNow;
 
-            ob.IsDeleted = false;
-            var CurrencyId = _AccuteDbContext.Currencies.Where(e => e.CurrencyId == _VM_CivilEntitiesCurrencye.CurrencyId).FirstOrDefault();
-            var CivilEntityID = _AccuteDbContext.CivilEntities.Where(e => e.CivilEntityId == _VM_CivilEntitiesCurrencye.CivilEntityId).FirstOrDefault();
+
+            int? CurrencyId = _AccuteDbContext.Currencies.FirstOrDefault(e => e.CurrencyId == _VM_CivilEntitiesCurrencye.CurrencyId)?.CurrencyId;
+            long? CivilEntityID = _AccuteDbContext.CivilEntities.FirstOrDefault(e => e.CivilEntityId == _VM_CivilEntitiesCurrencye.CivilEntityId)?.CivilEntityId;
+
             if (CurrencyId != null && CivilEntityID != null)
             {
                 try

@@ -18,32 +18,33 @@ namespace Accounts.Repository.Implementation
             this._AccuteDbContext = _AccuteDbContext;
         }
 
-        public bool AddAccountHead(int id, VM_AccountHeads _VM_AccountHeads)
+        public bool AddAccountHead(VM_AccountHeads _VM_AccountHeads)
         {
             var getId = _AccuteDbContext.AccountHeads.Any() ? _AccuteDbContext.AccountHeads.Max(e => e.AcHeadId) + 1 : 1;
-            var AccountHeadTypeCode = _AccuteDbContext.AccountHeadTypes.Where(e => e.AcHeadTypeId == id).Select(e => e.AcHeadTypeCode).FirstOrDefault();
+            var AccountHeadTypeCode = _AccuteDbContext.AccountHeadTypes.Where(e => e.AcHeadTypeId == _VM_AccountHeads.AcHeadTypeId).Select(e => e.AcHeadTypeCode).FirstOrDefault();
             AccountHead ob = new AccountHead();
             ob.AcHeadName = _VM_AccountHeads.AcHeadName;
             ob.CreatedBy = _VM_AccountHeads.CreatedBy;
             ob.CreatedOn = DateTime.UtcNow;
             ob.PostedBy = _VM_AccountHeads.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
-            ob.AcHeadTypeId = id;
+            ob.AcHeadTypeId = _VM_AccountHeads.AcHeadTypeId;
 
-            if (id < 10)
+            int? HeadtypeID = _AccuteDbContext.AccountHeadTypes.FirstOrDefault(e => e.AcHeadTypeId == _VM_AccountHeads.AcHeadTypeId)?.AcHeadTypeId;
+            if(HeadtypeID != null)
             {
+                if (getId < 10)
+                {
 
-                ob.AcHeadCode = AccountHeadTypeCode + "0" + getId.ToString();
-            }
-            
-            else if (id < 100 && id > 9)
-            {
+                    ob.AcHeadCode = AccountHeadTypeCode + "0" + getId.ToString();
+                }
 
-                ob.AcHeadCode = AccountHeadTypeCode + getId.ToString();
-            }
-            var AcHeadtypeID = _AccuteDbContext.AccountHeadTypes.Where(e => e.AcHeadTypeId == id).FirstOrDefault();
-            if(AcHeadtypeID != null)
-            {
+                else if (getId < 100 && getId > 9)
+                {
+
+                    ob.AcHeadCode = AccountHeadTypeCode + getId.ToString();
+                }
+
                 try
                 {
                     _AccuteDbContext.AccountHeads.Add(ob);

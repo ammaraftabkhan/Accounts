@@ -18,53 +18,64 @@ namespace Accounts.Repository.Implementation
             this._AccuteDbContext = _AccuteDbContext;
         }
 
-        public bool AddAccountLedger(int id, VM_AccountLedger _VM_AccountLedger)
+        public bool AddAccountLedger(VM_AccountLedger _VM_AccountLedger)
         {
             var getId = _AccuteDbContext.AccountLedgers.Any() ? _AccuteDbContext.AccountLedgers.Max(e => e.AcLedgerId) + 1 : 1;
-            var AccountControlCode = _AccuteDbContext.AccountControls.Where(e => e.AcControlId == id).Select(e => e.AcControlCode).FirstOrDefault();
+            var AccountControlCode = _AccuteDbContext.AccountControls.Where(e => e.AcControlId == _VM_AccountLedger.AcControlId).Select(e => e.AcControlCode).FirstOrDefault();
             AccountLedger ob = new AccountLedger();
             ob.AcLedgerName = _VM_AccountLedger.AcLedgerName;
             ob.Createdby = _VM_AccountLedger.Createdby;
             ob.CreatedOn = DateTime.UtcNow;
             ob.PostedBy = _VM_AccountLedger.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
-            ob.AcControlId = Convert.ToInt64(id);
+            ob.AcControlId = _VM_AccountLedger.AcControlId;
 
-            if (id < 10)
+            long? ControlId = _AccuteDbContext.AccountControls.FirstOrDefault(e => e.AcControlId == _VM_AccountLedger.AcControlId)?.AcControlId;
+            
+            if(ControlId != null )
             {
-                id.ToString();
-                ob.AcLedgerCode = AccountControlCode + "0000" + getId.ToString();
-            }
-            else if (id < 100 && id > 9)
-            {
-                id.ToString();
-                ob.AcLedgerCode = AccountControlCode + "000" + getId.ToString();
-            }
-            else if (id < 1000 && id > 99)
-            {
-                id.ToString();
-                ob.AcLedgerCode = AccountControlCode + "00" + getId.ToString();
-            }
-            else if (id < 10000 && id > 999)
-            {
-                id.ToString();
-                ob.AcLedgerCode = AccountControlCode + "0" + getId.ToString();
-            }
-            else if (id < 100000 && id > 9999)
-            {
-                id.ToString();
-                ob.AcLedgerCode = AccountControlCode + getId.ToString();
-            }
-            try
-            {
-                _AccuteDbContext.AccountLedgers.Add(ob);
-                return _AccuteDbContext.SaveChanges() > 0;
+                if (getId < 10)
+                {
+                    //id.ToString();
+                    ob.AcLedgerCode = AccountControlCode + "0000" + getId.ToString();
+                }
+                else if (getId < 100 && getId > 9)
+                {
+                    //id.ToString();
+                    ob.AcLedgerCode = AccountControlCode + "000" + getId.ToString();
+                }
+                else if (getId < 1000 && getId > 99)
+                {
+                    //id.ToString();
+                    ob.AcLedgerCode = AccountControlCode + "00" + getId.ToString();
+                }
+                else if (getId < 10000 && getId > 999)
+                {
+                    //id.ToString();
+                    ob.AcLedgerCode = AccountControlCode + "0" + getId.ToString();
+                }
+                else if (getId < 100000 && getId > 9999)
+                {
+                    //id.ToString();
+                    ob.AcLedgerCode = AccountControlCode + getId.ToString();
+                }
 
+                try
+                {
+                    _AccuteDbContext.AccountLedgers.Add(ob);
+                    return _AccuteDbContext.SaveChanges() > 0;
+
+                }
+                catch (Exception ex)
+                {
+                    return false;
+
+                }
             }
-            catch (Exception ex)
+
+            else
             {
                 return false;
-
             }
         }
 
