@@ -44,17 +44,22 @@ namespace Accounts.Repository.Implementation
                 id.ToString();
                 ob.AcControlCode = AccountHeadCode + getId.ToString();
             }
-            try
+            var AcHeadId = _AccuteDbContext.AccountHeads.Where(e => e.AcHeadId == id).FirstOrDefault();
+            if(AcHeadId != null)
             {
-                _AccuteDbContext.AccountControls.Add(ob);
-                return _AccuteDbContext.SaveChanges() > 0;
+                try
+                {
+                    _AccuteDbContext.AccountControls.Add(ob);
+                    return _AccuteDbContext.SaveChanges() > 0;
 
-            }
-            catch (Exception ex)
-            {
-                return false;
+                }
+                catch (Exception ex)
+                {
+                    return false;
 
+                }
             }
+            return false;
         }
 
         public bool AddAccountControl(VM_AccountControl _VM_AccountControl)
