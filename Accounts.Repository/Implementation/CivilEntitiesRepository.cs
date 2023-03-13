@@ -34,17 +34,25 @@ namespace Accounts.Repository.Implementation
             int? CivilLevelId = _AccuteDbContext.CivilLevels.FirstOrDefault(e => e.CivilLevelId == _VM_CivilEntity.CivilLevelId)?.CivilLevelId;
             long? ParentId = _AccuteDbContext.CivilEntities.FirstOrDefault(e => e.CivilEntityId == _VM_CivilEntity.CivilParentId)?.CivilEntityId;
 
-
-            try
+            if(CivilLevelId!=null && ParentId!=null)
             {
-                _AccuteDbContext.CivilEntities.Add(ob);
-                return _AccuteDbContext.SaveChanges() > 0;
+                try
+                {
+                    _AccuteDbContext.CivilEntities.Add(ob);
+                    return _AccuteDbContext.SaveChanges() > 0;
 
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
             }
-            catch (Exception ex)
+            else
             {
                 return false;
             }
+
+            
         }
 
         public bool DeleteCivilEntity(long id)
@@ -112,24 +120,32 @@ namespace Accounts.Repository.Implementation
         {
             if (_VM_CivilEntity.CivilEntityId > 0)
             {
-
-                try
+                long? ParentId = _AccuteDbContext.CivilEntities.FirstOrDefault(e => e.CivilEntityId == _VM_CivilEntity.CivilParentId)?.CivilEntityId;
+                if (ParentId!= null)
                 {
-                    var data = _AccuteDbContext.CivilEntities.Find(_VM_CivilEntity.CivilEntityId);
-                    if (data != null && data.IsActive == true && data.IsDeleted == false)
+                    try
                     {
-                        data.CivilEntityName = _VM_CivilEntity.CivilEntityName;
-                        data.FlagImage = _VM_CivilEntity.FlagImage;
-                        data.CivilLevelId = _VM_CivilEntity.CivilLevelId;
-                        data.CivilParentId = _VM_CivilEntity.CivilParentId;
-                        data.UpdatedBy = _VM_CivilEntity.UpdatedBy;
-                        data.UpdatedOn = DateTime.UtcNow;
-                        _AccuteDbContext.CivilEntities.Update(data);
-                        return _AccuteDbContext.SaveChanges() > 0;
+                        var data = _AccuteDbContext.CivilEntities.Find(_VM_CivilEntity.CivilEntityId);
+                        if (data != null && data.IsActive == true && data.IsDeleted == false)
+                        {
+                            data.CivilEntityName = _VM_CivilEntity.CivilEntityName;
+                            data.FlagImage = _VM_CivilEntity.FlagImage;
+                            data.CivilLevelId = _VM_CivilEntity.CivilLevelId;
+                            data.CivilParentId = _VM_CivilEntity.CivilParentId;
+                            data.UpdatedBy = _VM_CivilEntity.UpdatedBy;
+                            data.UpdatedOn = DateTime.UtcNow;
+                            _AccuteDbContext.CivilEntities.Update(data);
+                            return _AccuteDbContext.SaveChanges() > 0;
+                        }
+                        return false;
                     }
-                    return false;
+                    catch
+                    {
+                        return false;
+                    }
                 }
-                catch
+
+                else
                 {
                     return false;
                 }
