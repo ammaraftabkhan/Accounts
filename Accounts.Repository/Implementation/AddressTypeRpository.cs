@@ -26,8 +26,6 @@ namespace Accounts.Repository.Implementation
             ob.CreatedOn = DateTime.UtcNow;
             ob.PostedBy = _VM_AddressType.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
-            
-            ob.IsDeleted = false;
 
             try
             {

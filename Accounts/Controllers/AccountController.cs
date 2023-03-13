@@ -1001,7 +1001,7 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Find_CivilEntity")]
-        public IActionResult Find_CivilEntity(int id)
+        public IActionResult Find_CivilEntity(long id)
         {
             if (id > 0)
             {
@@ -1041,7 +1041,7 @@ namespace Accounts.API.Controllers
         }
 
         [HttpDelete("Delete_CivilEntity")]
-        public IActionResult Delete_CivilEntity(int id)
+        public IActionResult Delete_CivilEntity(long id)
         {
             if (id > 0)
             {

@@ -28,7 +28,6 @@ namespace Accounts.Repository.Implementation
             ob.PostedBy = _VM_CivilEntitiesLanguage.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
 
-            ob.IsDeleted = false;
 
             int? LanguageId = _AccuteDbContext.Languages.FirstOrDefault(e => e.LanguageId == _VM_CivilEntitiesLanguage.LanguageId)?.LanguageId;
             long? CivilEntityId = _AccuteDbContext.CivilEntities.FirstOrDefault(e => e.CivilEntityId == _VM_CivilEntitiesLanguage.CivilEntityId)?.CivilEntityId;

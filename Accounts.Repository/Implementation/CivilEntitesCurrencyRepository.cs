@@ -28,7 +28,6 @@ namespace Accounts.Repository.Implementation
             
             ob.PostedOn = DateTime.UtcNow;
 
-            ob.IsDeleted = false;
 
             int? CurrencyId = _AccuteDbContext.Currencies.FirstOrDefault(e => e.CurrencyId == _VM_CivilEntitiesCurrencye.CurrencyId)?.CurrencyId;
             long? CivilEntityID = _AccuteDbContext.CivilEntities.FirstOrDefault(e => e.CivilEntityId == _VM_CivilEntitiesCurrencye.CivilEntityId)?.CivilEntityId;
