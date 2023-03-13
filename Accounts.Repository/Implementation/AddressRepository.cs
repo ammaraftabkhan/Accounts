@@ -37,12 +37,11 @@ namespace Accounts.Repository.Implementation
             ob.CreatedOn = DateTime.UtcNow;
             ob.PostedBy = _VM_Address.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
-
-            long? ContactId = _AccuteDbContext.AccountContacts.FirstOrDefault(e => e.AcContactId ==  _VM_Address.AcContactId)?.AcContactId;
-            long? ProfileId = _AccuteDbContext.AccountProfiles.FirstOrDefault(e => e.AcProfileId == _VM_Address.AcProfileId)?.AcProfileId;
-            int? AddressTypeId = _AccuteDbContext.AddressTypes.FirstOrDefault(e => e.AddressTypeId == _VM_Address.AddressTypeId)?.AddressTypeId;
-            long? CivilEntityId = _AccuteDbContext.CivilEntities.FirstOrDefault(e => e.CivilEntityId == _VM_Address.CivilEntityId)?.CivilEntityId;
-
+            ob.IsDeleted = false;
+            var ContactId = _AccuteDbContext.AccountContacts.Where(e => e.AcContactId ==  _VM_Address.AcContactId).FirstOrDefault();
+            var ProfileId = _AccuteDbContext.AccountProfiles.Where(e => e.AcProfileId == _VM_Address.AcProfileId).FirstOrDefault();
+            var AddressTypeId = _AccuteDbContext.AddressTypes.Where(e => e.AddressTypeId == _VM_Address.AddressTypeId).FirstOrDefault();
+            var CivilEntityId = _AccuteDbContext.CivilEntities.Where(e => e.CivilEntityId== _VM_Address.CivilEntityId).FirstOrDefault();
             if (ContactId != null && ProfileId != null && AddressTypeId != null && CivilEntityId != null)
             {
                 try

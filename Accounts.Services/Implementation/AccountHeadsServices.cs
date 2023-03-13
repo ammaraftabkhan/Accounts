@@ -19,9 +19,9 @@ namespace Accounts.Services.Implementation
             this.accountHeadsRepository = accountHeadsRepository;
         }
 
-        public bool AddAccountHead(VM_AccountHeads _VM_AccountHeads)
+        public bool AddAccountHead(int id, VM_AccountHeads _VM_AccountHeads)
         {
-            return accountHeadsRepository.AddAccountHead(_VM_AccountHeads);
+            return accountHeadsRepository.AddAccountHead(id, _VM_AccountHeads);
 
         }
 

@@ -31,10 +31,7 @@ namespace Accounts.Repository.Implementation
             ob.CivilParentId = _VM_CivilEntity.CivilParentId;
             ob.FlagImage = _VM_CivilEntity.FlagImage;
 
-            int? CivilLevelId = _AccuteDbContext.CivilLevels.FirstOrDefault(e => e.CivilLevelId == _VM_CivilEntity.CivilLevelId)?.CivilLevelId;
-            long? ParentId = _AccuteDbContext.CivilEntities.FirstOrDefault(e => e.CivilEntityId == _VM_CivilEntity.CivilParentId)?.CivilEntityId;
-
-
+            ob.IsDeleted = false;
             try
             {
                 _AccuteDbContext.CivilEntities.Add(ob);
@@ -47,7 +44,7 @@ namespace Accounts.Repository.Implementation
             }
         }
 
-        public bool DeleteCivilEntity(long id)
+        public bool DeleteCivilEntity(int id)
         {
             if (id > 0)
             {
@@ -74,7 +71,7 @@ namespace Accounts.Repository.Implementation
             return false;
         }
 
-        public CivilEntity FindCivilEntity(long id)
+        public CivilEntity FindCivilEntity(int id)
         {
             try
             {

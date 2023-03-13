@@ -174,12 +174,12 @@ namespace Accounts.API.Controllers
         // Account Head API Starting....
 
         [HttpPost("Add_AccountHead")]
-        public IActionResult Add_AccountHead(VM_AccountHeads vM_AccountHeads)
+        public IActionResult Add_AccountHead(int id, VM_AccountHeads vM_AccountHeads)
         {
             bool Flag = false;
             if (ModelState.IsValid)
             {
-                Flag = _accountHeadsServices.AddAccountHead(vM_AccountHeads);
+                Flag = _accountHeadsServices.AddAccountHead(id, vM_AccountHeads);
 
                 if (Flag == true)
                 {
@@ -262,12 +262,12 @@ namespace Accounts.API.Controllers
 
         // Account Control API Starting...
         [HttpPost("Add_AccountControl")]
-        public IActionResult Add_AccountControl(VM_AccountControl vM_AccountControl)
+        public IActionResult Add_AccountControl(int id, VM_AccountControl vM_AccountControl)
         {
             bool Flag = false;
             if (ModelState.IsValid)
             {
-                Flag = _IAccountControlServices.AddAccountControl(vM_AccountControl);
+                Flag = _IAccountControlServices.AddAccountControl(id, vM_AccountControl);
 
                 if (Flag == true)
                 {
@@ -351,12 +351,12 @@ namespace Accounts.API.Controllers
 
         // Account Ledger API Starting...
         [HttpPost("Add_AccountLedger")]
-        public IActionResult Add_AccountLedger(VM_AccountLedger vM_AccountLedger)
+        public IActionResult Add_AccountLedger(int id, VM_AccountLedger vM_AccountLedger)
         {
             bool Flag = false;
             if (ModelState.IsValid)
             {
-                Flag = _IAccountLedgerServices.AddAccountLedger(vM_AccountLedger);
+                Flag = _IAccountLedgerServices.AddAccountLedger(id, vM_AccountLedger);
 
                 if (Flag == true)
                 {
@@ -440,12 +440,12 @@ namespace Accounts.API.Controllers
 
         // Account Sub Ledger API Starting...
         [HttpPost("Add_AccountSubLedger")]
-        public IActionResult Add_AccountSubLedger(VM_AccountSubLedger vM_AccountSubLedger)
+        public IActionResult Add_AccountSubLedger(int id, VM_AccountSubLedger vM_AccountSubLedger)
         {
             bool Flag = false;
             if (ModelState.IsValid)
             {
-                Flag = _IAccountSubLedgerServices.AddAccountSubLedger(vM_AccountSubLedger);
+                Flag = _IAccountSubLedgerServices.AddAccountSubLedger(id, vM_AccountSubLedger);
 
                 if (Flag == true)
                 {
@@ -1001,7 +1001,7 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Find_CivilEntity")]
-        public IActionResult Find_CivilEntity(long id)
+        public IActionResult Find_CivilEntity(int id)
         {
             if (id > 0)
             {
@@ -1041,7 +1041,7 @@ namespace Accounts.API.Controllers
         }
 
         [HttpDelete("Delete_CivilEntity")]
-        public IActionResult Delete_CivilEntity(long id)
+        public IActionResult Delete_CivilEntity(int id)
         {
             if (id > 0)
             {

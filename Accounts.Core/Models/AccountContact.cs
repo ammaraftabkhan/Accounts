@@ -48,9 +48,6 @@ namespace Accounts.Core.Models
         [Required]
         public bool? IsActive { get; set; }
 
-        [ForeignKey(nameof(AcProfileId))]
-        [InverseProperty(nameof(AccountProfile.AccountContacts))]
-        public virtual AccountProfile AcProfile { get; set; } = null!;
         [InverseProperty(nameof(Address.AcContact))]
         public virtual ICollection<Address> Addresses { get; set; }
     }

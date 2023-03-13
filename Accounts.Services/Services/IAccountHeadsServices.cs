@@ -14,6 +14,6 @@ namespace Accounts.Services.Services
         AccountHead FindAccountHead(long id);
         bool UpdateAccountHead(VM_AccountHeads _VM_AccountHeads);
         bool DeleteAccountHead(int id);
-        bool AddAccountHead(VM_AccountHeads _VM_AccountHeads);
+        bool AddAccountHead(int id, VM_AccountHeads _VM_AccountHeads);
     }
 }
