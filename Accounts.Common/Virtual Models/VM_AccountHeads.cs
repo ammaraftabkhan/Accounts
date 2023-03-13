@@ -14,7 +14,7 @@ namespace Accounts.Common.Virtual_Models
 
         [StringLength(50)]
         public string AcHeadName { get; set; } = null!;
-        //public int AcHeadTypeId { get; set; }
+        public int AcHeadTypeId { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }
         public int CreatedBy { get; set; }

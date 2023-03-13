@@ -29,8 +29,10 @@ namespace Accounts.Repository.Implementation
             ob.PostedOn = DateTime.UtcNow;
 
             ob.IsDeleted = false;
-            var LanguageId = _AccuteDbContext.Languages.Where(e => e.LanguageId == _VM_CivilEntitiesLanguage.LanguageId).FirstOrDefault();
-            var CivilEntityId = _AccuteDbContext.CivilEntities.Where(e => e.CivilEntityId == _VM_CivilEntitiesLanguage.CivilEntityId).FirstOrDefault();
+
+            int? LanguageId = _AccuteDbContext.Languages.FirstOrDefault(e => e.LanguageId == _VM_CivilEntitiesLanguage.LanguageId)?.LanguageId;
+            long? CivilEntityId = _AccuteDbContext.CivilEntities.FirstOrDefault(e => e.CivilEntityId == _VM_CivilEntitiesLanguage.CivilEntityId)?.CivilEntityId;
+
             if(LanguageId != null && CivilEntityId != null)
             {
                 try

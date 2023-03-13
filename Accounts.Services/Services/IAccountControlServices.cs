@@ -14,6 +14,6 @@ namespace Accounts.Services.Services
         AccountControl FindAccountControl(long id);
         bool UpdateAccountControl(VM_AccountControl _VM_AccountControl);
         bool DeleteAccountControl(int id);
-        bool AddAccountControl(int id, VM_AccountControl _VM_AccountControl);
+        bool AddAccountControl(VM_AccountControl _VM_AccountControl);
     }
 }

@@ -18,9 +18,9 @@ namespace Accounts.Services.Implementation
             _repository = repository;
         }
 
-        public bool AddAccountSubLedger(int id, VM_AccountSubLedger _VM_AccountsubLedger)
+        public bool AddAccountSubLedger(VM_AccountSubLedger _VM_AccountsubLedger)
         {
-            return _repository.AddAccountSubLedger(id,_VM_AccountsubLedger);
+            return _repository.AddAccountSubLedger(_VM_AccountsubLedger);
         }
 
         public bool DeleteAccountLSubLedger(int id)

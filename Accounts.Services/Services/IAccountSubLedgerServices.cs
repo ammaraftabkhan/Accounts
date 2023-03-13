@@ -14,6 +14,6 @@ namespace Accounts.Services.Services
         AccountSubLedger FindAccountSubLedger(long id);
         bool UpdateAccountSubLedger(VM_AccountSubLedger _VM_AccountSubLedger);
         bool DeleteAccountLSubLedger(int id);
-        bool AddAccountSubLedger(int id, VM_AccountSubLedger _VM_AccountsubLedger);
+        bool AddAccountSubLedger(VM_AccountSubLedger _VM_AccountsubLedger);
     }
 }
