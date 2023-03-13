@@ -29,18 +29,11 @@ namespace Accounts.Repository.Implementation
             Ob.PostedBy= _VM_AccountHeadType.PostedBy;
             Ob.PostedOn= DateTime.UtcNow;
 
-
+           
             //Head Type Code Assignment
-            if (code < 10)
-            {
-                Ob.AcHeadTypeCode = "0" + code.ToString();
-            }
 
-            else
-            {
-                Ob.AcHeadTypeCode = code.ToString();
-            }
-
+            Ob.AcHeadTypeCode = code.ToString();
+           
 
             //if(headCode>9 && headCode < 100)
             //{
@@ -53,7 +46,7 @@ namespace Accounts.Repository.Implementation
 
             //    Ob.AcHeadTypeCode = headCode.ToString();
             //}
-
+            
 
 
 
@@ -148,6 +141,7 @@ namespace Accounts.Repository.Implementation
                     if (data != null && data.IsActive==true && data.IsDeleted==false)
                     {
                         data.AcHeadTypeName = _VM_AccountHeadType.AcHeadTypeName;
+                        //data.AcHeadTypeCode = _VM_AccountHeadType.AcHeadTypeCode;
                         data.UpdatedBy = _VM_AccountHeadType.UpdatedBy;
                         data.UpdatedOn = DateTime.UtcNow;
                         _AccuteDbContext.AccountHeadTypes.Update(data);

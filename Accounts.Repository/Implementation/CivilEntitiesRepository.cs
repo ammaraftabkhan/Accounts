@@ -55,7 +55,7 @@ namespace Accounts.Repository.Implementation
             
         }
 
-        public bool DeleteCivilEntity(long id)
+        public bool DeleteCivilEntity(int id)
         {
             if (id > 0)
             {
@@ -82,7 +82,7 @@ namespace Accounts.Repository.Implementation
             return false;
         }
 
-        public CivilEntity FindCivilEntity(long id)
+        public CivilEntity FindCivilEntity(int id)
         {
             try
             {

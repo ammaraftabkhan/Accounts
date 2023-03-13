@@ -17,55 +17,44 @@ namespace Accounts.Repository.Implementation
         {
             this._AccuteDbContext = _AccuteDbContext;
         }
-        public bool AddAccountSubLedger(VM_AccountSubLedger _VM_AccountsubLedger)
+        public bool AddAccountSubLedger(int id, VM_AccountSubLedger _VM_AccountsubLedger)
         {
             var getId = _AccuteDbContext.AccountSubLedgers.Any() ? _AccuteDbContext.AccountSubLedgers.Max(e => e.AcSubLedgerId) + 1 : 1;
-            var AccountLedgerCode = _AccuteDbContext.AccountLedgers.Where(e => e.AcLedgerId == _VM_AccountsubLedger.AcLedgerId).Select(e => e.AcLedgerCode).FirstOrDefault();
+            var AccountLedgerCode = _AccuteDbContext.AccountLedgers.Where(e => e.AcLedgerId == id).Select(e => e.AcLedgerCode).FirstOrDefault();
             AccountSubLedger ob = new AccountSubLedger();
             ob.AcSubLedgerName = _VM_AccountsubLedger.AcSubLedgerName;
             ob.CreatedBy = _VM_AccountsubLedger.CreatedBy;
             ob.CreatedOn = DateTime.UtcNow;
             ob.PostedBy = _VM_AccountsubLedger.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
-            ob.AcLedgerId = _VM_AccountsubLedger.AcLedgerId;
+            ob.AcLedgerId = Convert.ToInt64(id);
 
-            long? LedgerID = _AccuteDbContext.AccountLedgers.FirstOrDefault(e => e.AcLedgerId == _VM_AccountsubLedger.AcLedgerId)?.AcLedgerId;
-            if(LedgerID!=null)
+            if (id < 10)
             {
-                if (getId < 10)
-                {
-                    //id.ToString();
-                    ob.AcSubLedgerCode = AccountLedgerCode + "-00" + getId.ToString();
-                }
-                else if (getId < 100 && getId > 9)
-                {
-                    //id.ToString();
-                    ob.AcSubLedgerCode = AccountLedgerCode + "-0" + getId.ToString();
-                }
-                else if (getId < 1000 && getId > 99)
-                {
-                    //id.ToString();
-                    ob.AcSubLedgerCode = AccountLedgerCode + "-" + getId.ToString();
-                }
-
-                try
-                {
-                    _AccuteDbContext.AccountSubLedgers.Add(ob);
-                    return _AccuteDbContext.SaveChanges() > 0;
-
-                }
-                catch (Exception ex)
-                {
-                    return false;
-
-                }
+                id.ToString();
+                ob.AcSubLedgerCode = AccountLedgerCode + "-00" + getId.ToString();
             }
-            else
+            else if (id < 100 && id > 9)
+            {
+                id.ToString();
+                ob.AcSubLedgerCode = AccountLedgerCode + "-0" + getId.ToString();
+            }
+            else if (id < 1000 && id > 99)
+            {
+                id.ToString();
+                ob.AcSubLedgerCode = AccountLedgerCode + "-" + getId.ToString();
+            }
+            try
+            {
+                _AccuteDbContext.AccountSubLedgers.Add(ob);
+                return _AccuteDbContext.SaveChanges() > 0;
+
+            }
+            catch (Exception ex)
             {
                 return false;
-            }
 
-            
+            }
         }
 
         public bool DeleteAccountLSubLedger(int id)

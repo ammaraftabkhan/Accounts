@@ -17,52 +17,50 @@ namespace Accounts.Repository.Implementation
         {
             this._AccuteDbContext = _AccuteDbContext;
         }
-        public bool AddAccountControl(VM_AccountControl _VM_AccountControl)
+        public bool AddAccountControl(int id, VM_AccountControl _VM_AccountControl)
         {
             var getId = _AccuteDbContext.AccountControls.Any() ? _AccuteDbContext.AccountControls.Max(e => e.AcControlId) + 1 : 1;
-            var AccountHeadCode = _AccuteDbContext.AccountHeads.Where(e => e.AcHeadId == _VM_AccountControl.AcHeadId).Select(e => e.AcHeadCode).FirstOrDefault();
-            
+            var AccountHeadCode = _AccuteDbContext.AccountHeads.Where(e => e.AcHeadId == id).Select(e => e.AcHeadCode).FirstOrDefault();
             AccountControl ob = new AccountControl();
             ob.AcControlName = _VM_AccountControl.AcControlName;
             ob.CreatedBy = _VM_AccountControl.CreatedBy;
             ob.CreatedOn = DateTime.UtcNow;
             ob.PostedBy = _VM_AccountControl.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
-            ob.AcHeadId = _VM_AccountControl.AcHeadId;
-
-
-            long? HeadId = _AccuteDbContext.AccountHeads.FirstOrDefault(e => e.AcHeadId == _VM_AccountControl.AcHeadId)?.AcHeadId;
-
-            if (HeadId != null)
+            ob.AcHeadId =Convert.ToInt64(id);
+            
+            if (id < 10)
             {
-                if (getId < 10)
-                {
-                    ob.AcControlCode = AccountHeadCode + "00" + getId.ToString();
-                }
-                else if (getId < 100 && getId > 9)
-                {
-                    ob.AcControlCode = AccountHeadCode + "0" + getId.ToString();
-                }
-                else if (getId < 1000 && getId > 99)
-                {
-                    ob.AcControlCode = AccountHeadCode + getId.ToString();
-                }
-
-                try
-                {
-                    _AccuteDbContext.AccountControls.Add(ob);
-                    return _AccuteDbContext.SaveChanges() > 0;
-
-                }
-                catch (Exception ex)
-                {
-                    return false;
-
-                }
+                id.ToString();
+                ob.AcControlCode = AccountHeadCode + "00" + getId.ToString();
             }
-            return false;
+            else if (id < 100 && id > 9)
+            {
+                id.ToString();
+                ob.AcControlCode = AccountHeadCode + "0" + getId.ToString();
+            }
+            else if (id < 1000 && id > 99)
+            {
+                id.ToString();
+                ob.AcControlCode = AccountHeadCode + getId.ToString();
+            }
+            try
+            {
+                _AccuteDbContext.AccountControls.Add(ob);
+                return _AccuteDbContext.SaveChanges() > 0;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+
+            }
         }
 
+        public bool AddAccountControl(VM_AccountControl _VM_AccountControl)
+        {
+            throw new NotImplementedException();
+        }
 
         public bool DeleteAccountControl(int id)
         {
@@ -138,6 +136,7 @@ namespace Accounts.Repository.Implementation
                     if (data != null && data.IsActive == true && data.IsDeleted == false)
                     {
                         data.AcControlName = _VM_AccountControl.AcControlName;
+                        //data.AcHeadTypeCode = _VM_AccountHeadType.AcHeadTypeCode;
                         data.UpdatedBy = _VM_AccountControl.UpdatedBy;
                         data.UpdatedOn = DateTime.UtcNow;
                         _AccuteDbContext.AccountControls.Update(data);

@@ -19,7 +19,7 @@ namespace Accounts.Core.Models
         [StringLength(50)]
         public string? Lat { get; set; }
         public string? Tag { get; set; }
-        public long CivilEntityId { get; set; }
+        public int CivilEntityId { get; set; }
         [StringLength(250)]
         public string? Line5 { get; set; }
         [StringLength(250)]
@@ -47,9 +47,6 @@ namespace Accounts.Core.Models
         [ForeignKey(nameof(AcContactId))]
         [InverseProperty(nameof(AccountContact.Addresses))]
         public virtual AccountContact? AcContact { get; set; }
-        [ForeignKey(nameof(AcProfileId))]
-        [InverseProperty(nameof(AccountProfile.Addresses))]
-        public virtual AccountProfile? AcProfile { get; set; }
         [ForeignKey(nameof(AddressTypeId))]
         [InverseProperty("Addresses")]
         public virtual AddressType AddressType { get; set; } = null!;

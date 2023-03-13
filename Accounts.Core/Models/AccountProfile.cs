@@ -9,12 +9,6 @@ namespace Accounts.Core.Models
     [Table("AccountProfile")]
     public partial class AccountProfile
     {
-        public AccountProfile()
-        {
-            AccountContacts = new HashSet<AccountContact>();
-            Addresses = new HashSet<Address>();
-        }
-
         [Key]
         public long AcProfileId { get; set; }
         public long AcLedgerId { get; set; }
@@ -54,9 +48,5 @@ namespace Accounts.Core.Models
         [ForeignKey(nameof(CurrencyId))]
         [InverseProperty("AccountProfiles")]
         public virtual Currency Currency { get; set; } = null!;
-        [InverseProperty(nameof(AccountContact.AcProfile))]
-        public virtual ICollection<AccountContact> AccountContacts { get; set; }
-        [InverseProperty(nameof(Address.AcProfile))]
-        public virtual ICollection<Address> Addresses { get; set; }
     }
 }
