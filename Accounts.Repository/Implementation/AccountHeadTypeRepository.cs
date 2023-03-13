@@ -28,7 +28,28 @@ namespace Accounts.Repository.Implementation
             Ob.CreatedOn = DateTime.UtcNow;
             Ob.PostedBy= _VM_AccountHeadType.PostedBy;
             Ob.PostedOn= DateTime.UtcNow;
+
+           
+            //Head Type Code Assignment
+
             Ob.AcHeadTypeCode = code.ToString();
+           
+
+            //if(headCode>9 && headCode < 100)
+            //{
+
+            //    Ob.AcHeadTypeCode = "0" + headCode.ToString();
+            //}
+
+            //if (headCode == 99)
+            //{
+
+            //    Ob.AcHeadTypeCode = headCode.ToString();
+            //}
+            
+
+
+
             try
             {
                 _AccuteDbContext.AccountHeadTypes.Add(Ob);
