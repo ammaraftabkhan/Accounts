@@ -242,7 +242,7 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Find_AccountTransMaster")]
-        public IActionResult Find_AccountTransMaster(int id)
+        public IActionResult Find_AccountTransMaster(long id)
         {
             if (id > 0)
             {

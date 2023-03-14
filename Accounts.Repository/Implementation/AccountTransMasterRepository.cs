@@ -70,7 +70,7 @@ namespace Accounts.Repository.Implementation
             return false;
         }
 
-        public AccountTransMaster FindAccountTransMaster(int id)
+        public AccountTransMaster FindAccountTransMaster(long id)
         {
             try
             {

@@ -28,7 +28,7 @@ namespace Accounts.Services.Implementation
             return _repository.DeleteAccountTransMaster(id);
         }
 
-        public AccountTransMaster FindAccountTransMaster(int id)
+        public AccountTransMaster FindAccountTransMaster(long id)
         {
             return _repository.FindAccountTransMaster(id);
         }

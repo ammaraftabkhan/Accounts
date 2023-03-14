@@ -11,7 +11,7 @@ namespace Accounts.Services.Services
     public interface IAccountTransMasterServices
     {
         List<AccountTransMaster> GetAllAccountTransMaster();
-        AccountTransMaster FindAccountTransMaster(int id);
+        AccountTransMaster FindAccountTransMaster(long id);
         bool UpdateAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster);
         bool DeleteAccountTransMaster(int id);
         bool AddAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster);
