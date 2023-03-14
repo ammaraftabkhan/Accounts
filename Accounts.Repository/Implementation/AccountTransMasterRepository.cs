@@ -94,13 +94,13 @@ namespace Accounts.Repository.Implementation
         {
             try
             {
-                var list = _AccuteDbContext.AccountTransTypes.Where(e => e.IsDeleted == false).ToList();
+                var list = _AccuteDbContext.AccountTransMasters.Where(e => e.IsDeleted == false).ToList();
 
                 return list;
             }
             catch
             {
-                return new List<AccountTransType>();
+                return new List<AccountTransMaster>();
             }
         }
 
