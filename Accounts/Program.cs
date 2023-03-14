@@ -65,7 +65,8 @@ builder.Services.AddScoped<IAccountTransTypeRepository, AccountTransTypeReposito
 builder.Services.AddScoped<IAccountTransTypeServices, AccountTransTypeServices>();
 builder.Services.AddScoped<IAccountFiscalYearRepository, AccountFiscalYearRepository>();
 builder.Services.AddScoped<IAccountFiscalYearServices, AccountFiscalYearServices>();
-
+builder.Services.AddScoped<IAccountTransMasterServices, AccountTransMasterServices>();
+builder.Services.AddScoped<IAccountTransMasterRepository, AccountTransMasterRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

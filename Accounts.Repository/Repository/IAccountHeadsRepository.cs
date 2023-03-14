@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface IAccountHeadsRepository
     {
-        List<AccountHead> GetAccountHead();
+        List<AccountHead> GetAccountHead(FilterModel filter);
         AccountHead FindAccountHead(long id);
         bool UpdateAccountHead(VM_AccountHeads _VM_AccountHeads);
         bool DeleteAccountHead(int id);

@@ -13,16 +13,19 @@ namespace Accounts.API.Controllers
 
         private readonly IAccountTransTypeServices _IAccountTransTypeServices;
         private readonly IAccountFiscalYearServices _IAccountFiscalYearServices;
+        private readonly IAccountTransMasterServices _IAccountTransMasterServices;
         
         public TransactionController(
 
             IAccountTransTypeServices iaccountTransTypeServices,
-            IAccountFiscalYearServices iAccountFiscalYearServices
+            IAccountFiscalYearServices iAccountFiscalYearServices,
+            IAccountTransMasterServices iAccountTransMasterServices
             )
         {
 
             _IAccountTransTypeServices = iaccountTransTypeServices;
             _IAccountFiscalYearServices = iAccountFiscalYearServices;
+            _IAccountTransMasterServices = iAccountTransMasterServices;
         }
 
 
@@ -196,6 +199,95 @@ namespace Accounts.API.Controllers
                 bool flag = false;
                 flag = _IAccountFiscalYearServices.DeleteFiscalYear(id)
 ;
+                if (flag == true)
+                {
+                    return Ok(new { msg = "Successfully Deleted...!" });
+                }
+                return NotFound(new { msg = "Sorry, Required data not found in Database" });
+            }
+            return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
+        }
+
+
+        //Accont Tans Type API Starting...
+        [HttpPost("Add_AccountTransMaster")]
+        public IActionResult Add_AccountTransMaster(VM_AccountTransMaster vM_AccountTransMaster)
+        {
+            bool Flag = false;
+            if (ModelState.IsValid)
+            {
+                Flag = _IAccountTransMasterServices.AddAccountTransMaster(vM_AccountTransMaster);
+
+                if (Flag == true)
+                {
+                    return Ok(new { msg = "Data Saved...!" });
+                }
+                return BadRequest(new { msg = "Incomplete Data cannot be saved." });
+
+            }
+            return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
+        }
+
+        [HttpGet("Get_All_AccountTransMaster")]
+        public IActionResult Get_AllAccountTransMaster()
+        {
+
+            var get = _IAccountTransMasterServices.GetAllAccountTransMaster();
+
+            if (get != null)
+            {
+                return Ok(new { list = get });
+            }
+            return NoContent();
+        }
+
+        [HttpGet("Find_AccountTransMaster")]
+        public IActionResult Find_AccountTransMaster(int id)
+        {
+            if (id > 0)
+            {
+
+                var data = _IAccountTransMasterServices.FindAccountTransMaster(id);
+                if (data.AcTransTypeId != 0 && data != null && data.IsDeleted == false)
+                {
+                    return Ok(new { data = data });
+                }
+                return BadRequest(new { msg = "Your ID is not Found" });
+            }
+
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
+        }
+
+        [HttpPost("Update_AccountTransMaster")]
+        public IActionResult Update_AccountTrnasMaster(VM_AccountTransMaster vM_AccountTransMaster)
+        {
+            bool flag = false;
+            if (ModelState.IsValid)
+            {
+                if (vM_AccountTransMaster.AcTransMasterId > 0)
+                {
+
+                    flag = _IAccountTransMasterServices.AddAccountTransMaster(vM_AccountTransMaster);
+                    if (flag == true)
+                    {
+                        return Ok(new { msg = "Your data has been updated...!!!" });
+                    }
+
+                }
+                return BadRequest(new { msg = "Your given ID not found in database." });
+            }
+
+            return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
+
+        }
+
+        [HttpDelete("Delete_AccountTransMaster")]
+        public IActionResult Delete_AccountTransMaster(int id)
+        {
+            if (id > 0)
+            {
+                bool flag = false;
+                flag = _IAccountTransMasterServices.DeleteAccountTransMaster(id);
                 if (flag == true)
                 {
                     return Ok(new { msg = "Successfully Deleted...!" });

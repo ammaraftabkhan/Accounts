@@ -1,4 +1,5 @@
 ﻿using Accounts.Common;
+using Accounts.Common.DataTable_Model;
 using Accounts.Common.Virtual_Models;
 using Accounts.Core.Context;
 using Accounts.Core.Models;
@@ -175,11 +176,11 @@ namespace Accounts.API.Controllers
             }
             return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
         }
-        [HttpGet("Get_All_AccountHead")]
-        public IActionResult Get_All_AccountHead()
+        [HttpPost("Get_All_AccountHead")]
+        public IActionResult Get_All_AccountHead([FromBody]FilterModel filter)
         {
 
-            var get = _accountHeadsServices.GetAccountHead();
+            var get = _accountHeadsServices.GetAccountHead(filter);
 
             if (get != null)
             {

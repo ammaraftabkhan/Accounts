@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Implementation;
 using Accounts.Repository.Repository;
@@ -39,9 +40,9 @@ namespace Accounts.Services.Implementation
 
        
 
-        public List<AccountHead> GetAccountHead()
+        public List<AccountHead> GetAccountHead(FilterModel filter)
         {
-            return accountHeadsRepository.GetAccountHead();
+            return accountHeadsRepository.GetAccountHead(filter);
         }
 
         public bool UpdateAccountHead(VM_AccountHeads _VM_AccountHeads)
