@@ -14,18 +14,21 @@ namespace Accounts.API.Controllers
         private readonly IAccountTransTypeServices _IAccountTransTypeServices;
         private readonly IAccountFiscalYearServices _IAccountFiscalYearServices;
         private readonly IAccountTransMasterServices _IAccountTransMasterServices;
+        private readonly IAccountTransDetailServices _IAccountTransDetailServices;
         
         public TransactionController(
 
             IAccountTransTypeServices iaccountTransTypeServices,
             IAccountFiscalYearServices iAccountFiscalYearServices,
-            IAccountTransMasterServices iAccountTransMasterServices
+            IAccountTransMasterServices iAccountTransMasterServices,
+            IAccountTransDetailServices iAccountTransDetailServices
             )
         {
 
             _IAccountTransTypeServices = iaccountTransTypeServices;
             _IAccountFiscalYearServices = iAccountFiscalYearServices;
             _IAccountTransMasterServices = iAccountTransMasterServices;
+            _IAccountTransDetailServices = iAccountTransDetailServices;
         }
 
 
@@ -248,7 +251,7 @@ namespace Accounts.API.Controllers
             {
 
                 var data = _IAccountTransMasterServices.FindAccountTransMaster(id);
-                if (data.AcTransTypeId != 0 && data != null && data.IsDeleted == false)
+                if (data.AcTransMasterId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
                 }
@@ -288,6 +291,94 @@ namespace Accounts.API.Controllers
             {
                 bool flag = false;
                 flag = _IAccountTransMasterServices.DeleteAccountTransMaster(id);
+                if (flag == true)
+                {
+                    return Ok(new { msg = "Successfully Deleted...!" });
+                }
+                return NotFound(new { msg = "Sorry, Required data not found in Database" });
+            }
+            return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
+        }
+
+        //Accont Tans Type API Starting...
+        [HttpPost("Add_AccountTransDetails")]
+        public IActionResult Add_AccountTransDetails(VM_AccountTransDetail vM_AccountTransDetail)
+        {
+            bool Flag = false;
+            if (ModelState.IsValid)
+            {
+                Flag = _IAccountTransDetailServices.AddAccountTransDetail(vM_AccountTransDetail);
+
+                if (Flag == true)
+                {
+                    return Ok(new { msg = "Data Saved...!" });
+                }
+                return BadRequest(new { msg = "Incomplete Data cannot be saved." });
+
+            }
+            return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
+        }
+
+        [HttpGet("Get_All_AccountTransDetail")]
+        public IActionResult Get_AllAccountTransDetail()
+        {
+
+            var get = _IAccountTransDetailServices.GetAllAccountTransDetail();
+
+            if (get != null)
+            {
+                return Ok(new { list = get });
+            }
+            return NoContent();
+        }
+
+        [HttpGet("Find_AccountTransDetail")]
+        public IActionResult Find_AccountTransDetail(long id)
+        {
+            if (id > 0)
+            {
+
+                var data = _IAccountTransDetailServices.FindAccountTransDetial(id);
+                if (data.AcTransDetailId != 0 && data != null && data.IsDeleted == false)
+                {
+                    return Ok(new { data = data });
+                }
+                return BadRequest(new { msg = "Your ID is not Found" });
+            }
+
+            return NotFound(new { msg = "Kindly Give ID > Zero" });
+        }
+
+        [HttpPost("Update_AccountTransDetail")]
+        public IActionResult Update_AccountTrnasDetail(VM_AccountTransDetail vM_AccountTransDetail)
+        {
+            bool flag = false;
+            if (ModelState.IsValid)
+            {
+                if (vM_AccountTransDetail.AcTransMasterId > 0)
+                {
+
+                    flag = _IAccountTransDetailServices.AddAccountTransDetail(vM_AccountTransDetail);
+                    if (flag == true)
+                    {
+                        return Ok(new { msg = "Your data has been updated...!!!" });
+                    }
+
+                }
+                return BadRequest(new { msg = "Your given ID not found in database." });
+            }
+
+            return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
+
+        }
+
+        [HttpDelete("Delete_AccountTransDetail")]
+        public IActionResult Delete_AccountTransDetail(int id)
+        {
+            if (id > 0)
+            {
+                bool flag = false;
+                flag = _IAccountTransDetailServices.DeleteAccountTransDetail(id);
                 if (flag == true)
                 {
                     return Ok(new { msg = "Successfully Deleted...!" });

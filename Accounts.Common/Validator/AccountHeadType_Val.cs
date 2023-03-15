@@ -1,5 +1,7 @@
-﻿using Accounts.Core.Models;
+﻿using Accounts.Common.Virtual_Models;
+using Accounts.Core.Models;
 using FluentValidation;
+using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Accounts.Common.Validator
 {
-    public class AccountHeadType_Val : AbstractValidator<VM_AccountHeadType>
+    public class AccountHeadType_Val : AbstractValidator<T>
     {
         public AccountHeadType_Val() 
         {
