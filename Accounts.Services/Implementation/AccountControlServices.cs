@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using Accounts.Services.Services;
@@ -33,9 +34,9 @@ namespace Accounts.Services.Implementation
             return accountControlRespository.FindAccountControl(id);
         }
 
-        public List<AccountControl> GetAllAccountControl()
+        public List<AccountControl> GetAllAccountControl(FilterModel filter)
         {
-            return accountControlRespository.GetAllAccountControl();
+            return accountControlRespository.GetAllAccountControl(filter);
         }
 
         public bool UpdateAccountControl(VM_AccountControl _VM_AccountControl)

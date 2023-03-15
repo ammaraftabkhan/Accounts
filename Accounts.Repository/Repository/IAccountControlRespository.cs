@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface IAccountControlRespository
     {
-        List<AccountControl> GetAllAccountControl();
+        List<AccountControl> GetAllAccountControl(FilterModel filter);
         AccountControl FindAccountControl(long id);
         bool UpdateAccountControl(VM_AccountControl _VM_AccountControl);
         bool DeleteAccountControl(int id);

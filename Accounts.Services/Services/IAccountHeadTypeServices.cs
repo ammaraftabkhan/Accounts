@@ -1,4 +1,5 @@
-﻿using Accounts.Core.Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Accounts.Services.Services
 {
     public interface IAccountHeadTypeServices
     {
-        List<AccountHeadType> GetAccountHeadType();
+        List<AccountHeadType> GetAccountHeadType(FilterModel filter);
         AccountHeadType Find(int id);
         bool Update(VM_AccountHeadType _VM_AccountHeadType);
         bool Delete(int id);

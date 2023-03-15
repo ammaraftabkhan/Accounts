@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using Accounts.Services.Services;
@@ -33,9 +34,9 @@ namespace Accounts.Services.Implementation
             return _accountLedgerRepository.FindAccountLedger(id);
         }
 
-        public List<AccountLedger> GetAllAccountLedger()
+        public List<AccountLedger> GetAllAccountLedger(FilterModel filter)
         {
-            return _accountLedgerRepository.GetAllAccountLedger();
+            return _accountLedgerRepository.GetAllAccountLedger(filter);
         }
 
         public bool UpdateAccountLegder(VM_AccountLedger _VM_AccountLedger)

@@ -64,11 +64,11 @@ namespace Accounts.API.Controllers
 
         }
 
-        [HttpGet("Get_All_AccountHeadtype")]
-        public IActionResult Get_All_AccountHeadtype()
+        [HttpPost("Get_All_AccountHeadtype")]
+        public IActionResult Get_All_AccountHeadtype([FromBody] FilterModel filter)
         {
 
-            var get = _IAccountHeadTypeServices.GetAccountHeadType();
+            var get = _IAccountHeadTypeServices.GetAccountHeadType(filter);
 
             if (get != null)
             {
@@ -250,11 +250,11 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_AccountControl")]
-        public IActionResult Get_All_AccountControl()
+        [HttpPost("Get_All_AccountControl")]
+        public IActionResult Get_All_AccountControl([FromBody]FilterModel filter)
         {
 
-            var get = _IAccountControlServices.GetAllAccountControl();
+            var get = _IAccountControlServices.GetAllAccountControl(filter);
 
             if (get != null)
             {
@@ -339,11 +339,11 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_AccountLedger")]
-        public IActionResult Get_All_AccountLedger()
+        [HttpPost("Get_All_AccountLedger")]
+        public IActionResult Get_All_AccountLedger(FilterModel filter)
         {
 
-            var get = _IAccountLedgerServices.GetAllAccountLedger();
+            var get = _IAccountLedgerServices.GetAllAccountLedger(filter);
 
             if (get != null)
             {
@@ -428,11 +428,11 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_AccountSubLedger")]
-        public IActionResult Get_All_AccountSubLedger()
+        [HttpPost("Get_All_AccountSubLedger")]
+        public IActionResult Get_All_AccountSubLedger(FilterModel filter)
         {
 
-            var get = _IAccountSubLedgerServices.GetAllAccountSubLedger();
+            var get = _IAccountSubLedgerServices.GetAllAccountSubLedger(filter);
 
             if (get != null)
             {

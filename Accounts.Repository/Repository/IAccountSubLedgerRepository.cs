@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface IAccountSubLedgerRepository
     {
-        List<AccountSubLedger> GetAllAccountSubLedger();
+        List<AccountSubLedger> GetAllAccountSubLedger(FilterModel filter);
         AccountSubLedger FindAccountSubLedger(long id);
         bool UpdateAccountSubLedger(VM_AccountSubLedger _VM_AccountSubLedger);
         bool DeleteAccountLSubLedger(int id);

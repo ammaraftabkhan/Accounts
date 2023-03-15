@@ -1,9 +1,14 @@
-﻿using Accounts.Core.Context;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Core.Context;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
+using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -14,9 +19,11 @@ namespace Accounts.Repository.Implementation
     public class AccountHeadTypeRepository : IAccountHeadTypeRepository
     {
         private readonly AccuteDbContext _AccuteDbContext;
-        public AccountHeadTypeRepository(AccuteDbContext _AccuteDbContext)
+        private readonly IConfiguration configuration;
+        public AccountHeadTypeRepository(AccuteDbContext _AccuteDbContext, IConfiguration configuration)
         {
             this._AccuteDbContext = _AccuteDbContext;
+            this.configuration = configuration; 
         }
 
         public bool Add(VM_AccountHeadType _VM_AccountHeadType)
@@ -122,13 +129,27 @@ namespace Accounts.Repository.Implementation
            
         }
             
-        public List <AccountHeadType> GetAccountHeadType()
+        public List <AccountHeadType> GetAccountHeadType(FilterModel filter)
         {
             try
             {
-                var list = _AccuteDbContext.AccountHeadTypes.Where(e=>e.IsDeleted==false).ToList();
+                //var list = _AccuteDbContext.AccountHeadTypes.Where(e=>e.IsDeleted==false).ToList();
+                //return list;
+
+                IDbConnection db = new SqlConnection(configuration.GetConnectionString("Accountsdb"));
+                DynamicParameters dynamicParameters = new DynamicParameters();
                 
-                return list;
+                dynamicParameters.Add("@PageSize", filter.PageSize);
+                dynamicParameters.Add("@PageNumber", filter.PageNumber);
+                dynamicParameters.Add("@SortColumn", filter.SortColumn);
+                dynamicParameters.Add("@SortOrder", filter.SortOrder);
+                dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
+
+                db.Open();
+                var data = db.Query<AccountHeadType>("GetAccountHeadType", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                db.Close();
+
+                return data;
             }
             catch (Exception ex)
             { 

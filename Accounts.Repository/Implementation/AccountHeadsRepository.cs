@@ -123,11 +123,14 @@ namespace Accounts.Repository.Implementation
         {
             try
             {
-                IDbConnection db = new SqlConnection(configuration.GetConnectionString("Accountsdb"));
-                DynamicParameters dynamicParameters = new DynamicParameters();
+
                 //var list = _AccuteDbContext.AccountHeads.Where(e => e.IsDeleted == false).ToList();
 
                 //return list;
+
+                IDbConnection db = new SqlConnection(configuration.GetConnectionString("Accountsdb"));
+                DynamicParameters dynamicParameters = new DynamicParameters();
+               
                 dynamicParameters.Add("@PageSize", filter.PageSize);
                 dynamicParameters.Add("@PageNumber", filter.PageNumber);
                 dynamicParameters.Add("@SortColumn", filter.SortColumn);
@@ -135,7 +138,7 @@ namespace Accounts.Repository.Implementation
                 dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
                
                 db.Open();
-                   var data= db.Query<AccountHead>("GetAccountHeads_RS", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                   var data= db.Query<AccountHead>("GetAccountHead", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
                 db.Close();
 
                 return  data;

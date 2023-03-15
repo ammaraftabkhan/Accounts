@@ -1,4 +1,5 @@
-﻿using Accounts.Core.Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using Accounts.Services.Services;
 using System;
@@ -33,9 +34,9 @@ namespace Accounts.Services.Implementation
             return accountHeadTypeRepository.Find(id);
         }
 
-        public List<AccountHeadType> GetAccountHeadType()
+        public List<AccountHeadType> GetAccountHeadType(FilterModel filter)
         {
-            return accountHeadTypeRepository.GetAccountHeadType();
+            return accountHeadTypeRepository.GetAccountHeadType(filter);
         }
 
         public bool Update(VM_AccountHeadType _VM_AccountHeadType)
