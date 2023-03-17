@@ -23,7 +23,7 @@ namespace Accounts.Repository.Implementation
             AccountTransMaster accountTransMaster = new AccountTransMaster();
             accountTransMaster.AcTransTypeId = _VM_AccountTransMaster.AcTransTypeId;
             accountTransMaster.AcDocNum = _VM_AccountTransMaster.AcDocNum;
-            accountTransMaster.AcTransDate = DateTime.UtcNow;
+            accountTransMaster.AcTransDate = _VM_AccountTransMaster.AcTransDate;
             accountTransMaster.Remarks = _VM_AccountTransMaster.Remarks;
             accountTransMaster.FiscalYearId = _VM_AccountTransMaster.FiscalYearId;
             accountTransMaster.CreatedBy = _VM_AccountTransMaster.CreatedBy;
@@ -117,7 +117,7 @@ namespace Accounts.Repository.Implementation
 
                         data.AcTransTypeId = _VM_AccountTransMaster.AcTransTypeId;
                         data.AcDocNum = _VM_AccountTransMaster.AcDocNum;
-                        data.AcTransDate = DateTime.UtcNow;
+                        data.AcTransDate = _VM_AccountTransMaster.AcTransDate;
                         data.Remarks = _VM_AccountTransMaster.Remarks;
                         data.FiscalYearId = _VM_AccountTransMaster.FiscalYearId;
                         data.UpdatedBy = _VM_AccountTransMaster.UpdatedBy;

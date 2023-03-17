@@ -125,6 +125,8 @@ namespace Accounts.API.Controllers
             }
             return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
         }
+        
+        
         // Account Contact API Starting...
         [HttpPost("Add_Currency")]
         public IActionResult AddCurrency(VM_Currency vM_Currency)
@@ -212,6 +214,7 @@ namespace Accounts.API.Controllers
             }
             return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
         }
+
 
 
         //Civil Entity API Starting...
@@ -392,6 +395,7 @@ namespace Accounts.API.Controllers
         }
 
 
+
         //Civil Entity Language API Starting...
         [HttpPost("Add_CivilEntityLanguage")]
         public IActionResult Add_CivilEntityLanguage(VM_CivilEntitiesLanguage vM_CivilEntityLanguage)
@@ -479,6 +483,8 @@ namespace Accounts.API.Controllers
             }
             return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
         }
+
+
 
         //Civil Entity API Starting...
         [HttpPost("Add_CivilEntityCurrency")]

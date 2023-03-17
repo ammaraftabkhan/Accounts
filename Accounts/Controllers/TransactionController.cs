@@ -121,6 +121,7 @@ namespace Accounts.API.Controllers
         }
 
 
+
         //FiscalYear API Starting...
         [HttpPost("Add_FiscalYear")]
         public IActionResult Add_FiscalYear(VM_AccountFiscalYear vM_AccountFiscalYear)
@@ -212,7 +213,7 @@ namespace Accounts.API.Controllers
         }
 
 
-        //Accont Tans Type API Starting...
+        //Accont Tans Master Starting...
         [HttpPost("Add_AccountTransMaster")]
         public IActionResult Add_AccountTransMaster(VM_AccountTransMaster vM_AccountTransMaster)
         {
@@ -299,6 +300,7 @@ namespace Accounts.API.Controllers
             }
             return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
         }
+
 
         //Accont Tans Type API Starting...
         [HttpPost("Add_AccountTransDetails")]

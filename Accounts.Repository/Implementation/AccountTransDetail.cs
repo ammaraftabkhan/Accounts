@@ -31,6 +31,7 @@ namespace Accounts.Repository.Implementation
             ob.ReceiverRemarks = _VM_AccountTransDetail.ReceiverRemarks;
             ob.ChqNum = _VM_AccountTransDetail.ChqNum;
             ob.ChqDate = _VM_AccountTransDetail.ChqDate;
+            ob.Amount = _VM_AccountTransDetail.Amount;
             ob.CreatedBy = _VM_AccountTransDetail.CreatedBy;
             ob.CreatedOn = DateTime.UtcNow;
             ob.PostedBy = _VM_AccountTransDetail.PostedBy;
@@ -120,7 +121,6 @@ namespace Accounts.Repository.Implementation
                     if (data != null && data.IsActive == true && data.IsDeleted == false)
                     {
 
-                        data.AcTransMasterId = _VM_AccountTransDetail.AcTransMasterId;
                         data.PayeeAcContactId = _VM_AccountTransDetail.PayeeAcContactId;
                         data.PayeeAcLedgerId = _VM_AccountTransDetail.PayeeAcLedgerId;
                         data.PayeeAcSubLedgerId = _VM_AccountTransDetail.PayeeAcSubLedgerId;
@@ -129,6 +129,9 @@ namespace Accounts.Repository.Implementation
                         data.ReceiverAcLedgerId = _VM_AccountTransDetail.ReceiverAcLedgerId;
                         data.ReceiverAcSubLedgerId = _VM_AccountTransDetail.ReceiverAcSubLedgerId;
                         data.ReceiverRemarks = _VM_AccountTransDetail.ReceiverRemarks;
+                        data.ChqNum = _VM_AccountTransDetail.ChqNum;
+                        data.ChqDate = _VM_AccountTransDetail.ChqDate;
+                        data.Amount = _VM_AccountTransDetail.Amount;
                         data.UpdatedOn = DateTime.UtcNow;
                         data.UpdatedBy = _VM_AccountTransDetail.UpdatedBy;
                         _AccuteDbContext.AccountTransDetails.Update(data);
