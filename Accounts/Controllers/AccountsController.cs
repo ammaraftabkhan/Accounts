@@ -16,14 +16,14 @@ namespace Accounts.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountsController : ControllerBase
     {
         private readonly IAccountHeadsServices _accountHeadsServices;
         private readonly IAccountHeadTypeServices _IAccountHeadTypeServices;
         private readonly IAccountControlServices _IAccountControlServices;
         private readonly IAccountLedgerServices _IAccountLedgerServices;
         private readonly IAccountSubLedgerServices _IAccountSubLedgerServices;
-        public AccountController(
+        public AccountsController(
             IAccountHeadTypeServices _IAccountHeadTypeServices,
             IAccountHeadsServices _AccountHeadServices, 
             IAccountControlServices accountControlServices, 

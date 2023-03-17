@@ -18,10 +18,14 @@ namespace Accounts.Common.Virtual_Models
         public long AcProfileId { get; set; }
         [StringLength(50)]
         public string Position { get; set; } = null!;
-        public int? Tel1 { get; set; }
-        public int? Tel2 { get; set; }
-        public int? Cell1 { get; set; }
-        public int? Cell2 { get; set; }
+        [StringLength(50)]
+        public string? Tel1 { get; set; }
+        [StringLength(50)]
+        public string? Tel2 { get; set; }
+        [StringLength(50)]
+        public string? Cell1 { get; set; }
+        [StringLength(50)]
+        public string? Cell2 { get; set; }
         [StringLength(50)]
         public string? Email { get; set; }
         [Column("NTN")]
