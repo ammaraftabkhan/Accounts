@@ -25,6 +25,8 @@ builder.Services.AddControllers().AddFluentValidation(
     x.RegisterValidatorsFromAssemblyContaining<AccountHead_Val>();
     x.RegisterValidatorsFromAssemblyContaining<AccountControl_Val>();
     x.RegisterValidatorsFromAssemblyContaining<AccountLedger_Val>();
+    //x.RegisterValidatorsFromAssemblyContain<AccountSubLedger_Val>();
+    x.RegisterValidatorsFromAssemblyContaining<Profile_Val>();
 }
 );
 //builder.Services.AddTransient<IValidator<VM_AccountHeadType,VM_AccountHeads>, AccountHeadType_Val,AccountHead_Val>();
