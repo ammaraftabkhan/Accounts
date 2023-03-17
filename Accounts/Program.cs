@@ -1,4 +1,5 @@
 using Accounts.Common.Validator;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Context;
 using Accounts.Core.Models;
 using Accounts.Repository.Implementation;
@@ -16,12 +17,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-//builder.Services.AddControllers().AddFluentValidation(x =>
-//{
-//    x.ImplicitlyValidateChildProperties = true;
-//    x.RegisterValidatorsFromAssemblyContaining<VM_AccountHeadType>();
-//});
-//builder.Services.AddTransient<IValidator<VM_AccountHeadType>, AccountHeadType_Val>();
+builder.Services.AddControllers().AddFluentValidation(
+    x =>
+{
+    x.ImplicitlyValidateChildProperties = true;
+    x.RegisterValidatorsFromAssemblyContaining<AccountHeadType_Val>();
+    x.RegisterValidatorsFromAssemblyContaining<AccountHead_Val>();
+    x.RegisterValidatorsFromAssemblyContaining<AccountControl_Val>();
+    x.RegisterValidatorsFromAssemblyContaining<AccountLedger_Val>();
+}
+);
+//builder.Services.AddTransient<IValidator<VM_AccountHeadType,VM_AccountHeads>, AccountHeadType_Val,AccountHead_Val>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

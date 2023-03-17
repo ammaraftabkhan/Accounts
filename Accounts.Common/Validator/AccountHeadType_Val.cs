@@ -11,12 +11,42 @@ using System.Threading.Tasks;
 
 namespace Accounts.Common.Validator
 {
-    public class AccountHeadType_Val : AbstractValidator<T>
+    public class AccountHeadType_Val : AbstractValidator<VM_AccountHeadType>
     {
         public AccountHeadType_Val() 
         {
 
-            //RuleFor(x => x.AcHeadTypeCode).EmailAddress().When(x => !string.IsNullOrEmpty(x.AcHeadTypeCode)).NotEmpty();
+            RuleFor(x => x.AcHeadTypeName).NotEmpty();
+
+
+
+        }
+    }
+    public class AccountHead_Val : AbstractValidator<VM_AccountHeads>
+    {
+        public AccountHead_Val()
+        {
+            RuleFor(x => x.AcHeadName).NotEmpty();
+            RuleFor(x => x.AcHeadTypeId).NotEmpty();
+
+        }
+    }
+    public class AccountControl_Val : AbstractValidator<VM_AccountControl>
+    {
+        public AccountControl_Val()
+        {
+            RuleFor(x => x.AcControlName).NotEmpty();
+            RuleFor(x => x.AcHeadId).NotEmpty();
+
+        }
+    }
+    public class AccountLedger_Val : AbstractValidator<VM_AccountLedger>
+    {
+        public AccountLedger_Val()
+        {
+            RuleFor(x => x.AcLedgerName).NotEmpty();
+            RuleFor(x => x.AcControlId).NotEmpty();
+
 
         }
     }
