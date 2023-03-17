@@ -50,4 +50,14 @@ namespace Accounts.Common.Validator
 
         }
     }
+    public class AccountSubLedger_Val : AbstractValidator<VM_AccountSubLedger>
+    {
+        public AccountSubLedger_Val()
+        {
+            RuleFor(x => x.AcSubLedgerName).NotEmpty();
+            RuleFor(x => x.AcLedgerId).NotEmpty();
+
+
+        }
+    }
 }

@@ -25,8 +25,15 @@ builder.Services.AddControllers().AddFluentValidation(
     x.RegisterValidatorsFromAssemblyContaining<AccountHead_Val>();
     x.RegisterValidatorsFromAssemblyContaining<AccountControl_Val>();
     x.RegisterValidatorsFromAssemblyContaining<AccountLedger_Val>();
-    //x.RegisterValidatorsFromAssemblyContain<AccountSubLedger_Val>();
+    x.RegisterValidatorsFromAssemblyContaining<AccountSubLedger_Val>();
     x.RegisterValidatorsFromAssemblyContaining<Profile_Val>();
+    x.RegisterValidatorsFromAssemblyContaining<Currency_Val>();
+    x.RegisterValidatorsFromAssemblyContaining<CivilEntitiesCurrency_Val>();
+    x.RegisterValidatorsFromAssemblyContaining<Language_Val>();
+    x.RegisterValidatorsFromAssemblyContaining<CivilEntitiesLanguage_Val>();
+    x.RegisterValidatorsFromAssemblyContaining<CivilEntities_Val>();
+    x.RegisterValidatorsFromAssemblyContaining<CivilLevel_Val>();
+
 }
 );
 //builder.Services.AddTransient<IValidator<VM_AccountHeadType,VM_AccountHeads>, AccountHeadType_Val,AccountHead_Val>();
