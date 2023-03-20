@@ -22,6 +22,11 @@ namespace Accounts.Common.Validator
         {
             RuleFor(x => x.AddressTypeId).NotEmpty();
             RuleFor(x => x.CivilEntityId).NotEmpty();
+            RuleFor(x => x.Line1).NotEmpty();
+            //RuleFor(x => x.Tag).NotEmpty();
+            //RuleFor(x => x.AcProfileId).NotEmpty();
+            //RuleFor(x => x.AcContactId).NotEmpty();
+
         }
     }
 
@@ -54,6 +59,7 @@ namespace Accounts.Common.Validator
             RuleFor(x => x.FirstName).NotEmpty();
             RuleFor(x => x.LastName).NotEmpty();
             RuleFor(x => x.Position).NotEmpty();
+            
 
         }
     }
