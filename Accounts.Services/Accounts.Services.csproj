@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.15" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.27.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Accounts.Common\Accounts.Common.csproj" />
     <ProjectReference Include="..\Accounts.Core\Accounts.Core.csproj" />
     <ProjectReference Include="..\Accounts.Repository\Accounts.Repository.csproj" />

@@ -1,5 +1,6 @@
 ﻿using Accounts.Common;
 using Accounts.Common.DataTable_Model;
+using Accounts.Common.User;
 using Accounts.Common.Virtual_Models;
 using Accounts.Core.Context;
 using Accounts.Core.Models;
@@ -7,6 +8,8 @@ using Accounts.Repository.Implementation;
 using Accounts.Repository.Repository;
 using Accounts.Services.Implementation;
 using Accounts.Services.Services;
+using MathNet.Numerics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
@@ -23,12 +26,14 @@ namespace Accounts.API.Controllers
         private readonly IAccountControlServices _IAccountControlServices;
         private readonly IAccountLedgerServices _IAccountLedgerServices;
         private readonly IAccountSubLedgerServices _IAccountSubLedgerServices;
+        private readonly IJwtService _JwtService;
         public AccountsController(
             IAccountHeadTypeServices _IAccountHeadTypeServices,
             IAccountHeadsServices _AccountHeadServices, 
             IAccountControlServices accountControlServices, 
             IAccountLedgerServices iAccountLedgerServices, 
-            IAccountSubLedgerServices iAccountSubLedgerServices
+            IAccountSubLedgerServices iAccountSubLedgerServices,
+            IJwtService jwtService
             )
         {
             this._IAccountHeadTypeServices = _IAccountHeadTypeServices;
@@ -36,15 +41,21 @@ namespace Accounts.API.Controllers
             _IAccountControlServices = accountControlServices;
             _IAccountLedgerServices = iAccountLedgerServices;
             _IAccountSubLedgerServices = iAccountSubLedgerServices;
+            _JwtService = jwtService;
         }
-
-        [HttpGet("login")]
-        public IActionResult Login()
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] UserLogin userLogin)
         {
-
-            return Ok();
+            var user = _JwtService.Authenticate(userLogin);
+            if (user != null)
+            {
+                var token = _JwtService.GenerateToken(user);
+                return Ok(token);
+            }
+            return NotFound("user not found");
         }
-
+        [Authorize]
         [HttpPost("Add_AccountHeadType")]
         public IActionResult Add_AccountHeadType(VM_AccountHeadType _VM_AccountHeadType)
         {
@@ -64,6 +75,7 @@ namespace Accounts.API.Controllers
 
         }
 
+        [Authorize]
         [HttpPost("Get_All_AccountHeadtype")]
         public IActionResult Get_All_AccountHeadtype([FromBody] FilterModel filter)
         {

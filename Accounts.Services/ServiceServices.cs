@@ -2,7 +2,10 @@
 using Accounts.Repository.Repository;
 using Accounts.Services.Implementation;
 using Accounts.Services.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +53,34 @@ namespace Accounts.Services
             services.AddScoped<IAccountTransMasterServices, AccountTransMasterServices>();
 
             services.AddScoped<IAccountTransDetailServices, AccountTransDetailServices>();
+            services.AddScoped<IJwtService, JwtService>(); 
+            return services;
+        }
+        public static IServiceCollection ConfigureJWT(this IServiceCollection services,IConfiguration _configuration)
+        {
+            // Add JWT authentication
+             services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = _configuration["Jwt:Issuer"],
+                    ValidAudience = _configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]))
+                };
+            });
+
             return services;
         }
     }
