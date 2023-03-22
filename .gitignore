@@ -18,7 +18,3 @@ Accounts/appsettings.Development.json
 Accounts/appsettings.Development.json
 Accounts/appsettings.json
 Accounts.Core/Context/AccuteDbContext.cs
-/Accounts/appsettings.Development.json
-/Accounts/appsettings.json
-/Accounts/appsettings.json
-/.gitignore
