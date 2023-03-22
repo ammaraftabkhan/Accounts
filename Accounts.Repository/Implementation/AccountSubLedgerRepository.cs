@@ -27,10 +27,12 @@ namespace Accounts.Repository.Implementation
         }
         public bool AddAccountSubLedger(VM_AccountSubLedger _VM_AccountsubLedger)
         {
-            var getId = _AccuteDbContext.AccountSubLedgers.Any() ? _AccuteDbContext.AccountSubLedgers.Max(e => e.AcSubLedgerId) + 1 : 1;
-            var AccountLedgerCode = _AccuteDbContext.AccountLedgers.Where(e => e.AcLedgerId == _VM_AccountsubLedger.AcLedgerId).Select(e => e.AcLedgerCode).FirstOrDefault();
+            long getId = _AccuteDbContext.AccountSubLedgers.Any() ? _AccuteDbContext.AccountSubLedgers.Max(e => e.AcSubLedgerId) + 1 : 1;
+            string AccountLedgerCode = _AccuteDbContext.AccountLedgers.Where(e => e.AcLedgerId == _VM_AccountsubLedger.AcLedgerId).Select(e => e.AcLedgerCode).FirstOrDefault();
+            string AccountLedgerName = _AccuteDbContext.AccountLedgers.Where(e => e.AcLedgerId == _VM_AccountsubLedger.AcLedgerId).Select(e => e.AcLedgerName).FirstOrDefault();
+
             AccountSubLedger ob = new AccountSubLedger();
-            ob.AcSubLedgerName = _VM_AccountsubLedger.AcSubLedgerName;
+            ob.AcSubLedgerName = AccountLedgerName + " - " + _VM_AccountsubLedger.AcSubLedgerName;
             ob.CreatedBy = _VM_AccountsubLedger.CreatedBy;
             ob.CreatedOn = DateTime.UtcNow;
             ob.PostedBy = _VM_AccountsubLedger.PostedBy;
