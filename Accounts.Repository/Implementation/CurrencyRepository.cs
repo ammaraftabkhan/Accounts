@@ -1,9 +1,14 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Context;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
+using Dapper;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +18,11 @@ namespace Accounts.Repository.Implementation
     public class CurrencyRepository:ICurrencyRepository
     {
         private readonly AccuteDbContext _AccuteDbContext;
-        public CurrencyRepository(AccuteDbContext _AccuteDbContext)
+        private readonly IConfiguration configuration;
+        public CurrencyRepository(AccuteDbContext _AccuteDbContext, IConfiguration configuration)
         {
             this._AccuteDbContext = _AccuteDbContext;
+            this.configuration = configuration;
         }
 
         public bool AddCurrency(VM_Currency _VM_Currency)
@@ -90,13 +97,27 @@ namespace Accounts.Repository.Implementation
             return new Currency(); 
         }
 
-        public List<Currency> GetAllCurrency()
+        public List<Currency> GetAllCurrency(FilterModel filter)
         {
             try
             {
-                var list = _AccuteDbContext.Currencies.Where(e => e.IsDeleted == false).ToList();
+                //var list = _AccuteDbContext.Currencies.Where(e => e.IsDeleted == false).ToList();
 
-                return list;
+                //return list;
+                IDbConnection db = new SqlConnection(configuration.GetConnectionString("Accountsdb"));
+                DynamicParameters dynamicParameters = new DynamicParameters();
+
+                dynamicParameters.Add("@PageSize", filter.PageSize);
+                dynamicParameters.Add("@PageNumber", filter.PageNumber);
+                dynamicParameters.Add("@SortColumn", filter.SortColumn);
+                dynamicParameters.Add("@SortOrder", filter.SortOrder);
+                dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
+
+                db.Open();
+                var data = db.Query<Currency>("GetAllCurrencies", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                db.Close();
+
+                return data;
             }
             catch
             {

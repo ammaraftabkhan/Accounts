@@ -31,6 +31,7 @@ namespace Accounts.Core.Models
         public bool IsDeleted { get; set; }
         [Required]
         public bool? IsActive { get; set; }
+        public int? TotalRows { get; set; }
 
         [InverseProperty(nameof(CivilEntitiesLanguage.Language))]
         public virtual ICollection<CivilEntitiesLanguage> CivilEntitiesLanguages { get; set; }

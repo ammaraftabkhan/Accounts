@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Repository.Repository;
 using Accounts.Services.Services;
 using Microsoft.AspNetCore.Http;
@@ -58,10 +59,10 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_Language")]
-        public IActionResult Get_All_Language()
+        public IActionResult Get_All_Language(FilterModel filter)
         {
 
-            var get = _ILanguageServices.GetAllLanguage();
+            var get = _ILanguageServices.GetAllLanguage(filter);
 
             if (get != null)
             {
@@ -147,10 +148,10 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_Currency")]
-        public IActionResult Get_All_Currency()
+        public IActionResult Get_All_Currency(FilterModel filter)
         {
 
-            var get = _ICurrencyServices.GetAllCurrency();
+            var get = _ICurrencyServices.GetAllCurrency(filter);
 
             if (get != null)
             {

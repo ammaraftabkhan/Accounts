@@ -25,6 +25,8 @@ namespace Accounts.Core.Models
         [Required]
         public bool? IsActive { get; set; }
 
+        public int? TotalRows { get; set; }
+
         [ForeignKey(nameof(CivilEntityId))]
         [InverseProperty("CivilEntitiesLanguages")]
         public virtual CivilEntity CivilEntity { get; set; } = null!;

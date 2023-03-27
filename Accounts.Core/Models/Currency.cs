@@ -35,6 +35,8 @@ namespace Accounts.Core.Models
         [Required]
         public bool? IsActive { get; set; }
 
+        public int? TotalRows { get; set; }
+
         [InverseProperty(nameof(AccountProfile.Currency))]
         public virtual ICollection<AccountProfile> AccountProfiles { get; set; }
         [InverseProperty(nameof(CivilEntitiesCurrency.Currency))]

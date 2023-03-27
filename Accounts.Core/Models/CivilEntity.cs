@@ -34,6 +34,8 @@ namespace Accounts.Core.Models
         [Required]
         public bool? IsActive { get; set; }
 
+        public int? TotalRows { get; set; }
+
         [ForeignKey(nameof(CivilLevelId))]
         [InverseProperty("CivilEntities")]
         public virtual CivilLevel CivilLevel { get; set; } = null!;

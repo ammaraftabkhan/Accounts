@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using System;
@@ -31,9 +32,9 @@ namespace Accounts.Repository.Implementation
             return _languageRepository.FindLanguage(id);
         }
 
-        public List<Language> GetAllLanguage()
+        public List<Language> GetAllLanguage(FilterModel filter)
         {
-            return _languageRepository.GetAllLanguage();
+            return _languageRepository.GetAllLanguage(filter);
         }
 
         public bool UpdateLanguage(VM_Language _VM_Language)

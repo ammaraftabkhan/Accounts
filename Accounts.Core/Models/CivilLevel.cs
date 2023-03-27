@@ -29,6 +29,8 @@ namespace Accounts.Core.Models
         [Required]
         public bool? IsActive { get; set; }
 
+        public int? TotalRows { get; set; }
+
         [InverseProperty(nameof(CivilEntity.CivilLevel))]
         public virtual ICollection<CivilEntity> CivilEntities { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface ICurrencyRepository
     {
-        List<Currency> GetAllCurrency();
+        List<Currency> GetAllCurrency(FilterModel filter);
         Currency FindCurrency(int id);
         bool UpdateCurrency(VM_Currency _VM_Currency);
         bool DeleteCurrency(int id);
