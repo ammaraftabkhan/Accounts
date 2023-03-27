@@ -81,10 +81,10 @@ namespace Accounts.API.Controllers
         {
 
             var get = _IAccountHeadTypeServices.GetAccountHeadType(filter).ToList();
-            var cpoiu  = get.Count;
+            var records  = get.Count;
             if (get != null)
             {
-                return Ok(new { list = get, count=cpoiu });
+                return Ok(new { list = get, count=records });
             }
             return NoContent();
         }
