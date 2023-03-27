@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface ICivilLevelRepository
     {
-        List<CivilLevel> GetAllCivilLevel();
+        List<CivilLevel> GetAllCivilLevel(FilterModel filter);
         CivilLevel FindCivilLevel(int id);
         bool UpdateCivilLevel(VM_CivilLevel _VM_CivilLevel);
         bool DeleteCivilLevel(int id);

@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using System;
@@ -32,9 +33,9 @@ namespace Accounts.Repository.Implementation
             return _languageRepository.FindCivilEntitiesLanguage(id);
         }
 
-        public List<CivilEntitiesLanguage> GetCivilEntitiesLanguage()
+        public List<CivilEntitiesLanguage> GetCivilEntitiesLanguage(FilterModel filter)
         {
-            return _languageRepository.GetCivilEntitiesLanguage();
+            return _languageRepository.GetCivilEntitiesLanguage(filter);
         }
 
         public bool UpdateCivilEntitiesLanguage(VM_CivilEntitiesLanguage _VM_CivilEntitiesLanguage)

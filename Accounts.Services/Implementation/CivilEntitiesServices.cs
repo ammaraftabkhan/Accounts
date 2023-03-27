@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using Accounts.Services.Services;
@@ -33,9 +34,9 @@ namespace Accounts.Repository.Implementation
             return _ICivilEntitiesRepository.FindCivilEntity(id);
         }
 
-        public List<CivilEntity> GetAllCivilEntity()
+        public List<CivilEntity> GetAllCivilEntity(FilterModel filter)
         {
-            return _ICivilEntitiesRepository.GetAllCivilEntity();
+            return _ICivilEntitiesRepository.GetAllCivilEntity(filter);
         }
 
         public bool UpdateCivilEntity(VM_CivilEntity _VM_CivilEntity)

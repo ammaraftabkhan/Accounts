@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using System;
@@ -31,9 +32,9 @@ namespace Accounts.Repository.Implementation
             return _repository.FindCivilLevel(id);
         }
 
-        public List<CivilLevel> GetAllCivilLevel()
+        public List<CivilLevel> GetAllCivilLevel(FilterModel filter)
         {
-            return _repository.GetAllCivilLevel();
+            return _repository.GetAllCivilLevel(filter);
         }
 
         public bool UpdateCivilLevel(VM_CivilLevel _VM_CivilLevel)

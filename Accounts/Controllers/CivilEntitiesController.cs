@@ -59,7 +59,7 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_Language")]
-        public IActionResult Get_All_Language(FilterModel filter)
+        public IActionResult Get_All_Language([FromBody] FilterModel filter)
         {
 
             var get = _ILanguageServices.GetAllLanguage(filter);
@@ -148,7 +148,7 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_Currency")]
-        public IActionResult Get_All_Currency(FilterModel filter)
+        public IActionResult Get_All_Currency([FromBody] FilterModel filter)
         {
 
             var get = _ICurrencyServices.GetAllCurrency(filter);
@@ -238,10 +238,10 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_CivilEntity")]
-        public IActionResult Get_All_CivilEntity()
+        public IActionResult Get_All_CivilEntity([FromBody] FilterModel filter)
         {
 
-            var get = _ICivilEntitiesServices.GetAllCivilEntity();
+            var get = _ICivilEntitiesServices.GetAllCivilEntity(filter);
 
             if (get != null)
             {
@@ -327,10 +327,10 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_CivilLevel")]
-        public IActionResult Get_All_CivilLevel()
+        public IActionResult Get_All_CivilLevel([FromBody] FilterModel filter)
         {
 
-            var get = _ICivilLevelServices.GetAllCivilLevel();
+            var get = _ICivilLevelServices.GetAllCivilLevel(filter);
 
             if (get != null)
             {
@@ -417,10 +417,10 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_CivilEntityLanguage")]
-        public IActionResult Get_All_CivilEntityLanguge()
+        public IActionResult Get_All_CivilEntityLanguge([FromBody]FilterModel filter)
         {
 
-            var get = _ICivilEntitiesLanguageServices.GetCivilEntitiesLanguage();
+            var get = _ICivilEntitiesLanguageServices.GetCivilEntitiesLanguage(filter);
 
             if (get != null)
             {
@@ -507,10 +507,10 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_CivilEntityCurrency")]
-        public IActionResult Get_All_CivilEntityCurrency()
+        public IActionResult Get_All_CivilEntityCurrency([FromBody]FilterModel filter)
         {
 
-            var get = _ICivilEntitiesCurrencyServices.GetAllCivilEntitesCurrency();
+            var get = _ICivilEntitiesCurrencyServices.GetAllCivilEntitesCurrency(filter);
 
             if (get != null)
             {

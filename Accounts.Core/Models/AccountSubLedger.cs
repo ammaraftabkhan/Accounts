@@ -28,6 +28,7 @@ namespace Accounts.Core.Models
         public bool IsDeleted { get; set; }
         [Required]
         public bool? IsActive { get; set; }
+        public int? TotalRows { get; set; }
 
         [ForeignKey(nameof(AcLedgerId))]
         [InverseProperty(nameof(AccountLedger.AccountSubLedgers))]

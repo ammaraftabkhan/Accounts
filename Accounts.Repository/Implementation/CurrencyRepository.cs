@@ -114,7 +114,7 @@ namespace Accounts.Repository.Implementation
                 dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
 
                 db.Open();
-                var data = db.Query<Currency>("GetAllCurrencies", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                var data = db.Query<Currency>("GetCurrencies", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
                 db.Close();
 
                 return data;

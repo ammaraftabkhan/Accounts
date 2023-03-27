@@ -35,6 +35,8 @@ namespace Accounts.Core.Models
         [Required]
         public bool? IsActive { get; set; }
 
+        public int? TotalRows { get; set; }
+
         [ForeignKey(nameof(AcControlId))]
         [InverseProperty(nameof(AccountControl.AccountLedgers))]
         public virtual AccountControl? AcControl { get; set; }

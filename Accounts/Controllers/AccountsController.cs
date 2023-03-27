@@ -352,7 +352,7 @@ namespace Accounts.API.Controllers
         }
 
         [HttpPost("Get_All_AccountLedger")]
-        public IActionResult Get_All_AccountLedger(FilterModel filter)
+        public IActionResult Get_All_AccountLedger([FromBody] FilterModel filter)
         {
 
             var get = _IAccountLedgerServices.GetAllAccountLedger(filter);
@@ -441,7 +441,7 @@ namespace Accounts.API.Controllers
         }
 
         [HttpPost("Get_All_AccountSubLedger")]
-        public IActionResult Get_All_AccountSubLedger(FilterModel filter)
+        public IActionResult Get_All_AccountSubLedger([FromBody] FilterModel filter)
         {
 
             var get = _IAccountSubLedgerServices.GetAllAccountSubLedger(filter);

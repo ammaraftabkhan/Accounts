@@ -33,6 +33,8 @@ namespace Accounts.Core.Models
         [Required]
         public bool? IsActive { get; set; }
 
+        public int? TotalRows { get; set; }
+
         [ForeignKey(nameof(AcHeadId))]
         [InverseProperty(nameof(AccountHead.AccountControls))]
         public virtual AccountHead AcHead { get; set; } = null!;

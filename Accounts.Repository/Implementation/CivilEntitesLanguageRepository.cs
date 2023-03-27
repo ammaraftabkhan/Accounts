@@ -1,9 +1,14 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Context;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
+using Dapper;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +18,11 @@ namespace Accounts.Repository.Implementation
     public class CivilEntitesLanguageRepository:ICivilEntitiesLanguageRepository
     {
         private readonly AccuteDbContext _AccuteDbContext;
-        public CivilEntitesLanguageRepository(AccuteDbContext _AccuteDbContext)
+        private readonly IConfiguration configuration;
+        public CivilEntitesLanguageRepository(AccuteDbContext _AccuteDbContext, IConfiguration configuration)
         {
             this._AccuteDbContext = _AccuteDbContext;
+            this.configuration = configuration;
         }
 
         public bool AddCivilEntitiesLanguage(VM_CivilEntitiesLanguage _VM_CivilEntitiesLanguage)
@@ -96,13 +103,28 @@ namespace Accounts.Repository.Implementation
             return new CivilEntitiesLanguage();
         }
 
-        public List<CivilEntitiesLanguage> GetCivilEntitiesLanguage()
+        public List<CivilEntitiesLanguage> GetCivilEntitiesLanguage(FilterModel filter)
         {
             try
             {
-                var list = _AccuteDbContext.CivilEntitiesLanguages.Where(e => e.IsDeleted == false).ToList();
+                //var list = _AccuteDbContext.CivilEntitiesLanguages.Where(e => e.IsDeleted == false).ToList();
 
-                return list;
+                //return list;
+
+                IDbConnection db = new SqlConnection(configuration.GetConnectionString("Accountsdb"));
+                DynamicParameters dynamicParameters = new DynamicParameters();
+
+                dynamicParameters.Add("@PageSize", filter.PageSize);
+                dynamicParameters.Add("@PageNumber", filter.PageNumber);
+                dynamicParameters.Add("@SortColumn", filter.SortColumn);
+                dynamicParameters.Add("@SortOrder", filter.SortOrder);
+                dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
+
+                db.Open();
+                var data = db.Query<CivilEntitiesLanguage>("GetCivilEntitiesLanguage", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                db.Close();
+
+                return data;
             }
             catch
             {

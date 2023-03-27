@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using System;
@@ -31,9 +32,9 @@ namespace Accounts.Repository.Implementation
             return _currencyRepository.FindCivilEntitesCurrency(id);
         }
 
-        public List<CivilEntitiesCurrency> GetAllCivilEntitesCurrency()
+        public List<CivilEntitiesCurrency> GetAllCivilEntitesCurrency(FilterModel filter)
         {
-            return _currencyRepository.GetAllCivilEntitesCurrency();
+            return _currencyRepository.GetAllCivilEntitesCurrency(filter);
         }
 
         public bool UpdateCivilEntitiesCurrency(VM_CivilEntitiesCurrency _VM_CivilEntitiesCurrency)
