@@ -10,8 +10,8 @@ namespace Accounts.Core.Models
     {
 
         public int AcHeadTypeId { get; set; }
-        [StringLength(50)]
-        public string AcHeadTypeCode { get; set; } = null!;
+        //[StringLength(50)]
+        //public string AcHeadTypeCode { get; set; } = null!;
         [StringLength(50)]
         public string AcHeadTypeName { get; set; } = null!;
         [Column(TypeName = "datetime")]

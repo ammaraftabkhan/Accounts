@@ -55,7 +55,7 @@ namespace Accounts.API.Controllers
             }
             return NotFound("user not found");
         }
-        [Authorize]
+        //[Authorize]
         [HttpPost("Add_AccountHeadType")]
         public IActionResult Add_AccountHeadType(VM_AccountHeadType _VM_AccountHeadType)
         {
@@ -75,7 +75,7 @@ namespace Accounts.API.Controllers
 
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("Get_All_AccountHeadtype")]
         public IActionResult Get_All_AccountHeadtype([FromBody] FilterModel filter)
         {

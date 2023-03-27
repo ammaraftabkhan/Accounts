@@ -10,7 +10,7 @@ namespace Accounts.Services.Services
 {
     public interface IAccountHeadTypeServices
     {
-        List<VM_AccountHeadType> GetAccountHeadType(FilterModel filter);
+        List<AccountHeadType> GetAccountHeadType(FilterModel filter);
         AccountHeadType Find(int id);
         bool Update(VM_AccountHeadType _VM_AccountHeadType);
         bool Delete(int id);

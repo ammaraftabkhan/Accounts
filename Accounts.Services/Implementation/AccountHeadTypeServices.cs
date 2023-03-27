@@ -34,7 +34,7 @@ namespace Accounts.Services.Implementation
             return accountHeadTypeRepository.Find(id);
         }
 
-        public List<VM_AccountHeadType> GetAccountHeadType(FilterModel filter)
+        public List<AccountHeadType> GetAccountHeadType(FilterModel filter)
         {
             return accountHeadTypeRepository.GetAccountHeadType(filter);
         }
