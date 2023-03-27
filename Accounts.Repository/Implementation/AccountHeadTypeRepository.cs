@@ -36,7 +36,6 @@ namespace Accounts.Repository.Implementation
             Ob.PostedBy= _VM_AccountHeadType.PostedBy;
             Ob.PostedOn= DateTime.UtcNow;
 
-
             //Head Type Code Assignment
             if (code < 10)
             {

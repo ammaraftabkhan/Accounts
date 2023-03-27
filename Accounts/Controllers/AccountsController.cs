@@ -80,11 +80,11 @@ namespace Accounts.API.Controllers
         public IActionResult Get_All_AccountHeadtype([FromBody] FilterModel filter)
         {
 
-            var get = _IAccountHeadTypeServices.GetAccountHeadType(filter);
-
+            var get = _IAccountHeadTypeServices.GetAccountHeadType(filter).ToList();
+            var cpoiu  = get.Count;
             if (get != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { list = get, count=cpoiu });
             }
             return NoContent();
         }
