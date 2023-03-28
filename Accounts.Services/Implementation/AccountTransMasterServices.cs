@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using Accounts.Services.Services;
@@ -33,9 +34,9 @@ namespace Accounts.Services.Implementation
             return _repository.FindAccountTransMaster(id);
         }
 
-        public List<AccountTransMaster> GetAllAccountTransMaster()
+        public List<dynamic> GetAllAccountTransMaster(FilterModel filter)
         {
-            return _repository.GetAllAccountTransMaster();
+            return _repository.GetAllAccountTransMaster(filter);
         }
 
         public bool UpdateAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster)

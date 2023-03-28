@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using Accounts.Services.Services;
@@ -33,9 +34,9 @@ namespace Accounts.Services.Implementation
             return _repository.FindAccountProfile(id);
         }
 
-        public List<AccountProfile> GetAllAccountProfile()
+        public List<dynamic> GetAllAccountProfile(FilterModel filter)
         {
-            return _repository.GetAllAccountProfile();
+            return _repository.GetAllAccountProfile(filter);
         }
 
         public bool UpdateAccountProfile(VM_AccountProfile _VM_AccountProfile)

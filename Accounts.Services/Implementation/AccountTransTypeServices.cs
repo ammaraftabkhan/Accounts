@@ -1,4 +1,5 @@
 ﻿using Accounts.Common;
+using Accounts.Common.DataTable_Model;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using Accounts.Services.Services;
@@ -33,9 +34,9 @@ namespace Accounts.Services.Implementation
             return _repository.FindAccountTransType(id);
         }
 
-        public List<AccountTransType> GetAllAccountTranstype()
+        public List<dynamic> GetAllAccountTranstype(FilterModel filter)
         {
-            return _repository.GetAllAccountTranstype();
+            return _repository.GetAllAccountTranstype(filter);
         }
 
         public bool UpdateAccountTransType(VM_AccountTransType _VM_AccountTransType)

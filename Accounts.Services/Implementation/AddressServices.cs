@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using Accounts.Services.Services;
@@ -33,9 +34,9 @@ namespace Accounts.Services.Implementation
             return _addressRepository.FindAddress(id);
         }
 
-        public List<Address> GetAllAddress()
+        public List<dynamic> GetAllAddress(FilterModel filter)
         {
-            return _addressRepository.GetAllAddress();
+            return _addressRepository.GetAllAddress(filter);
         }
 
         public bool UpdateAddress(VM_Address _VM_Address)

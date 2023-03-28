@@ -34,7 +34,7 @@ namespace Accounts.Services.Implementation
             return accountControlRespository.FindAccountControl(id);
         }
 
-        public List<AccountControl> GetAllAccountControl(FilterModel filter)
+        public List<dynamic> GetAllAccountControl(FilterModel filter)
         {
             return accountControlRespository.GetAllAccountControl(filter);
         }

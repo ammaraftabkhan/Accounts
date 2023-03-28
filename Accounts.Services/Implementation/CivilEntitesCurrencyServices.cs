@@ -32,7 +32,7 @@ namespace Accounts.Repository.Implementation
             return _currencyRepository.FindCivilEntitesCurrency(id);
         }
 
-        public List<CivilEntitiesCurrency> GetAllCivilEntitesCurrency(FilterModel filter)
+        public List<dynamic> GetAllCivilEntitesCurrency(FilterModel filter)
         {
             return _currencyRepository.GetAllCivilEntitesCurrency(filter);
         }

@@ -34,7 +34,7 @@ namespace Accounts.Repository.Implementation
             return _ICivilEntitiesRepository.FindCivilEntity(id);
         }
 
-        public List<CivilEntity> GetAllCivilEntity(FilterModel filter)
+        public List<dynamic> GetAllCivilEntity(FilterModel filter)
         {
             return _ICivilEntitiesRepository.GetAllCivilEntity(filter);
         }

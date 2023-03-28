@@ -32,7 +32,7 @@ namespace Accounts.Repository.Implementation
             return _repository.FindCivilLevel(id);
         }
 
-        public List<CivilLevel> GetAllCivilLevel(FilterModel filter)
+        public List<dynamic> GetAllCivilLevel(FilterModel filter)
         {
             return _repository.GetAllCivilLevel(filter);
         }

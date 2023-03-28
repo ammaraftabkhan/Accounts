@@ -11,7 +11,7 @@ namespace Accounts.Services.Services
 {
     public interface IAccountSubLedgerServices
     {
-        List<AccountSubLedger> GetAllAccountSubLedger(FilterModel filter);
+        List<dynamic> GetAllAccountSubLedger(FilterModel filter);
         AccountSubLedger FindAccountSubLedger(long id);
         bool UpdateAccountSubLedger(VM_AccountSubLedger _VM_AccountSubLedger);
         bool DeleteAccountLSubLedger(int id);

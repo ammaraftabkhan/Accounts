@@ -34,7 +34,7 @@ namespace Accounts.Services.Implementation
             return _repository.FindAccountSubLedger(id);
         }
 
-        public List<AccountSubLedger> GetAllAccountSubLedger(FilterModel filter)
+        public List<dynamic> GetAllAccountSubLedger(FilterModel filter)
         {
             return _repository.GetAllAccountSubLedger(filter);
         }

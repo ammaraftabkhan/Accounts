@@ -33,7 +33,7 @@ namespace Accounts.Repository.Implementation
             return _languageRepository.FindCivilEntitiesLanguage(id);
         }
 
-        public List<CivilEntitiesLanguage> GetCivilEntitiesLanguage(FilterModel filter)
+        public List<dynamic> GetCivilEntitiesLanguage(FilterModel filter)
         {
             return _languageRepository.GetCivilEntitiesLanguage(filter);
         }

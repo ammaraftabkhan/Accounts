@@ -11,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface ICivilEntitiesLanguageServices
     {
-        List<CivilEntitiesLanguage> GetCivilEntitiesLanguage(FilterModel filter);
+        List<dynamic> GetCivilEntitiesLanguage(FilterModel filter);
         CivilEntitiesLanguage FindCivilEntitiesLanguage(int id);
         bool UpdateCivilEntitiesLanguage(VM_CivilEntitiesLanguage _VM_CivilEntitiesLanguage);
         bool DeleteCivilEntitiesLanguage(int id);

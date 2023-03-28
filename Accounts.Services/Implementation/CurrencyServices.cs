@@ -32,7 +32,7 @@ namespace Accounts.Repository.Implementation
             return _currencyRepository.FindCurrency(id);
         }
 
-        public List<Currency> GetAllCurrency(FilterModel filter)
+        public List<dynamic> GetAllCurrency(FilterModel filter)
         {
             return _currencyRepository.GetAllCurrency(filter);
         }

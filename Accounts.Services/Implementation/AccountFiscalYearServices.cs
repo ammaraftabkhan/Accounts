@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using Accounts.Services.Services;
@@ -32,9 +33,9 @@ namespace Accounts.Services.Implementation
             return _accountFiscalYearRepository.FindFiscalYear(id);
         }
 
-        public List<AccountFiscalYear> GetAllFiscalYear()
+        public List<dynamic> GetAllFiscalYear(FilterModel filter)
         {
-            return _accountFiscalYearRepository.GetAllFiscalYear();
+            return _accountFiscalYearRepository.GetAllFiscalYear(filter);
         }
 
         public bool UpdateFiscalYear(VM_AccountFiscalYear _VM_AccountFiscalYear)

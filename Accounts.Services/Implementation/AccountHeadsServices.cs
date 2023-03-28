@@ -40,7 +40,7 @@ namespace Accounts.Services.Implementation
 
        
 
-        public List<AccountHead> GetAccountHead(FilterModel filter)
+        public List<dynamic> GetAccountHead(FilterModel filter)
         {
             return accountHeadsRepository.GetAccountHead(filter);
         }

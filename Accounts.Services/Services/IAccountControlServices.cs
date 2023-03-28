@@ -11,7 +11,7 @@ namespace Accounts.Services.Services
 {
     public interface IAccountControlServices
     {
-        List<AccountControl> GetAllAccountControl(FilterModel filter);
+        List<dynamic> GetAllAccountControl(FilterModel filter);
         AccountControl FindAccountControl(long id);
         bool UpdateAccountControl(VM_AccountControl _VM_AccountControl);
         bool DeleteAccountControl(int id);

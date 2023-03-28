@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using Accounts.Services.Services;
@@ -33,9 +34,9 @@ namespace Accounts.Services.Implementation
             return _repository.FindAccountTransDetial(id);
         }
 
-        public List<AccountTransDetail> GetAllAccountTransDetail()
+        public List<dynamic> GetAllAccountTransDetail(FilterModel filter)
         {
-            return _repository.GetAllAccountTransDetail();
+            return _repository.GetAllAccountTransDetail(filter);
         }
 
         public bool UpdateAccountTransDetail(VM_AccountTransDetail _VM_AccountTransDetail)

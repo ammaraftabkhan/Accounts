@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using Accounts.Services.Services;
@@ -33,9 +34,9 @@ namespace Accounts.Services.Implementation
             return _accountsContactRepository.FindAccountContact(id);
         }
 
-        public List<AccountContact> GetAllAccountContact()
+        public List<dynamic> GetAllAccountContact(FilterModel filter)
         {
-            return _accountsContactRepository.GetAllAccountContact();
+            return _accountsContactRepository.GetAllAccountContact(filter);
         }
 
         public bool UpdateAccountContact(VM_AccountContact _VM_AccountContact)

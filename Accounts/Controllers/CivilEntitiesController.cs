@@ -1,4 +1,5 @@
 ﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Response_Model;
 using Accounts.Common.Virtual_Models;
 using Accounts.Repository.Repository;
 using Accounts.Services.Services;
@@ -17,6 +18,7 @@ namespace Accounts.API.Controllers
         private readonly ICivilLevelServices _ICivilLevelServices;
         private readonly ICivilEntitiesLanguageServices _ICivilEntitiesLanguageServices;
         private readonly ICivilEntitiesCurrencyServices _ICivilEntitiesCurrencyServices;
+        private readonly ResponseModel responseModel = new ResponseModel();
 
         public CivilEntitiesController(
             ILanguageServices iLanguageServices,
@@ -58,15 +60,17 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_Language")]
+        [HttpPost("Get_All_Language")]
         public IActionResult Get_All_Language([FromBody] FilterModel filter)
         {
 
-            var get = _ILanguageServices.GetAllLanguage(filter);
+            responseModel.data = _ILanguageServices.GetAllLanguage(filter);
 
-            if (get != null)
+            responseModel.PageRecords = responseModel.data.Count;
+            //responseModel.TotalRecords = responseModel.data[0].TotalRows;
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -147,15 +151,17 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_Currency")]
+        [HttpPost("Get_All_Currency")]
         public IActionResult Get_All_Currency([FromBody] FilterModel filter)
         {
 
-            var get = _ICurrencyServices.GetAllCurrency(filter);
+            responseModel.data = _ICurrencyServices.GetAllCurrency(filter);
 
-            if (get != null)
+            responseModel.PageRecords = responseModel.data.Count;
+            //responseModel.TotalRecords = responseModel.data[0].TotalRows;
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -237,15 +243,17 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_CivilEntity")]
+        [HttpPost("Get_All_CivilEntity")]
         public IActionResult Get_All_CivilEntity([FromBody] FilterModel filter)
         {
 
-            var get = _ICivilEntitiesServices.GetAllCivilEntity(filter);
+            responseModel.data = _ICivilEntitiesServices.GetAllCivilEntity(filter);
 
-            if (get != null)
+            responseModel.PageRecords = responseModel.data.Count;
+            //responseModel.TotalRecords = responseModel.data[0].TotalRows;
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -326,15 +334,17 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_CivilLevel")]
+        [HttpPost("Get_All_CivilLevel")]
         public IActionResult Get_All_CivilLevel([FromBody] FilterModel filter)
         {
 
-            var get = _ICivilLevelServices.GetAllCivilLevel(filter);
+            responseModel.data = _ICivilLevelServices.GetAllCivilLevel(filter);
 
-            if (get != null)
+            responseModel.PageRecords = responseModel.data.Count;
+            //responseModel.TotalRecords = responseModel.data[0].TotalRows;
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -416,15 +426,17 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_CivilEntityLanguage")]
+        [HttpPost("Get_All_CivilEntityLanguage")]
         public IActionResult Get_All_CivilEntityLanguge([FromBody]FilterModel filter)
         {
 
-            var get = _ICivilEntitiesLanguageServices.GetCivilEntitiesLanguage(filter);
+            responseModel.data = _ICivilEntitiesLanguageServices.GetCivilEntitiesLanguage(filter);
 
-            if (get != null)
+            responseModel.PageRecords = responseModel.data.Count;
+            //responseModel.TotalRecords = responseModel.data[0].TotalRows;
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -506,15 +518,17 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_CivilEntityCurrency")]
+        [HttpPost("Get_All_CivilEntityCurrency")]
         public IActionResult Get_All_CivilEntityCurrency([FromBody]FilterModel filter)
         {
 
-            var get = _ICivilEntitiesCurrencyServices.GetAllCivilEntitesCurrency(filter);
+            responseModel.data = _ICivilEntitiesCurrencyServices.GetAllCivilEntitesCurrency(filter);
 
-            if (get != null)
+            responseModel.PageRecords = responseModel.data.Count;
+            //responseModel.TotalRecords = responseModel.data[0].TotalRows;
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }

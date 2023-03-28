@@ -32,7 +32,7 @@ namespace Accounts.Repository.Implementation
             return _languageRepository.FindLanguage(id);
         }
 
-        public List<Language> GetAllLanguage(FilterModel filter)
+        public List<dynamic> GetAllLanguage(FilterModel filter)
         {
             return _languageRepository.GetAllLanguage(filter);
         }

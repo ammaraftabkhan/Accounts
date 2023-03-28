@@ -1,4 +1,6 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Response_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Services.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +15,7 @@ namespace Accounts.API.Controllers
         private readonly IAccountContactServices _IAccountContactServices;
         private readonly IAddressTypeServices _IAddressTypeServices;
         private readonly IAddressServices _IAddressServices;
-
+        private readonly ResponseModel responseModel = new ResponseModel();
         public ContactController(
             IAccountProfileServices iAccountProfileServices,
             IAccountContactServices iAccountContactServices,
@@ -47,14 +49,16 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_AccountProfile")]
-        public IActionResult Get_All_AccountProfile()
+        public IActionResult Get_All_AccountProfile(FilterModel filter)
         {
 
-            var get = _IAccountProfileServices.GetAllAccountProfile();
+            responseModel.data = _IAccountProfileServices.GetAllAccountProfile(filter);
 
-            if (get != null)
+            responseModel.PageRecords = responseModel.data.Count;
+            //responseModel.TotalRecords = responseModel.data[0].TotalRows;
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -137,14 +141,16 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_AccountContact")]
-        public IActionResult Get_All_AccountContact()
+        public IActionResult Get_All_AccountContact(FilterModel filter)
         {
 
-            var get = _IAccountContactServices.GetAllAccountContact();
+            responseModel.data = _IAccountContactServices.GetAllAccountContact(filter);
 
-            if (get != null)
+            responseModel.PageRecords = responseModel.data.Count;
+            //responseModel.TotalRecords = responseModel.data[0].TotalRows;
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -226,14 +232,16 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_AddressType")]
-        public IActionResult Get_All_AddressType()
+        public IActionResult Get_All_AddressType(FilterModel filter) 
         {
 
-            var get = _IAddressTypeServices.GetAllAddressType();
+            responseModel.data = _IAddressTypeServices.GetAllAddressType(filter);
 
-            if (get != null)
+            responseModel.PageRecords = responseModel.data.Count;
+            //responseModel.TotalRecords = responseModel.data[0].TotalRows;
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -315,14 +323,16 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_Addresses")]
-        public IActionResult Get_AllAddresses()
+        public IActionResult Get_AllAddresses(FilterModel filter)
         {
 
-            var get = _IAddressServices.GetAllAddress();
+            responseModel.data = _IAddressServices.GetAllAddress(filter);
 
-            if (get != null)
+            responseModel.PageRecords = responseModel.data.Count;
+            //responseModel.TotalRecords = responseModel.data[0].TotalRows;
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }

@@ -1,4 +1,5 @@
 ﻿using Accounts.Common;
+using Accounts.Common.DataTable_Model;
 using Accounts.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Accounts.Services.Services
 {
     public interface IAccountTransTypeServices
     {
-        List<AccountTransType> GetAllAccountTranstype();
+        List<dynamic> GetAllAccountTranstype(FilterModel filter);
         AccountTransType FindAccountTransType(int id);
         bool UpdateAccountTransType(VM_AccountTransType _VM_AccountTransType);
         bool DeleteAccountTransType(int id);

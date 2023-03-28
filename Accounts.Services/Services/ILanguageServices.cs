@@ -11,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface ILanguageServices
     {
-        List<Language> GetAllLanguage(FilterModel filter);
+        List<dynamic> GetAllLanguage(FilterModel filter);
         Language FindLanguage(int id);
         bool UpdateLanguage(VM_Language _VM_Language);
         bool DeleteLanguage(int id);
