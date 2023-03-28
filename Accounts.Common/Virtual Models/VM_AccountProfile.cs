@@ -42,6 +42,6 @@ namespace Accounts.Common.Virtual_Models
         [Column(TypeName = "datetime")]
         public DateTime PostedOn { get; set; }
         public int PostedBy { get; set; }
-        public int? TotalRows { get; set; }
+
     }
 }

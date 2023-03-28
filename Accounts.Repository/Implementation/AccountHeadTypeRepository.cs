@@ -128,7 +128,7 @@ namespace Accounts.Repository.Implementation
            
         }
             
-        public List <AccountHeadType> GetAccountHeadType(FilterModel filter)
+        public List <dynamic> GetAccountHeadType(FilterModel filter)
         {
             try
             {
@@ -145,14 +145,14 @@ namespace Accounts.Repository.Implementation
                 dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
 
                 db.Open();
-                var data = db.Query<AccountHeadType>("GetAccountHeadType", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                var data = db.Query<dynamic>("GetAccountHeadType", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
                 db.Close();
 
                 return data;
             }
             catch (Exception ex)
             { 
-                return new List<AccountHeadType>(); 
+                return new List<dynamic>(); 
             }
             
         }

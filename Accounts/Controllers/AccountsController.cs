@@ -1,5 +1,6 @@
 ﻿using Accounts.Common;
 using Accounts.Common.DataTable_Model;
+using Accounts.Common.Response_Model;
 using Accounts.Common.User;
 using Accounts.Common.Virtual_Models;
 using Accounts.Core.Context;
@@ -27,6 +28,7 @@ namespace Accounts.API.Controllers
         private readonly IAccountLedgerServices _IAccountLedgerServices;
         private readonly IAccountSubLedgerServices _IAccountSubLedgerServices;
         private readonly IJwtService _JwtService;
+        private readonly ResponseModel responseModel = new ResponseModel();
         public AccountsController(
             IAccountHeadTypeServices _IAccountHeadTypeServices,
             IAccountHeadsServices _AccountHeadServices, 
@@ -80,11 +82,12 @@ namespace Accounts.API.Controllers
         public IActionResult Get_All_AccountHeadtype([FromBody] FilterModel filter)
         {
 
-            var get = _IAccountHeadTypeServices.GetAccountHeadType(filter).ToList();
-            var records  = get.Count;
-            if (get != null)
+            responseModel.data = _IAccountHeadTypeServices.GetAccountHeadType(filter);
+            responseModel.PageRecords = responseModel.data.Count;
+            //responseModel.TotalRecords = responseModel.data[0].TotalRows;
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get, count=records });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }

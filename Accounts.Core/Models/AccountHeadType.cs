@@ -33,6 +33,8 @@ namespace Accounts.Core.Models
         [Required]
         public bool? IsActive { get; set; }
 
+        //public int? TotalRows { get; set; } = 0;
+
         [InverseProperty(nameof(AccountHead.AcHeadType))]
         public virtual ICollection<AccountHead> AccountHeads { get; set; }
     }
