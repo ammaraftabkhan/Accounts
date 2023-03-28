@@ -3,19 +3,24 @@ using Accounts.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Accounts.Services.Services;
+using Accounts.Common.DataTable_Model;
+using Accounts.Common.Response_Model;
+using Accounts.Services.Implementation;
 
 namespace Accounts.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class TransactionController : ControllerBase
+
     {
 
         private readonly IAccountTransTypeServices _IAccountTransTypeServices;
         private readonly IAccountFiscalYearServices _IAccountFiscalYearServices;
         private readonly IAccountTransMasterServices _IAccountTransMasterServices;
         private readonly IAccountTransDetailServices _IAccountTransDetailServices;
-        
+        private readonly ResponseModel responseModel = new ResponseModel();
+
         public TransactionController(
 
             IAccountTransTypeServices iaccountTransTypeServices,
@@ -52,14 +57,15 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_AccountTransType")]
-        public IActionResult Get_AllAccountTransType()
+        public IActionResult Get_AllAccountTransType(FilterModel filter)
         {
+            responseModel.data = _IAccountTransTypeServices.GetAllAccountTranstype(filter);
 
-            var get = _IAccountTransTypeServices.GetAllAccountTranstype();
+            responseModel.PageRecords = responseModel.data.Count;
 
-            if (get != null)
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -142,14 +148,16 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_FiscalYears")]
-        public IActionResult Get_All_FiscalYears()
+        public IActionResult Get_All_FiscalYears(FilterModel filter)
         {
 
-            var get = _IAccountFiscalYearServices.GetAllFiscalYear();
+            responseModel.data = _IAccountFiscalYearServices.GetAllFiscalYear(filter);
 
-            if (get != null)
+            responseModel.PageRecords = responseModel.data.Count;
+
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -233,14 +241,16 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_AccountTransMaster")]
-        public IActionResult Get_AllAccountTransMaster()
+        public IActionResult Get_AllAccountTransMaster(FilterModel filter)
         {
 
-            var get = _IAccountTransMasterServices.GetAllAccountTransMaster();
+            responseModel.data = _IAccountTransMasterServices.GetAllAccountTransMaster(filter);
 
-            if (get != null)
+            responseModel.PageRecords = responseModel.data.Count;
+
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -322,14 +332,16 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Get_All_AccountTransDetail")]
-        public IActionResult Get_AllAccountTransDetail()
+        public IActionResult Get_AllAccountTransDetail(FilterModel filter)
         {
 
-            var get = _IAccountTransDetailServices.GetAllAccountTransDetail();
+            responseModel.data = _IAccountTransDetailServices.GetAllAccountTransDetail(filter);
 
-            if (get != null)
+            responseModel.PageRecords = responseModel.data.Count;
+
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }

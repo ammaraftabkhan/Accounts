@@ -1,9 +1,14 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Context;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
+using Dapper;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +18,11 @@ namespace Accounts.Repository.Implementation
     public class AddressRepository : IAddressRepository
     {
         private readonly AccuteDbContext _AccuteDbContext;
-        public AddressRepository(AccuteDbContext _AccuteDbContext)
+        private readonly IConfiguration configuration;
+        public AddressRepository(AccuteDbContext _AccuteDbContext, IConfiguration configuration)
         {
             this._AccuteDbContext = _AccuteDbContext;
+            this.configuration = configuration;
         }
         public bool AddAddress(VM_Address _VM_Address)
         {
@@ -108,17 +115,33 @@ namespace Accounts.Repository.Implementation
             return new Address();
         }
 
-        public List<Address> GetAllAddress()
+        public List<dynamic> GetAllAddress(FilterModel filter)
         {
             try
             {
-                var list = _AccuteDbContext.Addresses.Where(e => e.IsDeleted == false).ToList();
+                //var list = _AccuteDbContext.Addresses.Where(e => e.IsDeleted == false).ToList();
 
-                return list;
+                //return list;
+
+
+                IDbConnection db = new SqlConnection(configuration.GetConnectionString("Accountsdb"));
+                DynamicParameters dynamicParameters = new DynamicParameters();
+
+                dynamicParameters.Add("@PageSize", filter.PageSize);
+                dynamicParameters.Add("@PageNumber", filter.PageNumber);
+                dynamicParameters.Add("@SortColumn", filter.SortColumn);
+                dynamicParameters.Add("@SortOrder", filter.SortOrder);
+                dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
+
+                db.Open();
+                var data = db.Query<dynamic>("GetAddresses", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                db.Close();
+
+                return data;
             }
             catch
             {
-                return new List<Address>();
+                return new List<dynamic>();
             }
         }
 

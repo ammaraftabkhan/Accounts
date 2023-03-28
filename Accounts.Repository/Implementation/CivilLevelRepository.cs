@@ -96,7 +96,7 @@ namespace Accounts.Repository.Implementation
             return new CivilLevel();
         }
 
-        public List<CivilLevel> GetAllCivilLevel(FilterModel filter)
+        public List<dynamic> GetAllCivilLevel(FilterModel filter)
         {
             try
             {
@@ -114,7 +114,7 @@ namespace Accounts.Repository.Implementation
                 dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
 
                 db.Open();
-                var data = db.Query<CivilLevel>("GetCivilLevels", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                var data = db.Query<dynamic>("GetCivilLevels", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
                 db.Close();
 
                 return data;
@@ -122,7 +122,7 @@ namespace Accounts.Repository.Implementation
             }
             catch
             {
-                return new List<CivilLevel>();
+                return new List<dynamic>();
             }
         }
 

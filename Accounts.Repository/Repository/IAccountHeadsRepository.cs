@@ -11,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface IAccountHeadsRepository
     {
-        List<AccountHead> GetAccountHead(FilterModel filter);
+        List<dynamic> GetAccountHead(FilterModel filter);
         AccountHead FindAccountHead(long id);
         bool UpdateAccountHead(VM_AccountHeads _VM_AccountHeads);
         bool DeleteAccountHead(int id);

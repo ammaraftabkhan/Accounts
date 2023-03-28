@@ -11,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface ICivilEntitiesRpository
     {
-        List<CivilEntity> GetAllCivilEntity(FilterModel filter);
+        List<dynamic> GetAllCivilEntity(FilterModel filter);
         CivilEntity FindCivilEntity(long id);
         bool UpdateCivilEntity(VM_CivilEntity _VM_CivilEntity);
         bool DeleteCivilEntity(long id);

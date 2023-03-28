@@ -11,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface ICivilLevelRepository
     {
-        List<CivilLevel> GetAllCivilLevel(FilterModel filter);
+        List<dynamic> GetAllCivilLevel(FilterModel filter);
         CivilLevel FindCivilLevel(int id);
         bool UpdateCivilLevel(VM_CivilLevel _VM_CivilLevel);
         bool DeleteCivilLevel(int id);

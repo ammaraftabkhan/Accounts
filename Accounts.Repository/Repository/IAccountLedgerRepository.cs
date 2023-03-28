@@ -11,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface IAccountLedgerRepository
     {
-        List<AccountLedger> GetAllAccountLedger(FilterModel filter);
+        List<dynamic> GetAllAccountLedger(FilterModel filter);
         AccountLedger FindAccountLedger(long id);
         bool UpdateAccountLedger(VM_AccountLedger _VM_AccountLedger);
         bool DeleteAccountLedger(int id);

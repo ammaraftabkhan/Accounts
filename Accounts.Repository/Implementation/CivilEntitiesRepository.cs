@@ -109,7 +109,7 @@ namespace Accounts.Repository.Implementation
             return new CivilEntity();
         }
 
-        public List<CivilEntity> GetAllCivilEntity(FilterModel filter)
+        public List<dynamic> GetAllCivilEntity(FilterModel filter)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace Accounts.Repository.Implementation
                 dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
 
                 db.Open();
-                var data = db.Query<CivilEntity>("GetCivilEntities", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                var data = db.Query<dynamic>("GetCivilEntities", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
                 db.Close();
 
                 return data;
@@ -135,7 +135,7 @@ namespace Accounts.Repository.Implementation
             }
             catch
             {
-                return new List<CivilEntity>();
+                return new List<dynamic>();
             }
         }
 

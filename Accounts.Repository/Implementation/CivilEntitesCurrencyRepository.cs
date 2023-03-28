@@ -104,7 +104,7 @@ namespace Accounts.Repository.Implementation
             return new CivilEntitiesCurrency();
         }
 
-        public List<CivilEntitiesCurrency> GetAllCivilEntitesCurrency(FilterModel filter)
+        public List<dynamic> GetAllCivilEntitesCurrency(FilterModel filter)
         {
             try
             {
@@ -122,7 +122,7 @@ namespace Accounts.Repository.Implementation
                 dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
 
                 db.Open();
-                var data = db.Query<CivilEntitiesCurrency>("GetCivilEntitiesCurrencies", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                var data = db.Query<dynamic>("GetCivilEntitiesCurrencies", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
                 db.Close();
 
                 return data;
@@ -131,7 +131,7 @@ namespace Accounts.Repository.Implementation
             }
             catch
             {
-                return new List<CivilEntitiesCurrency>();
+                return new List<dynamic>();
             }
         }
 

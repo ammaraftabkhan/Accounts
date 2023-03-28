@@ -119,7 +119,7 @@ namespace Accounts.Repository.Implementation
             return new AccountHead();
         }
 
-        public List<AccountHead> GetAccountHead(FilterModel filter)
+        public List<dynamic> GetAccountHead(FilterModel filter)
         {
             try
             {
@@ -138,14 +138,14 @@ namespace Accounts.Repository.Implementation
                 dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
                
                 db.Open();
-                   var data= db.Query<AccountHead>("GetAccountHead", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                   var data= db.Query<dynamic>("GetAccountHead", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
                 db.Close();
 
                 return  data;
             }
             catch
             {
-                return new List<AccountHead>();
+                return new List<dynamic>();
             }
         }
 

@@ -97,7 +97,7 @@ namespace Accounts.Repository.Implementation
             return new Currency(); 
         }
 
-        public List<Currency> GetAllCurrency(FilterModel filter)
+        public List<dynamic> GetAllCurrency(FilterModel filter)
         {
             try
             {
@@ -114,14 +114,14 @@ namespace Accounts.Repository.Implementation
                 dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
 
                 db.Open();
-                var data = db.Query<Currency>("GetCurrencies", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                var data = db.Query<dynamic>("GetCurrencies", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
                 db.Close();
 
                 return data;
             }
             catch
             {
-                return new List<Currency>();
+                return new List<dynamic>();
             }
         }
 

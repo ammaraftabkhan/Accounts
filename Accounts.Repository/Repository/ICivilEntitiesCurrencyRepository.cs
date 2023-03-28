@@ -11,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface ICivilEntitesCurrencyRepository
     {
-        List<CivilEntitiesCurrency> GetAllCivilEntitesCurrency(FilterModel filter);
+        List<dynamic> GetAllCivilEntitesCurrency(FilterModel filter);
         CivilEntitiesCurrency FindCivilEntitesCurrency(int id);
         bool UpdateCivilEntitiesCurrency(VM_CivilEntitiesCurrency _VM_CivilEntitiesCurrency);
         bool DeleteCivilEntitiesCurrency(int id);

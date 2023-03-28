@@ -11,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface ICurrencyRepository
     {
-        List<Currency> GetAllCurrency(FilterModel filter);
+        List<dynamic> GetAllCurrency(FilterModel filter);
         Currency FindCurrency(int id);
         bool UpdateCurrency(VM_Currency _VM_Currency);
         bool DeleteCurrency(int id);

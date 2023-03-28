@@ -1,4 +1,5 @@
 ﻿using Accounts.Common;
+using Accounts.Common.DataTable_Model;
 using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using System;
@@ -11,7 +12,7 @@ namespace Accounts.Repository.Repository
 {
     public interface IAccountTransMasterRepository
     {
-        List<AccountTransMaster> GetAllAccountTransMaster();
+        List<dynamic> GetAllAccountTransMaster(FilterModel filter);
         AccountTransMaster FindAccountTransMaster(long id);
         bool UpdateAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster);
         bool DeleteAccountTransMaster(int id);

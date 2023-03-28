@@ -98,7 +98,7 @@ namespace Accounts.Repository.Implementation
         }
     
 
-        public List<Language> GetAllLanguage(FilterModel filter)
+        public List<dynamic> GetAllLanguage(FilterModel filter)
         {
             try
             {
@@ -116,14 +116,14 @@ namespace Accounts.Repository.Implementation
                 dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
 
                 db.Open();
-                var data = db.Query<Language>("GetLanguages", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                var data = db.Query<dynamic>("GetLanguages", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
                 db.Close();
 
                 return data;
             }
             catch
             {
-                return new List<Language>();
+                return new List<dynamic>();
             }
         }
 

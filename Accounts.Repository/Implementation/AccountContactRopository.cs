@@ -1,9 +1,14 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Context;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
+using Dapper;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +18,11 @@ namespace Accounts.Repository.Implementation
     public class AccountContactRopository : IAccountsContactRepository
     {
         private readonly AccuteDbContext _AccuteDbContext;
-        public AccountContactRopository(AccuteDbContext _AccuteDbContext)
+        private readonly IConfiguration configuration;
+        public AccountContactRopository(AccuteDbContext _AccuteDbContext, IConfiguration configuration)
         {
             this._AccuteDbContext = _AccuteDbContext;
+            this.configuration = configuration;
         }
         public bool AddAccountContact(VM_AccountContact _VM_AccountContact)
         {
@@ -103,17 +110,31 @@ namespace Accounts.Repository.Implementation
             return new AccountContact();
         }
 
-        public List<AccountContact> GetAllAccountContact()
+        public List<dynamic> GetAllAccountContact(FilterModel filter)
         {
             try
             {
-                var list = _AccuteDbContext.AccountContacts.Where(e => e.IsDeleted == false).ToList();
+                //var list = _AccuteDbContext.AccountHeadTypes.Where(e=>e.IsDeleted==false).ToList();
+                //return list;
 
-                return list;
+                IDbConnection db = new SqlConnection(configuration.GetConnectionString("Accountsdb"));
+                DynamicParameters dynamicParameters = new DynamicParameters();
+
+                dynamicParameters.Add("@PageSize", filter.PageSize);
+                dynamicParameters.Add("@PageNumber", filter.PageNumber);
+                dynamicParameters.Add("@SortColumn", filter.SortColumn);
+                dynamicParameters.Add("@SortOrder", filter.SortOrder);
+                dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
+
+                db.Open();
+                var data = db.Query<dynamic>("GetContacts", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                db.Close();
+
+                return data;
             }
             catch
             {
-                return new List<AccountContact>();
+                return new List<dynamic>();
             }
         }
 

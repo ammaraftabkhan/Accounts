@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface IAccountProfileRepository
     {
-        List<AccountProfile> GetAllAccountProfile();
+        List<dynamic> GetAllAccountProfile(FilterModel filter);
         AccountProfile FindAccountProfile(long id);
         bool UpdateAccountProfile(VM_AccountProfile _VM_AccountProfile);
         bool DeleteAccountProfile(int id);

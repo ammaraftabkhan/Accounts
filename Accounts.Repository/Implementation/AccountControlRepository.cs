@@ -121,7 +121,7 @@ namespace Accounts.Repository.Implementation
             return new AccountControl();
         }
 
-        public List<AccountControl> GetAllAccountControl(FilterModel filter)
+        public List<dynamic> GetAllAccountControl(FilterModel filter)
         {
             try
             {
@@ -139,7 +139,7 @@ namespace Accounts.Repository.Implementation
                 dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
 
                 db.Open();
-                var data = db.Query<AccountControl>("GetAccountControl", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                var data = db.Query<dynamic>("GetAccountControl", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
                 db.Close();
 
                 return data;
@@ -147,7 +147,7 @@ namespace Accounts.Repository.Implementation
             }
             catch
             {
-                return new List<AccountControl>();
+                return new List<dynamic>();
             }
         }
 

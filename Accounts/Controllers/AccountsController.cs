@@ -22,38 +22,38 @@ namespace Accounts.API.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
-        private readonly IAccountHeadsServices _accountHeadsServices;
+        private readonly IAccountHeadsServices _IAccountHeadsServices;
         private readonly IAccountHeadTypeServices _IAccountHeadTypeServices;
         private readonly IAccountControlServices _IAccountControlServices;
         private readonly IAccountLedgerServices _IAccountLedgerServices;
         private readonly IAccountSubLedgerServices _IAccountSubLedgerServices;
-        private readonly IJwtService _JwtService;
+        private readonly IJwtService _IJwtService;
         private readonly ResponseModel responseModel = new ResponseModel();
         public AccountsController(
             IAccountHeadTypeServices _IAccountHeadTypeServices,
-            IAccountHeadsServices _AccountHeadServices, 
-            IAccountControlServices accountControlServices, 
-            IAccountLedgerServices iAccountLedgerServices, 
-            IAccountSubLedgerServices iAccountSubLedgerServices,
-            IJwtService jwtService
+            IAccountHeadsServices _IAccountHeadsServices, 
+            IAccountControlServices _IAccountControlServices, 
+            IAccountLedgerServices _IAccountLedgerServices, 
+            IAccountSubLedgerServices _IAccountSubLedgerServices,
+            IJwtService _IJwtService
             )
         {
             this._IAccountHeadTypeServices = _IAccountHeadTypeServices;
-            _accountHeadsServices = _AccountHeadServices;
-            _IAccountControlServices = accountControlServices;
-            _IAccountLedgerServices = iAccountLedgerServices;
-            _IAccountSubLedgerServices = iAccountSubLedgerServices;
-            _JwtService = jwtService;
+            this._IAccountHeadsServices = _IAccountHeadsServices;
+            this._IAccountControlServices = _IAccountControlServices;
+            this._IAccountLedgerServices = _IAccountLedgerServices;
+            this._IAccountSubLedgerServices = _IAccountSubLedgerServices;
+            this._IJwtService = _IJwtService;
         }
         [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult Login([FromBody] UserLogin userLogin)
         {
-            var user = _JwtService.Authenticate(userLogin);
+            var user = _IJwtService.Authenticate(userLogin);
             if (user != null)
             {
-                var token = _JwtService.GenerateToken(user);
-                return Ok(token);
+                var token = _IJwtService.GenerateToken(user);
+                return Ok(new { Token = token });
             }
             return NotFound("user not found");
         }
@@ -82,9 +82,10 @@ namespace Accounts.API.Controllers
         public IActionResult Get_All_AccountHeadtype([FromBody] FilterModel filter)
         {
 
+            //responseModel.TotalRecords = responseModel.data[0].TotalRows;
             responseModel.data = _IAccountHeadTypeServices.GetAccountHeadType(filter);
             responseModel.PageRecords = responseModel.data.Count;
-            //responseModel.TotalRecords = responseModel.data[0].TotalRows;
+            
             if (responseModel.data != null)
             {
                 return Ok(new { Response = responseModel });
@@ -165,7 +166,7 @@ namespace Accounts.API.Controllers
             bool Flag = false;
             if (ModelState.IsValid)
             {
-                Flag = _accountHeadsServices.AddAccountHead(vM_AccountHeads);
+                Flag = _IAccountHeadsServices.AddAccountHead(vM_AccountHeads);
 
                 if (Flag == true)
                 {
@@ -182,7 +183,7 @@ namespace Accounts.API.Controllers
             if (id > 0)
             {
                 bool flag = false;
-                flag = _accountHeadsServices.DeleteAccountHead(id);
+                flag = _IAccountHeadsServices.DeleteAccountHead(id);
                 if (flag == true)
                 {
                     return Ok(new { msg = "Successfully Deleted...!" });
@@ -195,11 +196,12 @@ namespace Accounts.API.Controllers
         public IActionResult Get_All_AccountHead([FromBody]FilterModel filter)
         {
 
-            var get = _accountHeadsServices.GetAccountHead(filter);
+            responseModel.data = _IAccountHeadsServices.GetAccountHead(filter);
+            responseModel.PageRecords = responseModel.data.Count;
 
-            if (get != null)
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -209,7 +211,7 @@ namespace Accounts.API.Controllers
             if (id > 0)
             {
 
-                var data = _accountHeadsServices.FindAccountHead(id);
+                var data = _IAccountHeadsServices.FindAccountHead(id);
                 if (data.AcHeadId!=0&&data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
@@ -231,7 +233,7 @@ namespace Accounts.API.Controllers
                 if (_VM_AccountHeads.AcHeadId > 0)
                 {
 
-                    flag = _accountHeadsServices.UpdateAccountHead(_VM_AccountHeads);
+                    flag = _IAccountHeadsServices.UpdateAccountHead(_VM_AccountHeads);
                     if (flag == true)
                     {
                         return Ok(new { msg = "Your data has been updated...!!!" });
@@ -269,11 +271,12 @@ namespace Accounts.API.Controllers
         public IActionResult Get_All_AccountControl([FromBody]FilterModel filter)
         {
 
-            var get = _IAccountControlServices.GetAllAccountControl(filter);
+            responseModel.data = _IAccountControlServices.GetAllAccountControl(filter);
+            responseModel.PageRecords = responseModel.data.Count;
 
-            if (get != null)
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -358,11 +361,12 @@ namespace Accounts.API.Controllers
         public IActionResult Get_All_AccountLedger([FromBody] FilterModel filter)
         {
 
-            var get = _IAccountLedgerServices.GetAllAccountLedger(filter);
+            responseModel.data = _IAccountLedgerServices.GetAllAccountLedger(filter);
+            responseModel.PageRecords = responseModel.data.Count;
 
-            if (get != null)
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }
@@ -447,11 +451,12 @@ namespace Accounts.API.Controllers
         public IActionResult Get_All_AccountSubLedger([FromBody] FilterModel filter)
         {
 
-            var get = _IAccountSubLedgerServices.GetAllAccountSubLedger(filter);
+            responseModel.data = _IAccountSubLedgerServices.GetAllAccountSubLedger(filter);
+            responseModel.PageRecords = responseModel.data.Count;
 
-            if (get != null)
+            if (responseModel.data != null)
             {
-                return Ok(new { list = get });
+                return Ok(new { Response = responseModel });
             }
             return NoContent();
         }

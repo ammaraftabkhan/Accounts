@@ -1,4 +1,5 @@
-﻿using Accounts.Common.Virtual_Models;
+﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Accounts.Repository.Repository
 {
     public interface IAddressRepository
     {
-        List<Address> GetAllAddress();
+        List<dynamic> GetAllAddress(FilterModel filter);
         Address FindAddress(int id);
         bool UpdateAddress(VM_Address _VM_Address);
         bool DeleteAddress(int id);

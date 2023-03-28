@@ -127,7 +127,7 @@ namespace Accounts.Repository.Implementation
             return new AccountSubLedger();
         }
 
-        public List<AccountSubLedger> GetAllAccountSubLedger(FilterModel filter)
+        public List<dynamic> GetAllAccountSubLedger(FilterModel filter)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace Accounts.Repository.Implementation
                 dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
 
                 db.Open();
-                var data = db.Query<AccountSubLedger>("GetAccountSubLedger", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                var data = db.Query<dynamic>("GetAccountSubLedger", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
                 db.Close();
 
                 return data;
@@ -154,7 +154,7 @@ namespace Accounts.Repository.Implementation
             }
             catch
             {
-                return new List<AccountSubLedger>();
+                return new List<dynamic>();
             }
         }
 
