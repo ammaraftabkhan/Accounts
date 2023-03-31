@@ -12,6 +12,7 @@ using Accounts.Services.Services;
 using MathNet.Numerics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using System.Collections.Generic;
@@ -23,19 +24,21 @@ namespace Accounts.API.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly IAccountHeadsServices _IAccountHeadsServices;
+        UserManager<IdentityUser<int>> UserManager;
         private readonly IAccountHeadTypeServices _IAccountHeadTypeServices;
         private readonly IAccountControlServices _IAccountControlServices;
         private readonly IAccountLedgerServices _IAccountLedgerServices;
         private readonly IAccountSubLedgerServices _IAccountSubLedgerServices;
         private readonly IJwtService _IJwtService;
-        private readonly ResponseModel responseModel = new ResponseModel();
+        private readonly DataResponse responseModel = new DataResponse();
         public AccountsController(
             IAccountHeadTypeServices _IAccountHeadTypeServices,
-            IAccountHeadsServices _IAccountHeadsServices, 
-            IAccountControlServices _IAccountControlServices, 
-            IAccountLedgerServices _IAccountLedgerServices, 
+            IAccountHeadsServices _IAccountHeadsServices,
+            IAccountControlServices _IAccountControlServices,
+            IAccountLedgerServices _IAccountLedgerServices,
             IAccountSubLedgerServices _IAccountSubLedgerServices,
-            IJwtService _IJwtService
+            IJwtService _IJwtService,
+            UserManager<IdentityUser<int>> userManager
             )
         {
             this._IAccountHeadTypeServices = _IAccountHeadTypeServices;
@@ -44,19 +47,35 @@ namespace Accounts.API.Controllers
             this._IAccountLedgerServices = _IAccountLedgerServices;
             this._IAccountSubLedgerServices = _IAccountSubLedgerServices;
             this._IJwtService = _IJwtService;
+            UserManager = userManager;
         }
-        [AllowAnonymous]
-        [HttpPost("login")]
-        public IActionResult Login([FromBody] UserLogin userLogin)
-        {
-            var user = _IJwtService.Authenticate(userLogin);
-            if (user != null)
-            {
-                var token = _IJwtService.GenerateToken(user);
-                return Ok(new { Token = token });
-            }
-            return NotFound("user not found");
-        }
+        //public async Task<IActionResult> Registration([FromBody] VM_UserRegistraion registration)
+        //{
+
+        //    IdentityUser<int> identityUser = new IdentityUser<int>();
+        //    identityUser.UserName = registration.Username;
+        //    identityUser.PhoneNumber = registration.Phonenumber;
+        //    identityUser.Email = registration.email;
+        //    identityUser.PasswordHash = registration.Password;
+            
+        //    UserManager.CreateAsync(identityUser);
+        //    return Ok("Successfully Register");
+        //}
+        //[AllowAnonymous]
+        //[HttpPost("login")]
+        //public IActionResult Login([FromBody] UserLogin userLogin)
+        //{
+        //    //IdentityUser<int> identityUser = new IdentityUser<int>();
+        //    //identityUser.PhoneNumber= userLogin.
+        //    //this.UserManager.CreateAsync()
+        //    var user = _IJwtService.Authenticate(userLogin);
+        //    if (user != null)
+        //    {
+        //        var token = _IJwtService.GenerateToken(user);
+        //        return Ok(new { Token = token });
+        //    }
+        //    return NotFound("user not found");
+        //}
         //[Authorize]
         [HttpPost("Add_AccountHeadType")]
         public IActionResult Add_AccountHeadType(VM_AccountHeadType _VM_AccountHeadType)
@@ -77,7 +96,7 @@ namespace Accounts.API.Controllers
 
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost("Get_All_AccountHeadtype")]
         public IActionResult Get_All_AccountHeadtype([FromBody] FilterModel filter)
         {

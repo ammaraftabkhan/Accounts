@@ -10,8 +10,10 @@ using Accounts.Services.Implementation;
 using Accounts.Services.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -85,9 +87,11 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddDbContext<AccuteDbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("Accountsdb")));
 builder.Services.AddScoped<AccuteDbContext>();
 builder.Services.AddDbContext<AccuteDbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("Accountsdb")));
-
 builder.Services.SerServices();
 builder.Services.RepServices();
+
+
+
 builder.Services.ConfigureJWT(builder.Configuration);
 var app = builder.Build();
 

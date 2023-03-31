@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Accounts.Core.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Accounts.Core.Context
 {
-    public partial class AccuteDbContext : DbContext
+    public partial class AccuteDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
     {
         public AccuteDbContext()
         {
@@ -53,12 +55,19 @@ namespace Accounts.Core.Context
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-055R5PI\\SQLEXPRESS01;Initial Catalog=AccountsDB;Integrated Security=True;Encrypt=false");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-LGPR2Q2;Initial Catalog=AccountsDB;Integrated Security=True;Encrypt=false");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<IdentityUser<int>>().ToTable("Users").HasKey(x => x.Id);
+            modelBuilder.Entity<IdentityRole<int>>().ToTable("Roles").HasKey(x => x.Id);
+            modelBuilder.Entity<IdentityUserRole<int>>().ToTable("UserRoles").HasKey(x => new { x.UserId, x.RoleId });
+            modelBuilder.Entity<IdentityUserClaim<int>>().ToTable("UserClaims").HasKey(x => x.Id);
+            modelBuilder.Entity<IdentityUserLogin<int>>().ToTable("UserLogins").HasKey(x => new { x.UserId });
+            modelBuilder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims").HasKey(x => new { x.Id, x.RoleId });
+            modelBuilder.Entity<IdentityUserToken<int>>().ToTable("UserTokens").HasKey(x => new { x.UserId });
             modelBuilder.Entity<AccountContact>(entity =>
             {
                 entity.HasKey(e => e.AcContactId)

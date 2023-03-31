@@ -1,8 +1,10 @@
-﻿using Accounts.Repository.Implementation;
+﻿using Accounts.Core.Context;
+using Accounts.Repository.Implementation;
 using Accounts.Repository.Repository;
 using Accounts.Services.Implementation;
 using Accounts.Services.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -53,11 +55,12 @@ namespace Accounts.Services
             services.AddScoped<IAccountTransMasterServices, AccountTransMasterServices>();
 
             services.AddScoped<IAccountTransDetailServices, AccountTransDetailServices>();
-            services.AddScoped<IJwtService, JwtService>(); 
+            services.AddTransient<IJwtService, JwtService>(); 
             return services;
         }
         public static IServiceCollection ConfigureJWT(this IServiceCollection services,IConfiguration _configuration)
         {
+            services.AddIdentity<IdentityUser<int>, IdentityRole<int>>().AddEntityFrameworkStores<AccuteDbContext>().AddDefaultTokenProviders();
             // Add JWT authentication
              services.AddAuthentication(options =>
             {

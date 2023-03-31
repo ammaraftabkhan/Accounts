@@ -18,7 +18,7 @@ namespace Accounts.API.Controllers
         private readonly ICivilLevelServices _ICivilLevelServices;
         private readonly ICivilEntitiesLanguageServices _ICivilEntitiesLanguageServices;
         private readonly ICivilEntitiesCurrencyServices _ICivilEntitiesCurrencyServices;
-        private readonly ResponseModel responseModel = new ResponseModel();
+        private readonly DataResponse responseModel = new DataResponse();
 
         public CivilEntitiesController(
             ILanguageServices iLanguageServices,

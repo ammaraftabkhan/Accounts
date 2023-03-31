@@ -15,7 +15,7 @@ namespace Accounts.API.Controllers
         private readonly IAccountContactServices _IAccountContactServices;
         private readonly IAddressTypeServices _IAddressTypeServices;
         private readonly IAddressServices _IAddressServices;
-        private readonly ResponseModel responseModel = new ResponseModel();
+        private readonly DataResponse responseModel = new DataResponse();
         public ContactController(
             IAccountProfileServices iAccountProfileServices,
             IAccountContactServices iAccountContactServices,

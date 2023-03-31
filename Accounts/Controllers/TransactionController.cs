@@ -19,7 +19,7 @@ namespace Accounts.API.Controllers
         private readonly IAccountFiscalYearServices _IAccountFiscalYearServices;
         private readonly IAccountTransMasterServices _IAccountTransMasterServices;
         private readonly IAccountTransDetailServices _IAccountTransDetailServices;
-        private readonly ResponseModel responseModel = new ResponseModel();
+        private readonly DataResponse responseModel = new DataResponse();
 
         public TransactionController(
 
