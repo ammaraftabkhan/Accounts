@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Accounts.Common.Response_Model
 {
-    public class IdResponse
+    public static class UserRoles
     {
-        public bool? Status { get; set; }
-        public string? Message { get; set; }
+        
+        public const string Admin = "Admin";
+        public const string User = "User";
     }
 }
+

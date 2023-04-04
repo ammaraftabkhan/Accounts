@@ -57,7 +57,7 @@ namespace Accounts.API.Controllers
         //    identityUser.PhoneNumber = registration.Phonenumber;
         //    identityUser.Email = registration.email;
         //    identityUser.PasswordHash = registration.Password;
-            
+
         //    UserManager.CreateAsync(identityUser);
         //    return Ok("Successfully Register");
         //}
@@ -77,6 +77,7 @@ namespace Accounts.API.Controllers
         //    return NotFound("user not found");
         //}
         //[Authorize]
+        [Authorize]
         [HttpPost("Add_AccountHeadType")]
         public IActionResult Add_AccountHeadType(VM_AccountHeadType _VM_AccountHeadType)
         {

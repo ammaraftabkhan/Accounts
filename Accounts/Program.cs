@@ -56,7 +56,8 @@ builder.Services.AddControllers().AddFluentValidation(
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddSwaggerGen(c => {
+//builder.Services.AddSwaggerGen(c =>
+//{
 //    c.SwaggerDoc("v1", new OpenApiInfo
 //    {
 //        Title = "JWTToken_Auth_API",

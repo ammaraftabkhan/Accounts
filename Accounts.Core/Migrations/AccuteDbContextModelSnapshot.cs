@@ -33,11 +33,13 @@ namespace Accounts.Core.Migrations
                     b.Property<long>("AcProfileId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("Cell1")
-                        .HasColumnType("int");
+                    b.Property<string>("Cell1")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("Cell2")
-                        .HasColumnType("int");
+                    b.Property<string>("Cell2")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -89,11 +91,13 @@ namespace Accounts.Core.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("STRN");
 
-                    b.Property<int?>("Tel1")
-                        .HasColumnType("int");
+                    b.Property<string>("Tel1")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("Tel2")
-                        .HasColumnType("int");
+                    b.Property<string>("Tel2")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -150,6 +154,9 @@ namespace Accounts.Core.Migrations
 
                     b.Property<DateTime?>("PostedOn")
                         .HasColumnType("datetime");
+
+                    b.Property<int?>("TotalRows")
+                        .HasColumnType("int");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -258,6 +265,9 @@ namespace Accounts.Core.Migrations
                     b.Property<DateTime?>("PostedOn")
                         .HasColumnType("datetime");
 
+                    b.Property<int?>("TotalRows")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
@@ -364,6 +374,9 @@ namespace Accounts.Core.Migrations
                     b.Property<DateTime?>("PostedOn")
                         .HasColumnType("datetime");
 
+                    b.Property<int?>("TotalRows")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
@@ -393,11 +406,13 @@ namespace Accounts.Core.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("Cell1")
-                        .HasColumnType("int");
+                    b.Property<string>("Cell1")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("Cell2")
-                        .HasColumnType("int");
+                    b.Property<string>("Cell2")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ChqName")
                         .HasMaxLength(50)
@@ -441,11 +456,13 @@ namespace Accounts.Core.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("STRN");
 
-                    b.Property<int?>("Tel1")
-                        .HasColumnType("int");
+                    b.Property<string>("Tel1")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("Tel2")
-                        .HasColumnType("int");
+                    b.Property<string>("Tel2")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -457,6 +474,8 @@ namespace Accounts.Core.Migrations
                         .HasName("PK_Profile");
 
                     b.HasIndex("AcLedgerId");
+
+                    b.HasIndex("CurrencyId");
 
                     b.ToTable("AccountProfile");
                 });
@@ -502,6 +521,9 @@ namespace Accounts.Core.Migrations
 
                     b.Property<DateTime?>("PostedOn")
                         .HasColumnType("datetime");
+
+                    b.Property<int?>("TotalRows")
+                        .HasColumnType("int");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -879,8 +901,8 @@ namespace Accounts.Core.Migrations
                     b.Property<int>("AddressTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CivilEntityId")
-                        .HasColumnType("int");
+                    b.Property<long>("CivilEntityId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -1124,8 +1146,8 @@ namespace Accounts.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CivilEntitiesCurrencyId"), 1L, 1);
 
-                    b.Property<int>("CivilEntityId")
-                        .HasColumnType("int");
+                    b.Property<long>("CivilEntityId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -1151,6 +1173,9 @@ namespace Accounts.Core.Migrations
                     b.Property<DateTime?>("PostedOn")
                         .HasColumnType("datetime");
 
+                    b.Property<int?>("TotalRows")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
@@ -1158,6 +1183,10 @@ namespace Accounts.Core.Migrations
                         .HasColumnType("datetime");
 
                     b.HasKey("CivilEntitiesCurrencyId");
+
+                    b.HasIndex("CivilEntityId");
+
+                    b.HasIndex("CurrencyId");
 
                     b.ToTable("CivilEntitiesCurrencies");
                 });
@@ -1170,8 +1199,8 @@ namespace Accounts.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CivilEntitiessLanguagesId"), 1L, 1);
 
-                    b.Property<int>("CivilEntityId")
-                        .HasColumnType("int");
+                    b.Property<long>("CivilEntityId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -1197,6 +1226,9 @@ namespace Accounts.Core.Migrations
                     b.Property<DateTime?>("PostedOn")
                         .HasColumnType("datetime");
 
+                    b.Property<int?>("TotalRows")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
@@ -1205,16 +1237,20 @@ namespace Accounts.Core.Migrations
 
                     b.HasKey("CivilEntitiessLanguagesId");
 
+                    b.HasIndex("CivilEntityId");
+
+                    b.HasIndex("LanguageId");
+
                     b.ToTable("CivilEntitiesLanguages");
                 });
 
             modelBuilder.Entity("Accounts.Core.Models.CivilEntity", b =>
                 {
-                    b.Property<int>("CivilEntityId")
+                    b.Property<long>("CivilEntityId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CivilEntityId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("CivilEntityId"), 1L, 1);
 
                     b.Property<string>("CivilEntityName")
                         .HasColumnType("nvarchar(max)");
@@ -1222,8 +1258,8 @@ namespace Accounts.Core.Migrations
                     b.Property<int>("CivilLevelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CivilParentId")
-                        .HasColumnType("int");
+                    b.Property<long>("CivilParentId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -1248,6 +1284,9 @@ namespace Accounts.Core.Migrations
 
                     b.Property<DateTime?>("PostedOn")
                         .HasColumnType("datetime");
+
+                    b.Property<int?>("TotalRows")
+                        .HasColumnType("int");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -1293,6 +1332,9 @@ namespace Accounts.Core.Migrations
 
                     b.Property<DateTime?>("PostedOn")
                         .HasColumnType("datetime");
+
+                    b.Property<int?>("TotalRows")
+                        .HasColumnType("int");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -1369,11 +1411,18 @@ namespace Accounts.Core.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("CurrencyCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("CurrencyName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("CurrencySign")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
@@ -1391,6 +1440,9 @@ namespace Accounts.Core.Migrations
 
                     b.Property<DateTime?>("PostedOn")
                         .HasColumnType("datetime");
+
+                    b.Property<int?>("TotalRows")
+                        .HasColumnType("int");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -1426,6 +1478,11 @@ namespace Accounts.Core.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<string>("LanguageCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("LanguageName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -1436,6 +1493,9 @@ namespace Accounts.Core.Migrations
 
                     b.Property<DateTime?>("PostedOn")
                         .HasColumnType("datetime");
+
+                    b.Property<int?>("TotalRows")
+                        .HasColumnType("int");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -1702,6 +1762,181 @@ namespace Accounts.Core.Migrations
                     b.ToTable("UserRole");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id", "RoleId");
+
+                    b.ToTable("RoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.ToTable("UserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserTokens", (string)null);
+                });
+
             modelBuilder.Entity("Accounts.Core.Models.AccountContact", b =>
                 {
                     b.HasOne("Accounts.Core.Models.AccountProfile", "AcProfile")
@@ -1753,7 +1988,15 @@ namespace Accounts.Core.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_AccountProfile_AccountLedger");
 
+                    b.HasOne("Accounts.Core.Models.Currency", "Currency")
+                        .WithMany("AccountProfiles")
+                        .HasForeignKey("CurrencyId")
+                        .IsRequired()
+                        .HasConstraintName("FK_AccountProfile_Currencies");
+
                     b.Navigation("AcLedger");
+
+                    b.Navigation("Currency");
                 });
 
             modelBuilder.Entity("Accounts.Core.Models.AccountSubLedger", b =>
@@ -1844,6 +2087,44 @@ namespace Accounts.Core.Migrations
                     b.Navigation("CivilEntity");
                 });
 
+            modelBuilder.Entity("Accounts.Core.Models.CivilEntitiesCurrency", b =>
+                {
+                    b.HasOne("Accounts.Core.Models.CivilEntity", "CivilEntity")
+                        .WithMany("CivilEntitiesCurrencies")
+                        .HasForeignKey("CivilEntityId")
+                        .IsRequired()
+                        .HasConstraintName("FK_CivilEntitiesCurrencies_CivilEntities");
+
+                    b.HasOne("Accounts.Core.Models.Currency", "Currency")
+                        .WithMany("CivilEntitiesCurrencies")
+                        .HasForeignKey("CurrencyId")
+                        .IsRequired()
+                        .HasConstraintName("FK_CivilEntitiesCurrencies_Currencies");
+
+                    b.Navigation("CivilEntity");
+
+                    b.Navigation("Currency");
+                });
+
+            modelBuilder.Entity("Accounts.Core.Models.CivilEntitiesLanguage", b =>
+                {
+                    b.HasOne("Accounts.Core.Models.CivilEntity", "CivilEntity")
+                        .WithMany("CivilEntitiesLanguages")
+                        .HasForeignKey("CivilEntityId")
+                        .IsRequired()
+                        .HasConstraintName("FK_CivilEntitiesLanguages_CivilEntities");
+
+                    b.HasOne("Accounts.Core.Models.Language", "Language")
+                        .WithMany("CivilEntitiesLanguages")
+                        .HasForeignKey("LanguageId")
+                        .IsRequired()
+                        .HasConstraintName("FK_CivilEntitiesLanguages_Languages");
+
+                    b.Navigation("CivilEntity");
+
+                    b.Navigation("Language");
+                });
+
             modelBuilder.Entity("Accounts.Core.Models.CivilEntity", b =>
                 {
                     b.HasOne("Accounts.Core.Models.CivilLevel", "CivilLevel")
@@ -1917,11 +2198,27 @@ namespace Accounts.Core.Migrations
             modelBuilder.Entity("Accounts.Core.Models.CivilEntity", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("CivilEntitiesCurrencies");
+
+                    b.Navigation("CivilEntitiesLanguages");
                 });
 
             modelBuilder.Entity("Accounts.Core.Models.CivilLevel", b =>
                 {
                     b.Navigation("CivilEntities");
+                });
+
+            modelBuilder.Entity("Accounts.Core.Models.Currency", b =>
+                {
+                    b.Navigation("AccountProfiles");
+
+                    b.Navigation("CivilEntitiesCurrencies");
+                });
+
+            modelBuilder.Entity("Accounts.Core.Models.Language", b =>
+                {
+                    b.Navigation("CivilEntitiesLanguages");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,6 +13,7 @@ namespace Accounts.Common.Virtual_Models
         public string email { get; set; }
         public string Phonenumber { get; set; }
         public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
         
     }
 }
