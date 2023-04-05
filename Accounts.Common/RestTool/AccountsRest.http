@@ -1,0 +1,24 @@
+POST https://localhost:7257/api/Accounts/Add_AccountHead
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWxIYW1tYWQiLCJqdGkiOiJkMzM2YjJmOS05YWEwLTRlYTMtOTNhZS1jYzBlNTkxYTQwNTIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW4iLCJVc2VyIl0sImV4cCI6MTY4MDY4NDM4NSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzI1NyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjcyNTcifQ.XGSTDPYLboUlu1Nzqioc5YC-Q_K4flzs5NBIN-uCmMc
+
+{
+  "acHeadId": 0,
+  "acHeadName": "Bang Bang",
+  "acHeadTypeId": 100,
+  "createdOn": "2023-04-05T05:48:35.812Z",
+  "createdBy": 0,
+  "updatedOn": "2023-04-05T05:48:35.812Z",
+  "updatedBy": 0,
+  "postedOn": "2023-04-05T05:48:35.812Z",
+  "postedBy": 0
+}
+
+###
+POST https://localhost:7257/api/Login/Login
+Content-Type: application/json
+
+{
+  "username": "AlHammad",
+  "password": "AlHammad@786"
+}

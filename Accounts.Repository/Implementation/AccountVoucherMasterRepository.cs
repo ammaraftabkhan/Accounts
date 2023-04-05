@@ -37,18 +37,22 @@ namespace Accounts.Repository.Implementation
             accountVoucherMaster.CreatedOn = DateTime.UtcNow;
             accountVoucherMaster.PostedBy = _VM_AccountVoucherMaster.PostedBy;
             accountVoucherMaster.PostedOn = DateTime.UtcNow;
-
-            try
+            long? fiscalyearid = _AccuteDbContext.AccountFiscalYears.FirstOrDefault(e => e.FiscalYearId == _VM_AccountVoucherMaster.FiscalYearId)?.FiscalYearId;
+            if(fiscalyearid == _VM_AccountVoucherMaster.FiscalYearId)
             {
-                _AccuteDbContext.AccountVoucherMasters.Add(accountVoucherMaster);
-                return _AccuteDbContext.SaveChanges() > 0;
+                try
+                {
+                    _AccuteDbContext.AccountVoucherMasters.Add(accountVoucherMaster);
+                    return _AccuteDbContext.SaveChanges() > 0;
 
-            }
-            catch (Exception ex)
-            {
-                return false;
+                }
+                catch (Exception ex)
+                {
+                    return false;
 
+                }
             }
+            return false;
         }
 
         public bool DeleteAccountVoucherMaster(int id)

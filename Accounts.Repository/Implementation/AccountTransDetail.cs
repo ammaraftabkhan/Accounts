@@ -43,17 +43,27 @@ namespace Accounts.Repository.Implementation
             ob.CreatedOn = DateTime.UtcNow;
             ob.PostedBy = _VM_AccountTransDetail.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
-            try
-            {
-                _AccuteDbContext.AccountTransDetails.Add(ob);
-                return _AccuteDbContext.SaveChanges() > 0;
+            long? Masterid = _AccuteDbContext.AccountTransMasters.FirstOrDefault(e => e.AcTransMasterId == _VM_AccountTransDetail.AcTransMasterId)?.AcTransMasterId;
+            long? Ledgerid = _AccuteDbContext.AccountLedgers.FirstOrDefault(e => e.AcLedgerId == _VM_AccountTransDetail.PayeeAcLedgerId)?.AcLedgerId;
+            long? SubLedgerid = _AccuteDbContext.AccountSubLedgers.FirstOrDefault(e => e.AcSubLedgerId == _VM_AccountTransDetail.PayeeAcSubLedgerId)?.AcSubLedgerId;
+            long? Contactd  = _AccuteDbContext.AccountContacts.FirstOrDefault(e => e.AcContactId == _VM_AccountTransDetail.PayeeAcContactId)?.AcContactId;
 
-            }
-            catch (Exception ex)
+            if (Masterid == _VM_AccountTransDetail.AcTransMasterId && Ledgerid == _VM_AccountTransDetail.PayeeAcLedgerId && SubLedgerid == _VM_AccountTransDetail.PayeeAcSubLedgerId && Contactd == _VM_AccountTransDetail.PayeeAcContactId)
             {
-                return false;
+                try
+                {
+                    _AccuteDbContext.AccountTransDetails.Add(ob);
+                    return _AccuteDbContext.SaveChanges() > 0;
 
+                }
+                catch (Exception ex)
+                {
+                    return false;
+
+                }
             }
+            return false;
+            
         }
 
         public bool DeleteAccountTransDetail(int id)

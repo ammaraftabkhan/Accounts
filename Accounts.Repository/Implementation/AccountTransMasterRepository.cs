@@ -37,17 +37,23 @@ namespace Accounts.Repository.Implementation
             accountTransMaster.CreatedOn = DateTime.UtcNow;
             accountTransMaster.PostedBy = _VM_AccountTransMaster.PostedBy;
             accountTransMaster.PostedOn = DateTime.UtcNow;
-            try
-            {
-                _AccuteDbContext.AccountTransMasters.Add(accountTransMaster);
-                return _AccuteDbContext.SaveChanges() > 0;
+            long? transtypeid = _AccuteDbContext.AccountTransTypes.FirstOrDefault(e => e.AcTransTypeId == _VM_AccountTransMaster.AcTransTypeId)?.AcTransTypeId;
 
-            }
-            catch (Exception ex)
+            if(transtypeid == _VM_AccountTransMaster.AcTransTypeId)
             {
-                return false;
+                try
+                {
+                    _AccuteDbContext.AccountTransMasters.Add(accountTransMaster);
+                    return _AccuteDbContext.SaveChanges() > 0;
 
+                }
+                catch (Exception ex)
+                {
+                    return false;
+
+                }
             }
+            return false;
         }
 
         public bool DeleteAccountTransMaster(int id)

@@ -2,6 +2,7 @@
 using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Services.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,7 @@ namespace Accounts.API.Controllers
             _configuration = configuration;
             _jwtService = jwtService;
         }
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] VM_UserLogin login)
         {

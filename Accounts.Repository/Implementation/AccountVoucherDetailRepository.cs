@@ -38,17 +38,26 @@ namespace Accounts.Repository.Implementation
             accountVoucherDetail.PostedBy = _VM_AccountVoucherDetail.PostedBy;
             accountVoucherDetail.PostedOn = DateTime.UtcNow;
 
-            try
-            {
-                _AccuteDbContext.AccountVoucherDetails.Add(accountVoucherDetail);
-                return _AccuteDbContext.SaveChanges() > 0;
+            long? Masterid = _AccuteDbContext.AccountVoucherMasters.FirstOrDefault(e => e.AcVoucherMasterId == _VM_AccountVoucherDetail.AcVoucherMasterId)?.AcVoucherMasterId;
+            long? Ledgerid = _AccuteDbContext.AccountLedgers.FirstOrDefault(e => e.AcLedgerId == _VM_AccountVoucherDetail.AcLedgerId)?.AcLedgerId;
+            long? SubLedgerid = _AccuteDbContext.AccountSubLedgers.FirstOrDefault(e => e.AcSubLedgerId == _VM_AccountVoucherDetail.AcSubLedgerId)?.AcSubLedgerId;
 
-            }
-            catch (Exception ex)
+            if(Masterid == _VM_AccountVoucherDetail.AcVoucherMasterId && Ledgerid == _VM_AccountVoucherDetail.AcLedgerId && SubLedgerid == _VM_AccountVoucherDetail.AcSubLedgerId)
             {
-                return false;
+                try
+                {
+                    _AccuteDbContext.AccountVoucherDetails.Add(accountVoucherDetail);
+                    return _AccuteDbContext.SaveChanges() > 0;
 
+                }
+                catch (Exception ex)
+                {
+                    return false;
+
+                }
             }
+            return false;
+           
         }
 
         public bool DeleteAccountVoucherDetail(int id)

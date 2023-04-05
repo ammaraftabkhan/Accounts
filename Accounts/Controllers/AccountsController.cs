@@ -76,8 +76,7 @@ namespace Accounts.API.Controllers
         //    }
         //    return NotFound("user not found");
         //}
-        //[Authorize]
-        [Authorize]
+        [Authorize(Roles =UserRoles.User)]
         [HttpPost("Add_AccountHeadType")]
         public IActionResult Add_AccountHeadType(VM_AccountHeadType _VM_AccountHeadType)
         {
