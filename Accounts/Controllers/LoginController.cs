@@ -1,4 +1,6 @@
-﻿using Accounts.Common.Response_Model;
+﻿using Accounts.Common.Email;
+using Accounts.Common.Reset;
+using Accounts.Common.Response_Model;
 using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Services.Services;
@@ -7,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -21,24 +24,27 @@ namespace Accounts.API.Controllers
         private readonly RoleManager<IdentityRole<int>> _roleManager;
         private readonly IConfiguration _configuration;
         private readonly IJwtService _jwtService;
+        private readonly IEmailService _IEmailService;
         public LoginController(
             UserManager<IdentityUser<int>> userManager,
             RoleManager<IdentityRole<int>> roleManager,
             IConfiguration configuration,
-            IJwtService jwtService
+            IJwtService jwtService,
+            IEmailService IEmailService
             )
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
             _jwtService = jwtService;
+            _IEmailService = IEmailService;
         }
         [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] VM_UserLogin login)
         {
             var user = await _userManager.FindByNameAsync(login.Username);
-            if (user != null && await _userManager.CheckPasswordAsync(user,login.Password))
+            if (user != null && await _userManager.CheckPasswordAsync(user, login.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var authClaim = new List<Claim>
@@ -52,10 +58,12 @@ namespace Accounts.API.Controllers
                     authClaim.Add(new Claim(ClaimTypes.Role, userRole));
                 }
                 var token = _jwtService.GetToken(authClaim);
-                return Ok(new { token =new JwtSecurityTokenHandler().WriteToken(token),
+                return Ok(new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo,
-                    userid= user.Id
-                    
+                    userid = user.Id
+
                 });
             }
             return Unauthorized();
@@ -76,10 +84,10 @@ namespace Accounts.API.Controllers
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username,
                 PhoneNumber = model.Phonenumber,
-                
-                
+
+
             };
-            var result = await _userManager.CreateAsync(user,model.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new IdResponse { Status = false, Message = "User creation failed! Please check user details and try again." });
             //if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
@@ -108,7 +116,7 @@ namespace Accounts.API.Controllers
                 return StatusCode(StatusCodes.Status409Conflict, new IdResponse { Status = false, Message = "Your Password did not match!" });
 
             IdentityUser<int> user = new()
-            { 
+            {
                 Email = model.email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username,
@@ -147,5 +155,54 @@ namespace Accounts.API.Controllers
 
         //    return token;
         //}
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("ForgetPassword")]
+        public async Task<IActionResult> ForgotPassword([Required] string email)
+        {
+
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user != null)
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var forgotPasswordLink = Url.Action(nameof(ResetPassword), "Login", new { token, email = user.Email }, Request.Scheme);
+                var message = new Message(new string[] { user.Email }, "Confirmation email link", forgotPasswordLink!);
+                _IEmailService.SendEmail(message);
+                return StatusCode(StatusCodes.Status200OK, new IdResponse { Status = true, Message = $"Password changed request is sent on Email {user.Email}.Please open Your email & click the link." });
+
+                }
+            return StatusCode(StatusCodes.Status400BadRequest, new IdResponse { Status = false, Message = $"Could not snd link to email, please try again with correct email." });
+        }
+        [HttpGet("reset-password")]
+        public async Task<IActionResult> ResetPassword(string token, string email)
+        {
+            var model = new ResetPassword { Token = token, Email = email };
+            return Ok(new
+            {
+                model
+            });
+        }
+        [AllowAnonymous]
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword(ResetPassword resetPassword)
+        {
+            var user = await _userManager.FindByEmailAsync(resetPassword.Email);
+            if (user != null)
+            {
+                var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPassword.Token, resetPassword.Password);
+                if (!resetPassResult.Succeeded)
+                {
+                    foreach (var error in resetPassResult.Errors)
+                    {
+                        ModelState.AddModelError(error.Code, error.Description);
+
+                    }
+                    return Ok(ModelState);
+                }
+                return StatusCode(StatusCodes.Status200OK, new IdResponse { Status = true, Message = $"Password has been changed" });
+            }
+            return StatusCode(StatusCodes.Status400BadRequest, new IdResponse { Status = false, Message = $"Could not snd link to email, please try again with correct email." });
+        }
     }
 }

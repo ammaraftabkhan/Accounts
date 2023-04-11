@@ -1,5 +1,6 @@
 ﻿using Accounts.Common;
 using Accounts.Common.DataTable_Model;
+using Accounts.Common.Email;
 using Accounts.Common.Response_Model;
 using Accounts.Common.User;
 using Accounts.Common.Virtual_Models;
@@ -16,6 +17,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using System.Collections.Generic;
+using System.Security.Cryptography.Xml;
 
 namespace Accounts.API.Controllers
 {
@@ -31,6 +33,7 @@ namespace Accounts.API.Controllers
         private readonly IAccountSubLedgerServices _IAccountSubLedgerServices;
         private readonly IJwtService _IJwtService;
         private readonly DataResponse responseModel = new DataResponse();
+        private readonly IEmailService _IEmailService;
         public AccountsController(
             IAccountHeadTypeServices _IAccountHeadTypeServices,
             IAccountHeadsServices _IAccountHeadsServices,
@@ -38,7 +41,8 @@ namespace Accounts.API.Controllers
             IAccountLedgerServices _IAccountLedgerServices,
             IAccountSubLedgerServices _IAccountSubLedgerServices,
             IJwtService _IJwtService,
-            UserManager<IdentityUser<int>> userManager
+            UserManager<IdentityUser<int>> userManager,
+            IEmailService IEmailService
             )
         {
             this._IAccountHeadTypeServices = _IAccountHeadTypeServices;
@@ -48,6 +52,7 @@ namespace Accounts.API.Controllers
             this._IAccountSubLedgerServices = _IAccountSubLedgerServices;
             this._IJwtService = _IJwtService;
             UserManager = userManager;
+            _IEmailService = IEmailService;
         }
         //public async Task<IActionResult> Registration([FromBody] VM_UserRegistraion registration)
         //{
@@ -76,6 +81,14 @@ namespace Accounts.API.Controllers
         //    }
         //    return NotFound("user not found");
         //}
+        [HttpGet("EmailTest")]
+        public IActionResult TestEmail()
+        {
+            var message = new Message(new string[] { "qasimasghar391@gmail.com" }, "Test", "Hello Brother!");
+            _IEmailService.SendEmail(message);
+            return StatusCode(StatusCodes.Status200OK, new IdResponse { Status = true, Message = "Email Sent Successfully" });
+            
+        }
         [Authorize(Roles =UserRoles.User)]
         [HttpPost("Add_AccountHeadType")]
         public IActionResult Add_AccountHeadType(VM_AccountHeadType _VM_AccountHeadType)
