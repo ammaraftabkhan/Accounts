@@ -55,7 +55,6 @@ namespace Accounts.Services
             services.AddScoped<IAccountTransMasterServices, AccountTransMasterServices>();
 
             services.AddScoped<IAccountTransDetailServices, AccountTransDetailServices>();
-            services.AddScoped<IEmailService, EmailService>();
             services.AddTransient<IJwtService, JwtService>(); 
             return services;
         }
