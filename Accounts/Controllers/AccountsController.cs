@@ -21,6 +21,7 @@ using System.Security.Cryptography.Xml;
 
 namespace Accounts.API.Controllers
 {
+    [Authorize(Roles = UserRoles.User)]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountsController : ControllerBase
@@ -89,7 +90,7 @@ namespace Accounts.API.Controllers
             return StatusCode(StatusCodes.Status200OK, new IdResponse { Status = true, Message = "Email Sent Successfully" });
             
         }
-        [Authorize(Roles =UserRoles.User)]
+        
         [HttpPost("Add_AccountHeadType")]
         public IActionResult Add_AccountHeadType(VM_AccountHeadType _VM_AccountHeadType)
         {

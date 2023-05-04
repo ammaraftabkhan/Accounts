@@ -74,7 +74,8 @@ namespace Accounts.Repository.Implementation
 
         public bool DeleteAccountControl(int id)
         {
-            if (id > 0)
+            int? ControlId = (int?)(_AccuteDbContext.AccountLedgers.FirstOrDefault(e => e.AcControlId == id)?.AcControlId);
+            if (id > 0 && id != ControlId)
             {
 
                 try

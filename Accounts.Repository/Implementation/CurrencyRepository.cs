@@ -52,7 +52,9 @@ namespace Accounts.Repository.Implementation
 
         public bool DeleteCurrency(int id)
         {
-            if (id > 0)
+            int? CurrencyId = (int?)(_AccuteDbContext.CivilEntitiesCurrencies.FirstOrDefault(e => e.CurrencyId == id)?.CurrencyId);
+
+            if (id > 0 && id != CurrencyId)
             {
 
                 try

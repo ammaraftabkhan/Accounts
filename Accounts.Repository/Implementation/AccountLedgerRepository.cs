@@ -90,7 +90,9 @@ namespace Accounts.Repository.Implementation
 
         public bool DeleteAccountLedger(int id)
         {
-            if (id > 0)
+            int? LedgerId = (int?)(_AccuteDbContext.AccountSubLedgers.FirstOrDefault(e => e.AcLedgerId == id)?.AcLedgerId);
+            int? ProfileId = (int?)(_AccuteDbContext.AccountProfiles.FirstOrDefault(e => e.AcLedgerId == id)?.AcLedgerId);
+            if (id > 0 && id != LedgerId && id != ProfileId)
             {
 
                 try

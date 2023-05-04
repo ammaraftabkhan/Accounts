@@ -57,7 +57,8 @@ namespace Accounts.Repository.Implementation
 
         public bool DeleteAccountVoucherMaster(int id)
         {
-            if (id > 0)
+            int? VoucherId = (int?)(_AccuteDbContext.AccountVoucherDetails.FirstOrDefault(e => e.AcVoucherMasterId == id)?.AcVoucherMasterId);
+            if (id > 0 && id != VoucherId)
             {
 
                 try

@@ -52,7 +52,9 @@ namespace Accounts.Repository.Implementation
 
         public bool DeleteFiscalYear(int id)
         {
-            if (id > 0)
+            int? TransId = (int?)(_AccuteDbContext.AccountTransMasters.FirstOrDefault(e => e.FiscalYearId == id)?.FiscalYearId);
+            int? VoucherId = (int?)(_AccuteDbContext.AccountVoucherMasters.FirstOrDefault(e => e.FiscalYearId == id)?.FiscalYearId);
+            if (id > 0 && id != TransId && id != VoucherId)
             {
 
                 try

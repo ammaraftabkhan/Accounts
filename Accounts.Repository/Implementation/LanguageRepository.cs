@@ -52,7 +52,9 @@ namespace Accounts.Repository.Implementation
 
         public bool DeleteLanguage(int id)
         {
-            if (id > 0)
+            int? LanguageId = (int?)(_AccuteDbContext.CivilEntitiesLanguages.FirstOrDefault(e => e.LanguageId == id)?.LanguageId);
+
+            if (id > 0 && id != LanguageId)
             {
 
                 try

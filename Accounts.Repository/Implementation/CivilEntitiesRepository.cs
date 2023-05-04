@@ -64,7 +64,13 @@ namespace Accounts.Repository.Implementation
 
         public bool DeleteCivilEntity(long id)
         {
-            if (id > 0)
+            int? CivilEntityId = (int?)(_AccuteDbContext.Addresses.FirstOrDefault(e => e.CivilEntityId == id)?.CivilEntityId);
+            int? CivilLanguageId = (int?)(_AccuteDbContext.CivilEntitiesLanguages.FirstOrDefault(e => e.CivilEntityId == id)?.CivilEntityId);
+            int? CivilCurrenciesId = (int?)(_AccuteDbContext.CivilEntitiesCurrencies.FirstOrDefault(e => e.CivilEntityId == id)?.CivilEntityId);
+            int? CivilParentId = (int?)(_AccuteDbContext.CivilEntities.FirstOrDefault(e => e.CivilParentId == id)?.CivilEntityId);
+            int? AddressId = (int?)(_AccuteDbContext.Addresses.FirstOrDefault(e => e.CivilEntityId == id)?.CivilEntityId);
+
+            if (id > 0 && id != CivilEntityId && id != CivilParentId && id != CivilLanguageId && id != CivilCurrenciesId && id != AddressId)
             {
 
                 try

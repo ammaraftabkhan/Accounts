@@ -1,4 +1,5 @@
 ﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Virtual_Models;
 using Accounts.Core.Context;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
@@ -79,7 +80,9 @@ namespace Accounts.Repository.Implementation
 
         public bool Delete(int id)
         {
-            if (id > 0)
+            int? HeadtypeId = _AccuteDbContext.AccountHeads.FirstOrDefault(e => e.AcHeadTypeId == id)?.AcHeadTypeId;
+            if (id > 0 && id!= HeadtypeId)
+                
             {
                 
                 try

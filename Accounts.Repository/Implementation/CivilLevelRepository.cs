@@ -51,7 +51,8 @@ namespace Accounts.Repository.Implementation
 
         public bool DeleteCivilLevel(int id)
         {
-            if (id > 0)
+            int? CivilLevelId = (int?)(_AccuteDbContext.CivilEntities.FirstOrDefault(e => e.CivilLevelId == id)?.CivilLevelId);
+            if (id > 0 && id != CivilLevelId)
             {
 
                 try

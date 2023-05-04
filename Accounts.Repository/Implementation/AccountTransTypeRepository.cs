@@ -48,7 +48,8 @@ namespace Accounts.Repository.Implementation
 
         public bool DeleteAccountTransType(int id)
         {
-            if (id > 0)
+            int? TransTypeId = (int?)(_AccuteDbContext.AccountTransMasters.FirstOrDefault(e => e.AcTransTypeId == id)?.AcTransTypeId);
+            if (id > 0 && id != TransTypeId)
             {
 
                 try

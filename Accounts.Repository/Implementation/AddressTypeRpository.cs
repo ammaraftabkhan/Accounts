@@ -49,7 +49,8 @@ namespace Accounts.Repository.Implementation
 
         public bool DeleteAddressType(int id)
         {
-            if (id > 0)
+            int? AddressTypeId = (int?)(_AccuteDbContext.Addresses.FirstOrDefault(e => e.AddressTypeId == id)?.AddressTypeId);
+            if (id > 0 && id != AddressTypeId)
             {
 
                 try

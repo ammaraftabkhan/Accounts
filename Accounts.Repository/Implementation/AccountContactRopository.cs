@@ -65,7 +65,8 @@ namespace Accounts.Repository.Implementation
 
         public bool DeleteAccountContact(int id)
         {
-            if (id > 0)
+            int? ContactId = (int?)(_AccuteDbContext.Addresses.FirstOrDefault(e => e.AcContactId == id)?.AcContactId);
+            if (id > 0 && id != ContactId)
             {
 
                 try

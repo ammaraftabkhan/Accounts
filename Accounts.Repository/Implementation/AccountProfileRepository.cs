@@ -68,7 +68,9 @@ namespace Accounts.Repository.Implementation
 
         public bool DeleteAccountProfile(int id)
         {
-            if (id > 0)
+            int? ProfileId = (int?)(_AccuteDbContext.AccountContacts.FirstOrDefault(e => e.AcProfileId == id)?.AcProfileId);
+            int? AddressId = (int?)(_AccuteDbContext.Addresses.FirstOrDefault(e => e.AcProfileId == id)?.AcProfileId);
+            if (id > 0 && id != ProfileId && id != AddressId)
             {
 
                 try
