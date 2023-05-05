@@ -38,15 +38,15 @@ namespace Accounts.Repository.Implementation
             Ob.PostedOn= DateTime.UtcNow;
 
             //Head Type Code Assignment
-            if (code < 10)
-            {
+            //if (code < 10)
+            
                 Ob.AcHeadTypeCode = "0" + code.ToString();
-            }
+            
 
-            else
-            {
-                Ob.AcHeadTypeCode = code.ToString();
-            }
+            //else
+            //{
+            //    Ob.AcHeadTypeCode = code.ToString();
+            //}
 
 
             //if(headCode>9 && headCode < 100)

@@ -69,7 +69,7 @@ namespace Accounts.API.Controllers
             return Unauthorized();
         }
         [HttpPost]
-        [Route("register")]
+        [Route("Register")]
         public async Task<IActionResult> Register([FromBody] VM_UserRegistraion model)
         {
             var userExists = await _userManager.FindByNameAsync(model.Username);
@@ -106,7 +106,7 @@ namespace Accounts.API.Controllers
             return Ok(new IdResponse { Status = true, Message = "User created successfully!" });
         }
         [HttpPost]
-        [Route("register-admin")]
+        [Route("Register-Admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] VM_UserRegistraion model)
         {
             var userExists = await _userManager.FindByNameAsync(model.Username);
@@ -157,7 +157,7 @@ namespace Accounts.API.Controllers
         //}
         [AllowAnonymous]
         [HttpPost]
-        [Route("ForgetPassword")]
+        [Route("ForgotPassword")]
         public async Task<IActionResult> ForgotPassword([Required] string email)
         {
 
@@ -174,7 +174,7 @@ namespace Accounts.API.Controllers
                 }
             return StatusCode(StatusCodes.Status400BadRequest, new IdResponse { Status = false, Message = $"Could not snd link to email, please try again with correct email." });
         }
-        [HttpGet("reset-password")]
+        [HttpGet("ResetPassword")]
         public async Task<IActionResult> ResetPassword(string token, string email)
         {
             var model = new ResetPassword { Token = token, Email = email };
@@ -184,7 +184,7 @@ namespace Accounts.API.Controllers
             });
         }
         [AllowAnonymous]
-        [HttpPost("reset-password")]
+        [HttpPost("ChangePassword")]
         public async Task<IActionResult> ResetPassword(ResetPassword resetPassword)
         {
             var user = await _userManager.FindByEmailAsync(resetPassword.Email);
