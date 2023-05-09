@@ -96,7 +96,7 @@ namespace Accounts.Repository.Implementation
                 return new AccountFiscalYear();
             }
 
-            return new AccountFiscalYear();
+            //return new AccountFiscalYear();
         }
 
         public List<dynamic> GetAllFiscalYear(FilterModel filter)

@@ -40,7 +40,7 @@ namespace Accounts.Repository.Implementation
             //Head Type Code Assignment
             //if (code < 10)
             
-                Ob.AcHeadTypeCode = "0" + code.ToString();
+                Ob.AcHeadTypeCode = /*"0" +*/ code.ToString();
             
 
             //else
