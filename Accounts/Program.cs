@@ -37,11 +37,11 @@ builder.Services.AddControllers().AddFluentValidation(
     x =>
 {
     x.ImplicitlyValidateChildProperties = true;
-    x.RegisterValidatorsFromAssemblyContaining<AccountHeadType_Val>();
-    x.RegisterValidatorsFromAssemblyContaining<AccountHead_Val>();
-    x.RegisterValidatorsFromAssemblyContaining<AccountControl_Val>();
-    x.RegisterValidatorsFromAssemblyContaining<AccountLedger_Val>();
-    x.RegisterValidatorsFromAssemblyContaining<AccountSubLedger_Val>();
+    //x.RegisterValidatorsFromAssemblyContaining<AccountHeadType_Val>();
+    //x.RegisterValidatorsFromAssemblyContaining<AccountHead_Val>();
+    //x.RegisterValidatorsFromAssemblyContaining<AccountControl_Val>();
+    //x.RegisterValidatorsFromAssemblyContaining<AccountLedger_Val>();
+    //x.RegisterValidatorsFromAssemblyContaining<AccountSubLedger_Val>();
     x.RegisterValidatorsFromAssemblyContaining<AccountProfile_Val>();
     x.RegisterValidatorsFromAssemblyContaining<Currency_Val>();
     x.RegisterValidatorsFromAssemblyContaining<CivilEntitiesCurrency_Val>();
