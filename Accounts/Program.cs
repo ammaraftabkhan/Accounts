@@ -42,13 +42,13 @@ builder.Services.AddControllers().AddFluentValidation(
     //x.RegisterValidatorsFromAssemblyContaining<AccountControl_Val>();
     //x.RegisterValidatorsFromAssemblyContaining<AccountLedger_Val>();
     //x.RegisterValidatorsFromAssemblyContaining<AccountSubLedger_Val>();
-    x.RegisterValidatorsFromAssemblyContaining<AccountProfile_Val>();
-    x.RegisterValidatorsFromAssemblyContaining<Currency_Val>();
-    x.RegisterValidatorsFromAssemblyContaining<CivilEntitiesCurrency_Val>();
-    x.RegisterValidatorsFromAssemblyContaining<Language_Val>();
-    x.RegisterValidatorsFromAssemblyContaining<CivilEntitiesLanguage_Val>();
-    x.RegisterValidatorsFromAssemblyContaining<CivilEntities_Val>();
-    x.RegisterValidatorsFromAssemblyContaining<CivilLevel_Val>();
+    //x.RegisterValidatorsFromAssemblyContaining<AccountProfile_Val>();
+    //x.RegisterValidatorsFromAssemblyContaining<Currency_Val>();
+    //x.RegisterValidatorsFromAssemblyContaining<CivilEntitiesCurrency_Val>();
+    //x.RegisterValidatorsFromAssemblyContaining<Language_Val>();
+    //x.RegisterValidatorsFromAssemblyContaining<CivilEntitiesLanguage_Val>();
+    //x.RegisterValidatorsFromAssemblyContaining<CivilEntities_Val>();
+    //x.RegisterValidatorsFromAssemblyContaining<CivilLevel_Val>();
     x.RegisterValidatorsFromAssemblyContaining<AccountContact_Val>();
 
 }

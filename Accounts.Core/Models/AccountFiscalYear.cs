@@ -12,7 +12,9 @@ namespace Accounts.Core.Models
         [Key]
         public long FiscalYearId { get; set; }
         [StringLength(50)]
-        public string? FiscalYearName { get; set; }
+        public string FiscalYearCode { get; set; } = null!;
+        [StringLength(50)]
+        public string FiscalYearName { get; set; } = null!;
         [Column(TypeName = "date")]
         public DateTime FiscalYearStart { get; set; }
         [Column(TypeName = "date")]

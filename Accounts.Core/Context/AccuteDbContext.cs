@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Accounts.Core.Context
 {
-    public partial class AccuteDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
+    public partial class AccuteDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public AccuteDbContext()
         {
@@ -47,27 +47,25 @@ namespace Accounts.Core.Context
         public virtual DbSet<ProductCategory> ProductCategories { get; set; } = null!;
         public virtual DbSet<ProductSubCategory> ProductSubCategories { get; set; } = null!;
         public virtual DbSet<StateProvince> StateProvinces { get; set; } = null!;
-        public virtual DbSet<User> Users { get; set; } = null!;
-        public virtual DbSet<UserRole> UserRoles { get; set; } = null!;
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-LGPR2Q2;Initial Catalog=AccountsDB;Integrated Security=True;Encrypt=false");
+                optionsBuilder.UseSqlServer("Data Source=15.184.144.117,4546;Initial Catalog=AccountsDB;User ID=sa;Password=w^QU2dy9m8!A;Integrated Security=false; MultipleActiveResultSets=True; TrustServerCertificate=True");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<IdentityUser<int>>().ToTable("Users").HasKey(x => x.Id);
+            modelBuilder.Entity<User>(entity => { entity.ToTable("Users"); entity.HasKey(x => x.Id); entity.Property(e => e.IsActive).HasDefaultValueSql("((1))"); });
             modelBuilder.Entity<IdentityRole<int>>().ToTable("Roles").HasKey(x => x.Id);
             modelBuilder.Entity<IdentityUserRole<int>>().ToTable("UserRoles").HasKey(x => new { x.UserId, x.RoleId });
             modelBuilder.Entity<IdentityUserClaim<int>>().ToTable("UserClaims").HasKey(x => x.Id);
             modelBuilder.Entity<IdentityUserLogin<int>>().ToTable("UserLogins").HasKey(x => new { x.UserId });
             modelBuilder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims").HasKey(x => new { x.Id, x.RoleId });
             modelBuilder.Entity<IdentityUserToken<int>>().ToTable("UserTokens").HasKey(x => new { x.UserId });
+
             modelBuilder.Entity<AccountContact>(entity =>
             {
                 entity.HasKey(e => e.AcContactId)
@@ -351,20 +349,6 @@ namespace Accounts.Core.Context
             });
 
             modelBuilder.Entity<StateProvince>(entity =>
-            {
-                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
-            });
-
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.UserName).IsFixedLength();
-
-                entity.Property(e => e.UserPosition).IsFixedLength();
-            });
-
-            modelBuilder.Entity<UserRole>(entity =>
             {
                 entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
             });

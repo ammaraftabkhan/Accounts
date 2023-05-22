@@ -17,9 +17,9 @@ namespace Accounts.Core.Models
 
         [Key]
         public long CivilEntityId { get; set; }
-        public string? CivilEntityName { get; set; }
+        public string CivilEntityName { get; set; }
         public int CivilLevelId { get; set; }
-        public long CivilParentId { get; set; }
+        public long? CivilParentId { get; set; }
         public string? FlagImage { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }

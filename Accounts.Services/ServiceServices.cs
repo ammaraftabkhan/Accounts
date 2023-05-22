@@ -1,4 +1,5 @@
 ﻿using Accounts.Core.Context;
+using Accounts.Core.Models;
 using Accounts.Repository.Implementation;
 using Accounts.Repository.Repository;
 using Accounts.Services.Implementation;
@@ -61,7 +62,7 @@ namespace Accounts.Services
         }
         public static IServiceCollection ConfigureJWT(this IServiceCollection services,IConfiguration _configuration)
         {
-            services.AddIdentity<IdentityUser<int>, IdentityRole<int>>().AddEntityFrameworkStores<AccuteDbContext>().AddDefaultTokenProviders();
+            services.AddIdentity<User, IdentityRole<int>>().AddEntityFrameworkStores<AccuteDbContext>().AddDefaultTokenProviders();
             // Add JWT authentication
              services.AddAuthentication(options =>
             {

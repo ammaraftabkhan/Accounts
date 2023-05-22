@@ -105,7 +105,8 @@ namespace Accounts.Repository.Implementation
                 try
                 { 
                 var find = _AccuteDbContext.AccountHeads.Find(id);
-                if (find != null && find.IsDeleted == false)
+                    //var ret = _AccuteDbContext.AccountHeadTypes.Find(find.AcHeadTypeId);
+                    if (find != null && find.IsDeleted == false)
                 {
                     return find;
                 }
