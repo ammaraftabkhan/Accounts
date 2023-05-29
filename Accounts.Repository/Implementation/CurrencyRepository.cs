@@ -140,6 +140,7 @@ namespace Accounts.Repository.Implementation
                         data.CurrencyId = _VM_Currency.CurrencyId;
                         data.CurrencyCode = _VM_Currency.CurrencyCode;
                         data.CurrencyName = _VM_Currency.CurrencyName;
+                        data.CurrencySign=_VM_Currency.CurrencySign;
                         data.UpdatedBy = _VM_Currency.UpdatedBy;
                         data.UpdatedOn = DateTime.UtcNow;
                         _AccuteDbContext.Currencies.Update(data);

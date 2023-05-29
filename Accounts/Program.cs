@@ -35,6 +35,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddControllers().AddFluentValidation(
     x =>
+
 {
     x.ImplicitlyValidateChildProperties = true;
     //x.RegisterValidatorsFromAssemblyContaining<AccountHeadType_Val>();
@@ -49,7 +50,7 @@ builder.Services.AddControllers().AddFluentValidation(
     //x.RegisterValidatorsFromAssemblyContaining<CivilEntitiesLanguage_Val>();
     //x.RegisterValidatorsFromAssemblyContaining<CivilEntities_Val>();
     //x.RegisterValidatorsFromAssemblyContaining<CivilLevel_Val>();
-    x.RegisterValidatorsFromAssemblyContaining<AccountContact_Val>();
+   // x.RegisterValidatorsFromAssemblyContaining<AccountContact_Val>();
 
 }
 );
@@ -91,7 +92,7 @@ builder.Services.AddSwaggerGen(c =>
 //builder.Services.AddDbContext<AccuteDbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("Accountsdb")));
 
 builder.Services.AddScoped<AccuteDbContext>();
-builder.Services.AddDbContext<AccuteDbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("Accountsdb")));
+builder.Services.AddDbContext<AccuteDbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("AccountsDB")));
 builder.Services.SerServices();
 builder.Services.RepServices();
 

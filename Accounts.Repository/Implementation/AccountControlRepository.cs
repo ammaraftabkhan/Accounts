@@ -130,7 +130,7 @@ namespace Accounts.Repository.Implementation
 
                 //return list;
 
-                IDbConnection db = new SqlConnection(configuration.GetConnectionString("Accountsdb"));
+                IDbConnection db = new SqlConnection(configuration.GetConnectionString("AccountsDB"));
                 DynamicParameters dynamicParameters = new DynamicParameters();
 
                 dynamicParameters.Add("@PageSize", filter.PageSize);

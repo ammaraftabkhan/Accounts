@@ -27,7 +27,7 @@ namespace Accounts.API.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly IAccountHeadsServices _IAccountHeadsServices;
-        UserManager<IdentityUser<int>> UserManager;
+        UserManager<User> UserManager;
         private readonly IAccountHeadTypeServices _IAccountHeadTypeServices;
         private readonly IAccountControlServices _IAccountControlServices;
         private readonly IAccountLedgerServices _IAccountLedgerServices;
@@ -42,7 +42,7 @@ namespace Accounts.API.Controllers
             IAccountLedgerServices _IAccountLedgerServices,
             IAccountSubLedgerServices _IAccountSubLedgerServices,
             IJwtService _IJwtService,
-            UserManager<IdentityUser<int>> userManager,
+            UserManager<User> userManager,
             IEmailService IEmailService
             )
         {

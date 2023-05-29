@@ -55,6 +55,7 @@ namespace Accounts.Repository.Implementation
                     _AccuteDbContext.AccountProfiles.Add(ob);
                     return _AccuteDbContext.SaveChanges() > 0;
 
+
                 }
                 catch (Exception ex)
                 {

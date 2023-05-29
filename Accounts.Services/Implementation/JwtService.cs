@@ -17,8 +17,8 @@ namespace Accounts.Services.Implementation
     public class JwtService : IJwtService
     {
         public readonly IConfiguration _configuration;
-        private readonly UserManager<IdentityUser<int>> _userManager;
-        public JwtService(IConfiguration config, UserManager<IdentityUser<int>> userManager)
+        private readonly UserManager<User> _userManager;
+        public JwtService(IConfiguration config, UserManager<User> userManager)
         {
             _configuration = config;
             _userManager = userManager;

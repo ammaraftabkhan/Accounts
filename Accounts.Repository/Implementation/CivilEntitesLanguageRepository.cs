@@ -121,7 +121,7 @@ namespace Accounts.Repository.Implementation
                 dynamicParameters.Add("@SearchTerm", filter.SearchTerm);
 
                 db.Open();
-                var data = db.Query<dynamic>("GetCivilEntitiesLanguage", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                var data = db.Query<dynamic>("GetCivilEntitiesLanguages", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
                 db.Close();
 
                 return data;

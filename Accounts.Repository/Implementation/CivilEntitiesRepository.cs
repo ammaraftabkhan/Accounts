@@ -38,10 +38,12 @@ namespace Accounts.Repository.Implementation
             ob.CivilParentId = _VM_CivilEntity.CivilParentId;
             ob.FlagImage = _VM_CivilEntity.FlagImage;
 
+            
+
             int? CivilLevelId = _AccuteDbContext.CivilLevels.FirstOrDefault(e => e.CivilLevelId == _VM_CivilEntity.CivilLevelId)?.CivilLevelId;
             long? ParentId = _AccuteDbContext.CivilEntities.FirstOrDefault(e => e.CivilEntityId == _VM_CivilEntity.CivilParentId)?.CivilEntityId;
-
-            if(CivilLevelId!=null && ParentId!=null)
+          
+            if(CivilLevelId!=null/* && ParentId!=null*/)
             {
                 try
                 {
@@ -150,7 +152,8 @@ namespace Accounts.Repository.Implementation
             if (_VM_CivilEntity.CivilEntityId > 0)
             {
                 long? ParentId = _AccuteDbContext.CivilEntities.FirstOrDefault(e => e.CivilEntityId == _VM_CivilEntity.CivilParentId)?.CivilEntityId;
-                if (ParentId!= null)
+                int? CivilLevelId = _AccuteDbContext.CivilLevels.FirstOrDefault(e => e.CivilLevelId == _VM_CivilEntity.CivilLevelId)?.CivilLevelId;
+                if (CivilLevelId!= null)
                 {
                     try
                     {

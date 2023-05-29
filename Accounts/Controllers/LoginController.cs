@@ -20,13 +20,13 @@ namespace Accounts.API.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly UserManager<IdentityUser<int>> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole<int>> _roleManager;
         private readonly IConfiguration _configuration;
         private readonly IJwtService _jwtService;
         private readonly IEmailService _IEmailService;
         public LoginController(
-            UserManager<IdentityUser<int>> userManager,
+            UserManager<User> userManager,
             RoleManager<IdentityRole<int>> roleManager,
             IConfiguration configuration,
             IJwtService jwtService,
@@ -78,14 +78,12 @@ namespace Accounts.API.Controllers
             if (model.Password != model.ConfirmPassword)
                 return StatusCode(StatusCodes.Status409Conflict, new IdResponse { Status = false, Message = "Your Password did not match!" });
 
-            IdentityUser<int> user = new()
+            User user = new User ()
             {
                 Email = model.email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username,
                 PhoneNumber = model.Phonenumber,
-
-
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
@@ -115,7 +113,7 @@ namespace Accounts.API.Controllers
             if (model.Password != model.ConfirmPassword)
                 return StatusCode(StatusCodes.Status409Conflict, new IdResponse { Status = false, Message = "Your Password did not match!" });
 
-            IdentityUser<int> user = new()
+            User user = new()
             {
                 Email = model.email,
                 SecurityStamp = Guid.NewGuid().ToString(),

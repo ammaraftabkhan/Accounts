@@ -56,7 +56,7 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_AccountTransType")]
+        [HttpPost("Get_All_AccountTransType")]
         public IActionResult Get_AllAccountTransType(FilterModel filter)
         {
             responseModel.data = _IAccountTransTypeServices.GetAllAccountTranstype(filter);
@@ -147,7 +147,7 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_FiscalYears")]
+        [HttpPost("Get_All_FiscalYears")]
         public IActionResult Get_All_FiscalYears(FilterModel filter)
         {
 

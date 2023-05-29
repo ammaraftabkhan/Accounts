@@ -57,7 +57,7 @@ namespace Accounts.Services
 
             services.AddScoped<IAccountTransDetailServices, AccountTransDetailServices>();
             services.AddScoped<IEmailService, EmailService>();
-            services.AddTransient<IJwtService, JwtService>(); 
+            services.AddScoped<IJwtService, JwtService>(); 
             return services;
         }
         public static IServiceCollection ConfigureJWT(this IServiceCollection services,IConfiguration _configuration)

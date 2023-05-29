@@ -27,6 +27,7 @@ namespace Accounts.Repository.Implementation
         public bool AddFiscalYear(VM_AccountFiscalYear _VM_AccountFiscalYear)
         {
             AccountFiscalYear ob= new AccountFiscalYear();
+            ob.FiscalYearCode = _VM_AccountFiscalYear.FiscalYearCode;
             ob.FiscalYearName = _VM_AccountFiscalYear.FiscalYearName;
             ob.FiscalYearStart = _VM_AccountFiscalYear.FiscalYearStart;
             ob.FiscalYearEnd = _VM_AccountFiscalYear.FiscalYearEnd;
@@ -138,10 +139,10 @@ namespace Accounts.Repository.Implementation
                     var ob = _AccuteDbContext.AccountFiscalYears.Find(_VM_AccountFiscalYear.FiscalYearId);
                     if (ob != null && ob.IsActive == true && ob.IsDeleted == false)
                     {
-                        ob.FiscalYearName = _VM_AccountFiscalYear.FiscalYearName;
+                        ob.FiscalYearName = ob.FiscalYearName = _VM_AccountFiscalYear.FiscalYearName;
                         ob.FiscalYearStart = _VM_AccountFiscalYear.FiscalYearStart;
                         ob.FiscalYearEnd = _VM_AccountFiscalYear.FiscalYearEnd;
-
+                        ob.FiscalYearCode = _VM_AccountFiscalYear.FiscalYearCode;
                         ob.UpdatedBy = _VM_AccountFiscalYear.UpdatedBy;
                         ob.UpdatedOn = DateTime.UtcNow;
                         ob.IsDeleted = false;

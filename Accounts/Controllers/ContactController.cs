@@ -48,7 +48,7 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_AccountProfile")]
+        [HttpPost("Get_All_AccountProfile")]
         public IActionResult Get_All_AccountProfile(FilterModel filter)
         {
 
@@ -140,7 +140,7 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_AccountContact")]
+        [HttpPost("Get_All_AccountContact")]
         public IActionResult Get_All_AccountContact(FilterModel filter)
         {
 
@@ -231,7 +231,7 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_AddressType")]
+        [HttpPost("Get_All_AddressType")]
         public IActionResult Get_All_AddressType(FilterModel filter) 
         {
 
@@ -322,7 +322,7 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_Addresses")]
+        [HttpPost("Get_All_Addresses")]
         public IActionResult Get_AllAddresses(FilterModel filter)
         {
 

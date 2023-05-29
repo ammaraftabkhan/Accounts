@@ -12,7 +12,9 @@ namespace Accounts.Common
     {
         public int AcTransTypeId { get; set; }
         [StringLength(50)]
-        public string? AcTransTypeName { get; set; }
+        public string AcTransTypeName { get; set; } = null!;
+        [StringLength(5)]
+        public string AcTransTypeCode { get; set; } = null!;
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }
         public int CreatedBy { get; set; }

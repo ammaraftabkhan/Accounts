@@ -29,6 +29,7 @@ namespace Accounts.Repository.Implementation
         {
             AccountTransType accountTransType = new AccountTransType();
             accountTransType.AcTransTypeName = _VM_AccountTransType.AcTransTypeName;
+            accountTransType.AcTransTypeCode = _VM_AccountTransType.AcTransTypeCode;
             accountTransType.CreatedBy = _VM_AccountTransType.CreatedBy;
             accountTransType.CreatedOn = DateTime.UtcNow;
             accountTransType.PostedBy = _VM_AccountTransType.PostedBy;
@@ -135,6 +136,7 @@ namespace Accounts.Repository.Implementation
                     {
 
                         data.AcTransTypeName = _VM_AccountTransType.AcTransTypeName;
+                        data.AcTransTypeCode = _VM_AccountTransType.AcTransTypeCode;
                         data.UpdatedBy = _VM_AccountTransType.UpdatedBy;
                         data.UpdatedOn = DateTime.UtcNow;
                         _AccuteDbContext.AccountTransTypes.Update(data);
