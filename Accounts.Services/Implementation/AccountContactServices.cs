@@ -13,13 +13,13 @@ namespace Accounts.Services.Implementation
 {
     public class AccountContactServices : IAccountContactServices
     {
-        private readonly IAccountsContactRepository _accountsContactRepository;
-        public AccountContactServices(IAccountsContactRepository accountsContactRepository)
+        private readonly IAccountContactRepository _accountsContactRepository;
+        public AccountContactServices(IAccountContactRepository accountsContactRepository)
         {
             _accountsContactRepository = accountsContactRepository;
         }
 
-        public bool AddAccountContact(VM_AccountContact _VM_AccountContact)
+        public long AddAccountContact(VM_AccountContact _VM_AccountContact)
         {
             return _accountsContactRepository.AddAccountContact(_VM_AccountContact);
         }

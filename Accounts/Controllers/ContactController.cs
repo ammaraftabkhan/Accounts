@@ -33,14 +33,14 @@ namespace Accounts.API.Controllers
         [HttpPost("Add_AccountProfile")]
         public IActionResult Add_AccountProfile(VM_AccountProfile vM_AccountProfile)
         {
-            bool Flag = false;
+            long Flag = 0;
             if (ModelState.IsValid)
             {
                 Flag = _IAccountProfileServices.AddAccountProfile(vM_AccountProfile);
 
-                if (Flag == true)
+                if (Flag > 0)
                 {
-                    return Ok(new { msg = "Data Saved...!" });
+                    return Ok(new { msg = "Data Saved...!" , AcProfileId=Flag});
                 }
                 return BadRequest(new { msg = "Incomplete Data cannot be saved." });
 
@@ -125,14 +125,14 @@ namespace Accounts.API.Controllers
         [HttpPost("Add_AccountContact")]
         public IActionResult Add_AccountContact(VM_AccountContact vM_AccountContact)
         {
-            bool Flag = false;
+            long Flag = 0;
             if (ModelState.IsValid)
             {
                 Flag = _IAccountContactServices.AddAccountContact(vM_AccountContact);
 
-                if (Flag == true)
+                if (Flag > 0)
                 {
-                    return Ok(new { msg = "Data Saved...!" });
+                    return Ok(new { msg = "Data Saved...!" , AcContactID = Flag});
                 }
                 return BadRequest(new { msg = "Incomplete Data cannot be saved." });
 

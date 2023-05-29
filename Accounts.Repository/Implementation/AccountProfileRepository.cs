@@ -24,7 +24,7 @@ namespace Accounts.Repository.Implementation
             this._AccuteDbContext = _AccuteDbContext;
             this.configuration = configuration;
         }
-        public bool AddAccountProfile(VM_AccountProfile _VM_AccountProfile)
+        public long AddAccountProfile(VM_AccountProfile _VM_AccountProfile)
         {
             //var getId = _AccuteDbContext.AccountProfiles.Any() ? _AccuteDbContext.AccountProfiles.Max(e => e.AcProfileId) + 1 : 1;
             
@@ -53,17 +53,18 @@ namespace Accounts.Repository.Implementation
                 try
                 {
                     _AccuteDbContext.AccountProfiles.Add(ob);
-                    return _AccuteDbContext.SaveChanges() > 0;
+                    _AccuteDbContext.SaveChanges();
+                    return ob.AcProfileId;
 
 
                 }
                 catch (Exception ex)
                 {
-                    return false;
+                    return 0;
 
                 }
             }
-            return false;
+            return 0;
            
         }
 

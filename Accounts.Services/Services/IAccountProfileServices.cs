@@ -15,6 +15,6 @@ namespace Accounts.Services.Services
         AccountProfile FindAccountProfile(long id);
         bool UpdateAccountProfile(VM_AccountProfile _VM_AccountProfile);
         bool DeleteAccountProfile(int id);
-        bool AddAccountProfile(VM_AccountProfile _VM_AccountProfile);
+        long AddAccountProfile(VM_AccountProfile _VM_AccountProfile);
     }
 }

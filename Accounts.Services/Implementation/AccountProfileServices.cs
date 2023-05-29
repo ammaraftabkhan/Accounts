@@ -19,7 +19,7 @@ namespace Accounts.Services.Implementation
             _repository = repository;
         }
 
-        public bool AddAccountProfile(VM_AccountProfile _VM_AccountProfile)
+        public long AddAccountProfile(VM_AccountProfile _VM_AccountProfile)
         {
             return _repository.AddAccountProfile(_VM_AccountProfile);
         }

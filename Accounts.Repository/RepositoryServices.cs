@@ -21,7 +21,7 @@ namespace Accounts.Repository
             services.AddScoped<IAccountLedgerRepository, AccountLedgerRepository>();
             services.AddScoped<IAccountSubLedgerRepository, AccountSubLedgerRepository>();
             services.AddScoped<IAccountProfileRepository, AccountProfileRepository>();
-            services.AddScoped<IAccountsContactRepository, AccountContactRopository>();
+            services.AddScoped<IAccountContactRepository, AccountContactRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<ICivilEntitesCurrencyRepository, CivilEntitesCurrencyRepository>();
             services.AddScoped<ICivilEntitiesRpository, CivilEntitiesRepository>();

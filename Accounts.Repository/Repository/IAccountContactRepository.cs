@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Accounts.Services.Services
+namespace Accounts.Repository.Repository
 {
-    public interface IAccountContactServices
+    public interface IAccountContactRepository
     {
         List<dynamic> GetAllAccountContact(FilterModel filter);
         AccountContact FindAccountContact(long id);
