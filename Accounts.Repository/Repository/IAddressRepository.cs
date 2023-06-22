@@ -12,9 +12,9 @@ namespace Accounts.Repository.Repository
     public interface IAddressRepository
     {
         List<dynamic> GetAllAddress(FilterModel filter);
-        Address FindAddress(int id);
+        Address FindAddress(long id);
         bool UpdateAddress(VM_Address _VM_Address);
-        bool DeleteAddress(int id);
+        bool DeleteAddress(long id);
         bool AddAddress(VM_Address _VM_Address);
     }
 }

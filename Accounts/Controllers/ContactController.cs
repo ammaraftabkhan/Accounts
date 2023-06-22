@@ -338,7 +338,7 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Find_Address")]
-        public IActionResult Find_Address(int id)
+        public IActionResult Find_Address(long id)
         {
             if (id > 0)
             {
@@ -378,7 +378,7 @@ namespace Accounts.API.Controllers
         }
 
         [HttpDelete("Delete_Address")]
-        public IActionResult Delete_Address(int id)
+        public IActionResult Delete_Address(long id)
         {
             if (id > 0)
             {

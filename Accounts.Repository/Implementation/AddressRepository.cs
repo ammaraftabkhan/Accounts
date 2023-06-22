@@ -68,7 +68,7 @@ namespace Accounts.Repository.Implementation
             
         }
 
-        public bool DeleteAddress(int id)
+        public bool DeleteAddress(long id)
         {
             if (id > 0)
             {
@@ -95,7 +95,7 @@ namespace Accounts.Repository.Implementation
             return false;
         }
 
-        public Address FindAddress(int id)
+        public Address FindAddress(long id)
         {
             try
             {

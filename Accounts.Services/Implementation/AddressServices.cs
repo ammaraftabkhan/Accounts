@@ -24,12 +24,12 @@ namespace Accounts.Services.Implementation
             return _addressRepository.AddAddress(_VM_Address);
         }
 
-        public bool DeleteAddress(int id)
+        public bool DeleteAddress(long id)
         {
             return _addressRepository.DeleteAddress(id);
         }
 
-        public Address FindAddress(int id)
+        public Address FindAddress(long id)
         {
             return _addressRepository.FindAddress(id);
         }
