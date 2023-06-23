@@ -29,10 +29,10 @@ namespace Accounts.Repository.Implementation
         {
             long getId = _AccuteDbContext.AccountSubLedgers.Any() ? _AccuteDbContext.AccountSubLedgers.Max(e => e.AcSubLedgerId) + 1 : 1;
             string AccountLedgerCode = _AccuteDbContext.AccountLedgers.Where(e => e.AcLedgerId == _VM_AccountsubLedger.AcLedgerId).Select(e => e.AcLedgerCode).FirstOrDefault();
-            string AccountLedgerName = _AccuteDbContext.AccountLedgers.Where(e => e.AcLedgerId == _VM_AccountsubLedger.AcLedgerId).Select(e => e.AcLedgerName).FirstOrDefault();
+            //string AccountLedgerName = _AccuteDbContext.AccountLedgers.Where(e => e.AcLedgerId == _VM_AccountsubLedger.AcLedgerId).Select(e => e.AcLedgerName).FirstOrDefault();
 
             AccountSubLedger ob = new AccountSubLedger();
-            ob.AcSubLedgerName = _VM_AccountsubLedger.AcSubLedgerName + " - " + AccountLedgerName;
+            ob.AcSubLedgerName = _VM_AccountsubLedger.AcSubLedgerName;
             ob.CreatedBy = _VM_AccountsubLedger.CreatedBy;
             ob.CreatedOn = DateTime.UtcNow;
             ob.PostedBy = _VM_AccountsubLedger.PostedBy;
@@ -168,8 +168,8 @@ namespace Accounts.Repository.Implementation
                     var data = _AccuteDbContext.AccountSubLedgers.Find(_VM_AccountSubLedger.AcSubLedgerId);
                     if (data != null && data.IsActive == true && data.IsDeleted == false)
                     {
-                        string AccountLedgerName = _AccuteDbContext.AccountLedgers.Where(e => e.AcLedgerId == _VM_AccountSubLedger.AcLedgerId).Select(e => e.AcLedgerName).FirstOrDefault();
-                        data.AcSubLedgerName = _VM_AccountSubLedger.AcSubLedgerName + " - " + AccountLedgerName;
+                        //string AccountLedgerName = _AccuteDbContext.AccountLedgers.Where(e => e.AcLedgerId == _VM_AccountSubLedger.AcLedgerId).Select(e => e.AcLedgerName).FirstOrDefault();
+                        data.AcSubLedgerName = _VM_AccountSubLedger.AcSubLedgerName;
                         //data.AcHeadTypeCode = _VM_AccountHeadType.AcHeadTypeCode;
                         data.UpdatedBy = _VM_AccountSubLedger.UpdatedBy;
                         data.UpdatedOn = DateTime.UtcNow;
