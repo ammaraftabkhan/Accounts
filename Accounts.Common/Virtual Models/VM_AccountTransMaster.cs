@@ -15,8 +15,8 @@ namespace Accounts.Common.Virtual_Models
         public long FiscalYearId { get; set; }
         [Column(TypeName = "date")]
         public DateTime AcTransDate { get; set; }
-        [StringLength(50)]
-        public string? AcDocNum { get; set; }
+        //[StringLength(50)]
+        //public string AcDocNum { get; set; }
         public string? Remarks { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }

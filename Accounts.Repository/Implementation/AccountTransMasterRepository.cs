@@ -27,9 +27,12 @@ namespace Accounts.Repository.Implementation
         }
         public bool AddAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster)
         {
+            var VoucherId = _AccuteDbContext.AccountTransMasters.Any() ? _AccuteDbContext.AccountTransMasters.Max(e => e.AcTransTypeId) + 1 : 1;
+            var VoucherType = _AccuteDbContext.AccountTransTypes.Where(e => e.AcTransTypeId == _VM_AccountTransMaster.AcTransTypeId).Select(e => e.AcTransTypeCode).FirstOrDefault();
+
             AccountTransMaster accountTransMaster = new AccountTransMaster();
             accountTransMaster.AcTransTypeId = _VM_AccountTransMaster.AcTransTypeId;
-            accountTransMaster.AcDocNum = _VM_AccountTransMaster.AcDocNum;
+            accountTransMaster.AcDocNum = VoucherType + " - " + VoucherId;
             accountTransMaster.AcTransDate = _VM_AccountTransMaster.AcTransDate;
             accountTransMaster.Remarks = _VM_AccountTransMaster.Remarks;
             accountTransMaster.FiscalYearId = _VM_AccountTransMaster.FiscalYearId;
@@ -145,8 +148,8 @@ namespace Accounts.Repository.Implementation
                     if (data != null && data.IsActive == true && data.IsDeleted == false)
                     {
 
-                        data.AcTransTypeId = _VM_AccountTransMaster.AcTransTypeId;
-                        data.AcDocNum = _VM_AccountTransMaster.AcDocNum;
+                        //data.AcTransTypeId = _VM_AccountTransMaster.AcTransTypeId;
+                        //data.AcDocNum = _VM_AccountTransMaster.AcDocNum;
                         data.AcTransDate = _VM_AccountTransMaster.AcTransDate;
                         data.Remarks = _VM_AccountTransMaster.Remarks;
                         data.FiscalYearId = _VM_AccountTransMaster.FiscalYearId;
