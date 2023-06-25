@@ -22,6 +22,7 @@ namespace Accounts.Core.Models
         public DateTime AcTransDate { get; set; }
         [StringLength(50)]
         public string? AcDocNum { get; set; }
+        public string AcTransNum { get; set; }
         public string? Remarks { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }

@@ -32,7 +32,7 @@ namespace Accounts.Repository.Implementation
 
             AccountTransMaster accountTransMaster = new AccountTransMaster();
             accountTransMaster.AcTransTypeId = _VM_AccountTransMaster.AcTransTypeId;
-            accountTransMaster.AcDocNum = VoucherType + " - " + VoucherId;
+            accountTransMaster.AcTransNum = VoucherType + " - " + VoucherId;
             accountTransMaster.AcTransDate = _VM_AccountTransMaster.AcTransDate;
             accountTransMaster.Remarks = _VM_AccountTransMaster.Remarks;
             accountTransMaster.FiscalYearId = _VM_AccountTransMaster.FiscalYearId;

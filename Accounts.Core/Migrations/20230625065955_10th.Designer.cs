@@ -4,6 +4,7 @@ using Accounts.Core.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Accounts.Core.Migrations
 {
     [DbContext(typeof(AccuteDbContext))]
-    partial class AccuteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230625065955_10th")]
+    partial class _10th
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -639,10 +641,6 @@ namespace Accounts.Core.Migrations
 
                     b.Property<DateTime>("AcTransDate")
                         .HasColumnType("date");
-
-                    b.Property<string>("AcTransNum")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("AcTransTypeId")
                         .HasColumnType("int");
