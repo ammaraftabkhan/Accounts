@@ -12,20 +12,22 @@ namespace Accounts.Common.Virtual_Models
     {
         public long AcTransDetailId { get; set; }
         public long AcTransMasterId { get; set; }
-        public long PayeeAcLedgerId { get; set; }
-        public long PayeeAcSubLedgerId { get; set; }
-        public long PayeeAcContactId { get; set; }
-        public string? PayeeRemarks { get; set; }
+        public long AccountId { get; set; }
+        public long AcContactId { get; set; }
+        public string? Remarks { get; set; }
+        public string? ChqTrType { get; set; }
         [StringLength(50)]
-        public string? ChqNum { get; set; }
+        public string? ChqTrIdNum { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime? ChqDate { get; set; }
-        public long ReceiverAcLedgerId { get; set; }
-        public long ReceiverAcSubLedgerId { get; set; }
-        public long ReceiverAcContactId { get; set; }
-        public string? ReceiverRemarks { get; set; }
+        public DateTime? ChqTrDate { get; set; }
+        public string? ChqTrTitle { get; set; }
+        public string? Bank { get; set; }
+        public string? BankBranch { get; set; }
+        public string? AcTitle { get; set; }
         [Column(TypeName = "decimal(19, 4)")]
-        public decimal Amount { get; set; }
+        public decimal DebitAmount { get; set; }
+        [Column(TypeName = "decimal(19, 4)")]
+        public decimal CreditAmount { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }
         public int CreatedBy { get; set; }
@@ -35,6 +37,8 @@ namespace Accounts.Common.Virtual_Models
         [Column(TypeName = "datetime")]
         public DateTime? PostedOn { get; set; }
         public int? PostedBy { get; set; }
-
+        public bool IsDeleted { get; set; }
+        [Required]
+        public bool? IsActive { get; set; }
     }
 }
