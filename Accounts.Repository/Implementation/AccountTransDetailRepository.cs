@@ -46,12 +46,12 @@ namespace Accounts.Repository.Implementation
             ob.PostedBy = _VM_AccountTransDetail.PostedBy;
             ob.PostedOn = DateTime.UtcNow;
 
-            long? Masterid = _AccuteDbContext.AccountTransMasters.FirstOrDefault(e => e.AcTransMasterId == _VM_AccountTransDetail.AcTransMasterId)?.AcTransMasterId;
+            long? MasterId = _AccuteDbContext.AccountTransMasters.FirstOrDefault(e => e.AcTransMasterId == _VM_AccountTransDetail.AcTransMasterId)?.AcTransMasterId;
             //long? Ledgerid = _AccuteDbContext.AccountLedgers.FirstOrDefault(e => e.AcLedgerId == _VM_AccountTransDetail.PayeeAcLedgerId)?.AcLedgerId;
-            long? SubLedgerid = _AccuteDbContext.AccountSubLedgers.FirstOrDefault(e => e.AcSubLedgerId == _VM_AccountTransDetail.AccountId)?.AcSubLedgerId;
-            long? Contactd  = _AccuteDbContext.AccountContacts.FirstOrDefault(e => e.AcContactId == _VM_AccountTransDetail.AcContactId)?.AcContactId;
+            long? AccountId = _AccuteDbContext.AccountSubLedgers.FirstOrDefault(e => e.AcSubLedgerId == _VM_AccountTransDetail.AccountId)?.AcSubLedgerId;
+            long? ContactId  = _AccuteDbContext.AccountContacts.FirstOrDefault(e => e.AcContactId == _VM_AccountTransDetail.AcContactId)?.AcContactId;
 
-            if (Masterid == _VM_AccountTransDetail.AcTransMasterId && /*Ledgerid == _VM_AccountTransDetail.PayeeAcLedgerId &&*/ SubLedgerid == _VM_AccountTransDetail.AccountId && Contactd == _VM_AccountTransDetail.AcContactId)
+            if (MasterId != null && /*Ledgerid == _VM_AccountTransDetail.PayeeAcLedgerId &&*/ AccountId != null && ContactId != null)
             {
                 try
                 {
@@ -171,8 +171,26 @@ namespace Accounts.Repository.Implementation
                         data.ChqTrTitle = _VM_AccountTransDetail.ChqTrTitle;
                         data.UpdatedOn = DateTime.UtcNow;
                         data.UpdatedBy = _VM_AccountTransDetail.UpdatedBy;
-                        _AccuteDbContext.AccountTransDetails.Update(data);
-                        return _AccuteDbContext.SaveChanges() > 0;
+
+                        long? AccountId = _AccuteDbContext.AccountSubLedgers.FirstOrDefault(e => e.AcSubLedgerId == _VM_AccountTransDetail.AccountId)?.AcSubLedgerId;
+                        long? ContactId = _AccuteDbContext.AccountContacts.FirstOrDefault(e => e.AcContactId == _VM_AccountTransDetail.AcContactId)?.AcContactId;
+
+                        if(AccountId != null && ContactId != null)
+                        {
+                            try
+                            {
+                                _AccuteDbContext.AccountTransDetails.Update(data);
+                                return _AccuteDbContext.SaveChanges() > 0;
+                            }
+                            catch (Exception ex)
+                            {
+                                return false;
+                            }
+                   
+                            
+                        }
+                        return false;
+
                     }
                     return false;
                 }

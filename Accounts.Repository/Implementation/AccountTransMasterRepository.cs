@@ -28,11 +28,11 @@ namespace Accounts.Repository.Implementation
         public bool AddAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster)
         {
             var VoucherId = _AccuteDbContext.AccountTransMasters.Any() ? _AccuteDbContext.AccountTransMasters.Max(e => e.AcTransTypeId) + 1 : 1;
-            var VoucherType = _AccuteDbContext.AccountTransTypes.Where(e => e.AcTransTypeId == _VM_AccountTransMaster.AcTransTypeId).Select(e => e.AcTransTypeCode).FirstOrDefault();
+            var TransType = _AccuteDbContext.AccountTransTypes.Where(e => e.AcTransTypeId == _VM_AccountTransMaster.AcTransTypeId).Select(e => e.AcTransTypeCode).FirstOrDefault();
 
             AccountTransMaster accountTransMaster = new AccountTransMaster();
             accountTransMaster.AcTransTypeId = _VM_AccountTransMaster.AcTransTypeId;
-            accountTransMaster.AcTransNum = VoucherType + " - " + VoucherId;
+            accountTransMaster.AcTransNum = TransType + " - " + VoucherId;
             accountTransMaster.AcTransDate = _VM_AccountTransMaster.AcTransDate;
             accountTransMaster.Remarks = _VM_AccountTransMaster.Remarks;
             accountTransMaster.FiscalYearId = _VM_AccountTransMaster.FiscalYearId;
@@ -40,9 +40,11 @@ namespace Accounts.Repository.Implementation
             accountTransMaster.CreatedOn = DateTime.UtcNow;
             accountTransMaster.PostedBy = _VM_AccountTransMaster.PostedBy;
             accountTransMaster.PostedOn = DateTime.UtcNow;
-            long? transtypeid = _AccuteDbContext.AccountTransTypes.FirstOrDefault(e => e.AcTransTypeId == _VM_AccountTransMaster.AcTransTypeId)?.AcTransTypeId;
 
-            if(transtypeid == _VM_AccountTransMaster.AcTransTypeId)
+            long? TransTypeId = _AccuteDbContext.AccountTransTypes.FirstOrDefault(e => e.AcTransTypeId == _VM_AccountTransMaster.AcTransTypeId)?.AcTransTypeId;
+            long? FiscalYearId = _AccuteDbContext.AccountFiscalYears.FirstOrDefault(e => e.FiscalYearId == _VM_AccountTransMaster.FiscalYearId)?.FiscalYearId;
+
+            if (TransTypeId != null && FiscalYearId != null)
             {
                 try
                 {
@@ -155,8 +157,22 @@ namespace Accounts.Repository.Implementation
                         data.FiscalYearId = _VM_AccountTransMaster.FiscalYearId;
                         data.UpdatedBy = _VM_AccountTransMaster.UpdatedBy;
                         data.UpdatedOn = DateTime.UtcNow;
-                        _AccuteDbContext.AccountTransMasters.Update(data);
-                        return _AccuteDbContext.SaveChanges() > 0;
+
+                        long? FiscalYearId = _AccuteDbContext.AccountFiscalYears.FirstOrDefault(e => e.FiscalYearId == _VM_AccountTransMaster.FiscalYearId)?.FiscalYearId;
+
+                        if (FiscalYearId != null)
+                        {
+                            try
+                            {
+                                _AccuteDbContext.AccountTransMasters.Update(data);
+                                return _AccuteDbContext.SaveChanges() > 0;
+                            }
+                            catch (Exception ex)
+                            {
+                                return false;
+                            }
+                        }
+                        return false;
                     }
                     return false;
                 }

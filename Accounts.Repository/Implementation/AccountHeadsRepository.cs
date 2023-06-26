@@ -38,8 +38,8 @@ namespace Accounts.Repository.Implementation
             ob.PostedOn = DateTime.UtcNow;
             ob.AcHeadTypeId = _VM_AccountHeads.AcHeadTypeId;
 
-            int? HeadtypeID = _AccuteDbContext.AccountHeadTypes.FirstOrDefault(e => e.AcHeadTypeId == _VM_AccountHeads.AcHeadTypeId)?.AcHeadTypeId;
-            if(HeadtypeID != null)
+            int? HeadtypeId = _AccuteDbContext.AccountHeadTypes.FirstOrDefault(e => e.AcHeadTypeId == _VM_AccountHeads.AcHeadTypeId)?.AcHeadTypeId;
+            if(HeadtypeId != null)
             {
                 if (getId < 10)
                 {
