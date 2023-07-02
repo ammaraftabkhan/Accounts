@@ -6,7 +6,9 @@ using Accounts.Core.Models;
 using Accounts.Repository.Repository;
 using Dapper;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,46 +27,80 @@ namespace Accounts.Repository.Implementation
             this._AccuteDbContext = _AccuteDbContext;
             this.configuration = configuration;
         }
-        public bool AddAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster)
+        public async Task<bool> AddAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster)
         {
-            var VoucherId = _AccuteDbContext.AccountTransMasters.Any() ? _AccuteDbContext.AccountTransMasters.Max(e => e.AcTransTypeId) + 1 : 1;
-            var TransType = _AccuteDbContext.AccountTransTypes.Where(e => e.AcTransTypeId == _VM_AccountTransMaster.AcTransTypeId).Select(e => e.AcTransTypeCode).FirstOrDefault();
+            var isSave = false;
 
-            AccountTransMaster accountTransMaster = new AccountTransMaster();
-            accountTransMaster.AcTransTypeId = _VM_AccountTransMaster.AcTransTypeId;
-            accountTransMaster.AcTransNum = TransType + " - " + VoucherId;
-            accountTransMaster.AcTransDate = _VM_AccountTransMaster.AcTransDate;
-            accountTransMaster.Remarks = _VM_AccountTransMaster.Remarks;
-            accountTransMaster.FiscalYearId = _VM_AccountTransMaster.FiscalYearId;
-            accountTransMaster.CreatedBy = _VM_AccountTransMaster.CreatedBy;
-            accountTransMaster.CreatedOn = DateTime.UtcNow;
-            accountTransMaster.PostedBy = _VM_AccountTransMaster.PostedBy;
-            accountTransMaster.PostedOn = DateTime.UtcNow;
-
-            long? TransTypeId = _AccuteDbContext.AccountTransTypes.FirstOrDefault(e => e.AcTransTypeId == _VM_AccountTransMaster.AcTransTypeId)?.AcTransTypeId;
-            long? FiscalYearId = _AccuteDbContext.AccountFiscalYears.FirstOrDefault(e => e.FiscalYearId == _VM_AccountTransMaster.FiscalYearId)?.FiscalYearId;
-
-            if (TransTypeId != null && FiscalYearId != null)
+            try
             {
-                try
+                var TransTypeTarget = await _AccuteDbContext.AccountTransTypes.FirstOrDefaultAsync(e => e.AcTransTypeId == _VM_AccountTransMaster.AcTransTypeId);
+                var FiscalYearTarget = await _AccuteDbContext.AccountFiscalYears.FirstOrDefaultAsync(e => e.FiscalYearId == _VM_AccountTransMaster.FiscalYearId);
+                if (TransTypeTarget != null && FiscalYearTarget != null)
                 {
-                    _AccuteDbContext.AccountTransMasters.Add(accountTransMaster);
-                    return _AccuteDbContext.SaveChanges() > 0;
+                    var TransType = _AccuteDbContext.AccountTransTypes.Where(e => e.AcTransTypeId == _VM_AccountTransMaster.AcTransTypeId).Select(e => e.AcTransTypeCode).FirstOrDefault();
 
-                }
-                catch (Exception ex)
-                {
-                    return false;
+                    AccountTransMaster accountTransMaster = new AccountTransMaster();
+                    accountTransMaster.AcTransTypeId = _VM_AccountTransMaster.AcTransTypeId;
+                    accountTransMaster.AcTransDate = _VM_AccountTransMaster.AcTransDate;
+                    accountTransMaster.Remarks = _VM_AccountTransMaster.Remarks;
+                    accountTransMaster.AcTransNum = "bc";
+                    accountTransMaster.FiscalYearId = _VM_AccountTransMaster.FiscalYearId;
+                    accountTransMaster.PostedBy = _VM_AccountTransMaster.PostedBy;
+                    accountTransMaster.PostedOn = DateTime.UtcNow;
+                    accountTransMaster.CreatedBy = _VM_AccountTransMaster.CreatedBy;
+                    accountTransMaster.CreatedOn = DateTime.UtcNow;
 
+                    if (_VM_AccountTransMaster!.vM_AccountTransDetail != null)
+                    {
+                        accountTransMaster.AccountTransDetails = new List<AccountTransDetail>()
+                            {
+                                new AccountTransDetail()
+                                {
+                                     AccountId = _VM_AccountTransMaster!.vM_AccountTransDetail!.AccountId,
+                                     AcContactId = _VM_AccountTransMaster!.vM_AccountTransDetail!.AcContactId,
+                                     Remarks = _VM_AccountTransMaster!.vM_AccountTransDetail!.Remarks,
+                                     ChqTrType = _VM_AccountTransMaster!.vM_AccountTransDetail!.ChqTrType,
+                                     ChqTrIdNum = _VM_AccountTransMaster!.vM_AccountTransDetail!.ChqTrIdNum,
+                                     ChqTrTitle = _VM_AccountTransMaster!.vM_AccountTransDetail!.ChqTrTitle,
+                                     ChqTrDate = _VM_AccountTransMaster!.vM_AccountTransDetail!.ChqTrDate,
+                                     Bank = _VM_AccountTransMaster!.vM_AccountTransDetail!.Bank,
+                                     BankBranch = _VM_AccountTransMaster!.vM_AccountTransDetail!.BankBranch,
+                                     AcTitle = _VM_AccountTransMaster!.vM_AccountTransDetail!.AcTitle,
+                                     DebitAmount = _VM_AccountTransMaster!.vM_AccountTransDetail!.DebitAmount,
+                                     CreditAmount = _VM_AccountTransMaster!.vM_AccountTransDetail!.CreditAmount,
+                                     PostedBy = _VM_AccountTransMaster.PostedBy,
+                                     PostedOn = DateTime.UtcNow,
+                                     CreatedBy = _VM_AccountTransMaster.CreatedBy,
+                                     CreatedOn = DateTime.UtcNow,
+                                }
+                            };
+                    }
+
+                    await _AccuteDbContext.AccountTransMasters.AddAsync(accountTransMaster);
+                    isSave = _AccuteDbContext.SaveChanges() > 0;
+
+                    if (isSave)
+                    {
+                        //var target = await _AccuteDbContext.AccountTransMasters.FirstOrDefaultAsync(x => x.AcTransMasterId == accountTransMaster.AcTransMasterId);
+                        accountTransMaster!.AcTransNum = TransType + " - " + accountTransMaster?.AcTransMasterId;
+                        _AccuteDbContext.AccountTransMasters.Update(accountTransMaster!);
+                        isSave = _AccuteDbContext.SaveChanges() > 0;
+                    }
                 }
+
+                return isSave;
             }
-            return false;
+            catch (Exception ex)
+            {
+                return isSave;
+            }
+
         }
 
         public bool DeleteAccountTransMaster(int id)
         {
             int? TransId = (int?)(_AccuteDbContext.AccountTransDetails.FirstOrDefault(e => e.AcTransMasterId == id)?.AcTransMasterId);
-            if (id > 0 && id!= TransId)
+            if (id > 0 && id != TransId)
             {
 
                 try

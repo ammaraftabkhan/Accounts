@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Accounts.Common.Virtual_Models
 {
-     public class VM_AccountTransMaster
+    public class VM_AccountTransMaster
     {
         public long AcTransMasterId { get; set; }
         public int AcTransTypeId { get; set; }
@@ -28,5 +28,6 @@ namespace Accounts.Common.Virtual_Models
         public DateTime? PostedOn { get; set; }
         public int? PostedBy { get; set; }
 
+        public VM_AccountTransDetail? vM_AccountTransDetail { get; set; }
     }
 }

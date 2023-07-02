@@ -19,9 +19,9 @@ namespace Accounts.Services.Implementation
             _repository = repository;
         }
 
-        public bool AddAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster)
+        public async Task<bool> AddAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster)
         {
-            return _repository.AddAccountTransMaster(_VM_AccountTransMaster);
+            return await _repository.AddAccountTransMaster(_VM_AccountTransMaster);
         }
 
         public bool DeleteAccountTransMaster(int id)

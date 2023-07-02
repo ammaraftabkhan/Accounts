@@ -223,12 +223,12 @@ namespace Accounts.API.Controllers
 
         //Accont Tans Master Starting...
         [HttpPost("Add_AccountTransMaster")]
-        public IActionResult Add_AccountTransMaster(VM_AccountTransMaster vM_AccountTransMaster)
+        public async Task<IActionResult> Add_AccountTransMaster(VM_AccountTransMaster vM_AccountTransMaster)
         {
             bool Flag = false;
             if (ModelState.IsValid)
             {
-                Flag = _IAccountTransMasterServices.AddAccountTransMaster(vM_AccountTransMaster);
+                Flag = await _IAccountTransMasterServices.AddAccountTransMaster(vM_AccountTransMaster);
 
                 if (Flag == true)
                 {
@@ -273,7 +273,7 @@ namespace Accounts.API.Controllers
         }
 
         [HttpPost("Update_AccountTransMaster")]
-        public IActionResult Update_AccountTrnasMaster(VM_AccountTransMaster vM_AccountTransMaster)
+        public async Task<IActionResult> Update_AccountTrnasMaster(VM_AccountTransMaster vM_AccountTransMaster)
         {
             bool flag = false;
             if (ModelState.IsValid)
@@ -281,7 +281,7 @@ namespace Accounts.API.Controllers
                 if (vM_AccountTransMaster.AcTransMasterId > 0)
                 {
 
-                    flag = _IAccountTransMasterServices.AddAccountTransMaster(vM_AccountTransMaster);
+                    flag = await _IAccountTransMasterServices.AddAccountTransMaster(vM_AccountTransMaster);
                     if (flag == true)
                     {
                         return Ok(new { msg = "Your data has been updated...!!!" });

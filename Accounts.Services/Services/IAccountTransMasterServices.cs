@@ -15,6 +15,6 @@ namespace Accounts.Services.Services
         AccountTransMaster FindAccountTransMaster(long id);
         bool UpdateAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster);
         bool DeleteAccountTransMaster(int id);
-        bool AddAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster);
+        Task<bool> AddAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster);
     }
 }
