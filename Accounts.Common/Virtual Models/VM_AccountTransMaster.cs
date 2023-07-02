@@ -28,6 +28,6 @@ namespace Accounts.Common.Virtual_Models
         public DateTime? PostedOn { get; set; }
         public int? PostedBy { get; set; }
 
-        public VM_AccountTransDetail? vM_AccountTransDetail { get; set; }
+        public List<VM_AccountTransDetail>? vM_AccountTransDetails { get; set; }
     }
 }

@@ -50,30 +50,28 @@ namespace Accounts.Repository.Implementation
                     accountTransMaster.CreatedBy = _VM_AccountTransMaster.CreatedBy;
                     accountTransMaster.CreatedOn = DateTime.UtcNow;
 
-                    if (_VM_AccountTransMaster!.vM_AccountTransDetail != null)
+                    if (_VM_AccountTransMaster!.vM_AccountTransDetails != null && _VM_AccountTransMaster!.vM_AccountTransDetails.Count > 0)
                     {
-                        accountTransMaster.AccountTransDetails = new List<AccountTransDetail>()
-                            {
-                                new AccountTransDetail()
-                                {
-                                     AccountId = _VM_AccountTransMaster!.vM_AccountTransDetail!.AccountId,
-                                     AcContactId = _VM_AccountTransMaster!.vM_AccountTransDetail!.AcContactId,
-                                     Remarks = _VM_AccountTransMaster!.vM_AccountTransDetail!.Remarks,
-                                     ChqTrType = _VM_AccountTransMaster!.vM_AccountTransDetail!.ChqTrType,
-                                     ChqTrIdNum = _VM_AccountTransMaster!.vM_AccountTransDetail!.ChqTrIdNum,
-                                     ChqTrTitle = _VM_AccountTransMaster!.vM_AccountTransDetail!.ChqTrTitle,
-                                     ChqTrDate = _VM_AccountTransMaster!.vM_AccountTransDetail!.ChqTrDate,
-                                     Bank = _VM_AccountTransMaster!.vM_AccountTransDetail!.Bank,
-                                     BankBranch = _VM_AccountTransMaster!.vM_AccountTransDetail!.BankBranch,
-                                     AcTitle = _VM_AccountTransMaster!.vM_AccountTransDetail!.AcTitle,
-                                     DebitAmount = _VM_AccountTransMaster!.vM_AccountTransDetail!.DebitAmount,
-                                     CreditAmount = _VM_AccountTransMaster!.vM_AccountTransDetail!.CreditAmount,
-                                     PostedBy = _VM_AccountTransMaster.PostedBy,
-                                     PostedOn = DateTime.UtcNow,
-                                     CreatedBy = _VM_AccountTransMaster.CreatedBy,
-                                     CreatedOn = DateTime.UtcNow,
-                                }
-                            };
+                        accountTransMaster.AccountTransDetails = _VM_AccountTransMaster.vM_AccountTransDetails.Select(x =>
+                        new AccountTransDetail()
+                        {
+                            AccountId = x.AccountId,
+                            AcContactId = x.AcContactId,
+                            Remarks = x.Remarks,
+                            ChqTrType = x.ChqTrType,
+                            ChqTrIdNum = x.ChqTrIdNum,
+                            ChqTrTitle = x.ChqTrTitle,
+                            ChqTrDate = x.ChqTrDate,
+                            Bank = x.Bank,
+                            BankBranch = x.BankBranch,
+                            AcTitle = x.AcTitle,
+                            DebitAmount = x.DebitAmount,
+                            CreditAmount = x.CreditAmount,
+                            PostedBy = _VM_AccountTransMaster.PostedBy,
+                            PostedOn = DateTime.UtcNow,
+                            CreatedBy = _VM_AccountTransMaster.CreatedBy,
+                            CreatedOn = DateTime.UtcNow,
+                        }).ToList();
                     }
 
                     await _AccuteDbContext.AccountTransMasters.AddAsync(accountTransMaster);
