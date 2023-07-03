@@ -42,6 +42,7 @@ namespace Accounts.Repository.Implementation
                     AccountTransMaster accountTransMaster = new AccountTransMaster();
                     accountTransMaster.AcTransTypeId = vM_AccountTransMaster.AcTransTypeId;
                     accountTransMaster.AcTransDate = vM_AccountTransMaster.AcTransDate;
+                    accountTransMaster.AcDocNum = vM_AccountTransMaster.AcDocNum;
                     accountTransMaster.Remarks = vM_AccountTransMaster.Remarks;
                     accountTransMaster.AcTransNum = "bc";
                     accountTransMaster.FiscalYearId = vM_AccountTransMaster.FiscalYearId;
@@ -95,7 +96,7 @@ namespace Accounts.Repository.Implementation
 
         }
 
-        public bool DeleteAccountTransMaster(int id)
+        public async Task<bool> DeleteAccountTransMaster(int id)
         {
             var isDelete = false;
             try
@@ -104,20 +105,20 @@ namespace Accounts.Repository.Implementation
                 if (id > 0)
                 {
 
-                        var master = _AccuteDbContext.AccountTransMasters.FirstOrDefault(e => e.AcTransMasterId == id);
-                        var detail = _AccuteDbContext.AccountTransDetails.Where(e => e.AcTransMasterId == id).ToList();
+                        var master = await _AccuteDbContext.AccountTransMasters.FirstOrDefaultAsync(e => e.AcTransMasterId == id);
+                        var detail = await _AccuteDbContext.AccountTransDetails.Where(e => e.AcTransMasterId == id).ToListAsync();
 
                         if (master != null && detail.Count > 0)
                         {
-                            master.IsActive = false;
-                            master.IsDeleted = true; 
-                            _AccuteDbContext.AccountTransMasters.Update(master);
+                            master!.IsActive = false;
+                            master!.IsDeleted = true; 
+                            _AccuteDbContext.AccountTransMasters.Update(master!);
 
                         foreach (var item in detail)
                         {
-                            var target = _AccuteDbContext.AccountTransDetails.FirstOrDefault(e => e.AcTransDetailId == item.AcTransDetailId);
-                            target.IsActive = false;
-                            target.IsDeleted = true;
+                            var target = await _AccuteDbContext.AccountTransDetails.FirstOrDefaultAsync(e => e.AcTransDetailId == item.AcTransDetailId);
+                            target!.IsActive = false;
+                            target!.IsDeleted = true;
                             _AccuteDbContext.AccountTransDetails.Update(target!);
                         }
 
@@ -137,24 +138,49 @@ namespace Accounts.Repository.Implementation
             
         }
 
-        public AccountTransMaster FindAccountTransMaster(long id)
+        public async Task<VM_AccountTransMaster> FindAccountTransMaster(long id)
         {
+            var isFind = new VM_AccountTransMaster();
             try
             {
-                var find = _AccuteDbContext.AccountTransMasters.Find(id);
-                if (find != null && find.IsDeleted == false)
+                var master = await _AccuteDbContext.AccountTransMasters.FirstOrDefaultAsync(e => e.AcTransMasterId == id);
+                var detail = await _AccuteDbContext.AccountTransDetails.Where(e => e.AcTransMasterId == id).ToListAsync();
+                if (master != null && master.IsActive == true && master.IsDeleted ==false && detail.Count>0)
                 {
-                    return find;
+                    isFind.AcDocNum = master.AcDocNum;
+                    isFind.AcTransNum = master.AcTransNum;
+                    isFind.AcTransDate = master.AcTransDate;
+                    isFind.AcTransTypeId = master.AcTransTypeId;
+                    isFind.FiscalYearId = master.FiscalYearId;
+                    isFind.AcTransMasterId = master.AcTransMasterId;
+
+                    isFind.vM_AccountTransDetails = detail.Select(x => new VM_AccountTransDetail { 
+                     AcTransMasterId = x.AcTransMasterId,
+                     AcContactId = x.AcContactId,
+                     AccountId = x.AccountId,
+                     AcTransDetailId = x.AcTransDetailId,
+                     Remarks = x.Remarks,
+                     Bank = x.Bank,
+                     BankBranch = x.BankBranch,
+                     AcTitle = x.AcTitle,
+                     ChqTrDate = x.ChqTrDate,
+                     ChqTrIdNum = x.ChqTrIdNum,
+                     ChqTrTitle = x.ChqTrTitle,
+                     ChqTrType = x.ChqTrType,
+                     CreditAmount = x.CreditAmount,
+                     DebitAmount = x.DebitAmount,                     
+                    }).ToList();
+
+
+                    return isFind;
                 }
-                return new AccountTransMaster();
+                return isFind;
 
             }
             catch (Exception ex)
             {
-                return new AccountTransMaster();
+                return isFind;
             }
-
-            return new AccountTransMaster();
         }
 
         public List<dynamic> GetAllAccountTransMaster(FilterModel filter)

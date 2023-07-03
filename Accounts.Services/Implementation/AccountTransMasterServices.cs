@@ -24,14 +24,14 @@ namespace Accounts.Services.Implementation
             return await _repository.AddAccountTransMaster(_VM_AccountTransMaster);
         }
 
-        public bool DeleteAccountTransMaster(int id)
+        public async Task<bool> DeleteAccountTransMaster(int id)
         {
-            return _repository.DeleteAccountTransMaster(id);
+            return await _repository.DeleteAccountTransMaster(id);
         }
 
-        public AccountTransMaster FindAccountTransMaster(long id)
+        public async Task<VM_AccountTransMaster> FindAccountTransMaster(long id)
         {
-            return _repository.FindAccountTransMaster(id);
+            return await _repository.FindAccountTransMaster(id);
         }
 
         public List<dynamic> GetAllAccountTransMaster(FilterModel filter)

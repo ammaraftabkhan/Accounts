@@ -12,9 +12,9 @@ namespace Accounts.Services.Services
     public interface IAccountTransMasterServices
     {
         List<dynamic> GetAllAccountTransMaster(FilterModel filter);
-        AccountTransMaster FindAccountTransMaster(long id);
+        Task <VM_AccountTransMaster> FindAccountTransMaster(long id);
         bool UpdateAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster);
-        bool DeleteAccountTransMaster(int id);
+        Task <bool> DeleteAccountTransMaster(int id);
         Task<bool> AddAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster);
     }
 }

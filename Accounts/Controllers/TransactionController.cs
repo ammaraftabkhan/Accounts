@@ -256,12 +256,12 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("Find_AccountTransMaster")]
-        public IActionResult Find_AccountTransMaster(long id)
+        public async Task<IActionResult> Find_AccountTransMaster(long id)
         {
             if (id > 0)
             {
 
-                var data = _IAccountTransMasterServices.FindAccountTransMaster(id);
+                var data = await _IAccountTransMasterServices.FindAccountTransMaster(id);
                 if (data.AcTransMasterId != 0 && data != null && data.IsDeleted == false)
                 {
                     return Ok(new { data = data });
@@ -296,12 +296,12 @@ namespace Accounts.API.Controllers
         }
 
         [HttpDelete("Delete_AccountTransMaster")]
-        public IActionResult Delete_AccountTransMaster(int id)
+        public async Task<IActionResult> Delete_AccountTransMaster(int id)
         {
             if (id > 0)
             {
                 bool flag = false;
-                flag = _IAccountTransMasterServices.DeleteAccountTransMaster(id);
+                flag = await _IAccountTransMasterServices.DeleteAccountTransMaster(id);
                 if (flag == true)
                 {
                     return Ok(new { msg = "Successfully Deleted...!" });
