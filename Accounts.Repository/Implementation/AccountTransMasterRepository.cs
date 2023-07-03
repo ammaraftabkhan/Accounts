@@ -220,7 +220,7 @@ namespace Accounts.Repository.Implementation
 
                 try
                 {
-                    var data = _AccuteDbContext.AccountTransMasters.Find(_VM_AccountTransMaster.AcTransMasterId);
+                    var data = _AccuteDbContext.AccountTransMasters.FirstOrDefault(x => x.AcTransMasterId == _VM_AccountTransMaster.AcTransMasterId);
                     if (data != null && data.IsActive == true && data.IsDeleted == false)
                     {
 
