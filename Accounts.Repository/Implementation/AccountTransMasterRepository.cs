@@ -27,32 +27,32 @@ namespace Accounts.Repository.Implementation
             this._AccuteDbContext = _AccuteDbContext;
             this.configuration = configuration;
         }
-        public async Task<bool> AddAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster)
+        public async Task<bool> AddAccountTransMaster(VM_AccountTransMaster vM_AccountTransMaster)
         {
             var isSave = false;
 
             try
             {
-                var TransTypeTarget = await _AccuteDbContext.AccountTransTypes.FirstOrDefaultAsync(e => e.AcTransTypeId == _VM_AccountTransMaster.AcTransTypeId);
-                var FiscalYearTarget = await _AccuteDbContext.AccountFiscalYears.FirstOrDefaultAsync(e => e.FiscalYearId == _VM_AccountTransMaster.FiscalYearId);
+                var TransTypeTarget = await _AccuteDbContext.AccountTransTypes.FirstOrDefaultAsync(e => e.AcTransTypeId == vM_AccountTransMaster.AcTransTypeId);
+                var FiscalYearTarget = await _AccuteDbContext.AccountFiscalYears.FirstOrDefaultAsync(e => e.FiscalYearId == vM_AccountTransMaster.FiscalYearId);
                 if (TransTypeTarget != null && FiscalYearTarget != null)
                 {
-                    var TransType = _AccuteDbContext.AccountTransTypes.Where(e => e.AcTransTypeId == _VM_AccountTransMaster.AcTransTypeId).Select(e => e.AcTransTypeCode).FirstOrDefault();
+                    var TransType = _AccuteDbContext.AccountTransTypes.Where(e => e.AcTransTypeId == vM_AccountTransMaster.AcTransTypeId).Select(e => e.AcTransTypeCode).FirstOrDefault();
 
                     AccountTransMaster accountTransMaster = new AccountTransMaster();
-                    accountTransMaster.AcTransTypeId = _VM_AccountTransMaster.AcTransTypeId;
-                    accountTransMaster.AcTransDate = _VM_AccountTransMaster.AcTransDate;
-                    accountTransMaster.Remarks = _VM_AccountTransMaster.Remarks;
+                    accountTransMaster.AcTransTypeId = vM_AccountTransMaster.AcTransTypeId;
+                    accountTransMaster.AcTransDate = vM_AccountTransMaster.AcTransDate;
+                    accountTransMaster.Remarks = vM_AccountTransMaster.Remarks;
                     accountTransMaster.AcTransNum = "bc";
-                    accountTransMaster.FiscalYearId = _VM_AccountTransMaster.FiscalYearId;
-                    accountTransMaster.PostedBy = _VM_AccountTransMaster.PostedBy;
+                    accountTransMaster.FiscalYearId = vM_AccountTransMaster.FiscalYearId;
+                    accountTransMaster.PostedBy = vM_AccountTransMaster.PostedBy;
                     accountTransMaster.PostedOn = DateTime.UtcNow;
-                    accountTransMaster.CreatedBy = _VM_AccountTransMaster.CreatedBy;
+                    accountTransMaster.CreatedBy = vM_AccountTransMaster.CreatedBy;
                     accountTransMaster.CreatedOn = DateTime.UtcNow;
 
-                    if (_VM_AccountTransMaster!.vM_AccountTransDetails != null && _VM_AccountTransMaster!.vM_AccountTransDetails.Count > 0)
+                    if (vM_AccountTransMaster!.vM_AccountTransDetails != null && vM_AccountTransMaster!.vM_AccountTransDetails.Count > 0)
                     {
-                        accountTransMaster.AccountTransDetails = _VM_AccountTransMaster.vM_AccountTransDetails.Select(x =>
+                        accountTransMaster.AccountTransDetails = vM_AccountTransMaster.vM_AccountTransDetails.Select(x =>
                         new AccountTransDetail()
                         {
                             AccountId = x.AccountId,
@@ -67,9 +67,9 @@ namespace Accounts.Repository.Implementation
                             AcTitle = x.AcTitle,
                             DebitAmount = x.DebitAmount,
                             CreditAmount = x.CreditAmount,
-                            PostedBy = _VM_AccountTransMaster.PostedBy,
+                            PostedBy = vM_AccountTransMaster.PostedBy,
                             PostedOn = DateTime.UtcNow,
-                            CreatedBy = _VM_AccountTransMaster.CreatedBy,
+                            CreatedBy = vM_AccountTransMaster.CreatedBy,
                             CreatedOn = DateTime.UtcNow,
                         }).ToList();
                     }
@@ -97,30 +97,44 @@ namespace Accounts.Repository.Implementation
 
         public bool DeleteAccountTransMaster(int id)
         {
-            int? TransId = (int?)(_AccuteDbContext.AccountTransDetails.FirstOrDefault(e => e.AcTransMasterId == id)?.AcTransMasterId);
-            if (id > 0 && id != TransId)
+            var isDelete = false;
+            try
             {
-
-                try
+                
+                if (id > 0)
                 {
-                    var data = _AccuteDbContext.AccountTransMasters.Find(id);
-                    if (data != null && data.IsDeleted == false && data.IsActive == true)
-                    {
-                        data.IsActive = false;
-                        data.IsDeleted = true;
-                        _AccuteDbContext.AccountTransMasters.Update(data);
-                        return _AccuteDbContext.SaveChanges() > 0;
-                    }
-                    return false;
+
+                        var master = _AccuteDbContext.AccountTransMasters.FirstOrDefault(e => e.AcTransMasterId == id);
+                        var detail = _AccuteDbContext.AccountTransDetails.Where(e => e.AcTransMasterId == id).ToList();
+
+                        if (master != null && detail.Count > 0)
+                        {
+                            master.IsActive = false;
+                            master.IsDeleted = true; 
+                            _AccuteDbContext.AccountTransMasters.Update(master);
+
+                        foreach (var item in detail)
+                        {
+                            var target = _AccuteDbContext.AccountTransDetails.FirstOrDefault(e => e.AcTransDetailId == item.AcTransDetailId);
+                            target.IsActive = false;
+                            target.IsDeleted = true;
+                            _AccuteDbContext.AccountTransDetails.Update(target!);
+                        }
+
+                        isDelete = _AccuteDbContext.SaveChanges() > 0;
+                        }
+                        return isDelete;
 
                 }
-                catch (Exception ex)
-                {
-                    return false;
-                }
+                return isDelete;
+                
+
             }
-
-            return false;
+            catch(Exception x)
+            {
+                return isDelete;
+            }
+            
         }
 
         public AccountTransMaster FindAccountTransMaster(long id)
