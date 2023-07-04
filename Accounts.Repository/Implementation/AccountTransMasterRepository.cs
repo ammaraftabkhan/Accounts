@@ -101,18 +101,18 @@ namespace Accounts.Repository.Implementation
             var isDelete = false;
             try
             {
-                
+
                 if (id > 0)
                 {
 
-                        var master = await _AccuteDbContext.AccountTransMasters.FirstOrDefaultAsync(e => e.AcTransMasterId == id);
-                        var detail = await _AccuteDbContext.AccountTransDetails.Where(e => e.AcTransMasterId == id).ToListAsync();
+                    var master = await _AccuteDbContext.AccountTransMasters.FirstOrDefaultAsync(e => e.AcTransMasterId == id);
+                    var detail = await _AccuteDbContext.AccountTransDetails.Where(e => e.AcTransMasterId == id).ToListAsync();
 
-                        if (master != null && detail.Count > 0)
-                        {
-                            master!.IsActive = false;
-                            master!.IsDeleted = true; 
-                            _AccuteDbContext.AccountTransMasters.Update(master!);
+                    if (master != null && detail.Count > 0)
+                    {
+                        master!.IsActive = false;
+                        master!.IsDeleted = true;
+                        _AccuteDbContext.AccountTransMasters.Update(master!);
 
                         foreach (var item in detail)
                         {
@@ -123,19 +123,19 @@ namespace Accounts.Repository.Implementation
                         }
 
                         isDelete = _AccuteDbContext.SaveChanges() > 0;
-                        }
-                        return isDelete;
+                    }
+                    return isDelete;
 
                 }
                 return isDelete;
-                
+
 
             }
-            catch(Exception x)
+            catch (Exception x)
             {
                 return isDelete;
             }
-            
+
         }
 
         public async Task<VM_AccountTransMaster> FindAccountTransMaster(long id)
@@ -145,7 +145,7 @@ namespace Accounts.Repository.Implementation
             {
                 var master = await _AccuteDbContext.AccountTransMasters.FirstOrDefaultAsync(e => e.AcTransMasterId == id);
                 var detail = await _AccuteDbContext.AccountTransDetails.Where(e => e.AcTransMasterId == id).ToListAsync();
-                if (master != null && master.IsActive == true && master.IsDeleted ==false && detail.Count>0)
+                if (master != null && master.IsActive == true && master.IsDeleted == false && detail.Count > 0)
                 {
                     isFind.AcDocNum = master.AcDocNum;
                     isFind.AcTransNum = master.AcTransNum;
@@ -154,21 +154,22 @@ namespace Accounts.Repository.Implementation
                     isFind.FiscalYearId = master.FiscalYearId;
                     isFind.AcTransMasterId = master.AcTransMasterId;
 
-                    isFind.vM_AccountTransDetails = detail.Select(x => new VM_AccountTransDetail { 
-                     AcTransMasterId = x.AcTransMasterId,
-                     AcContactId = x.AcContactId,
-                     AccountId = x.AccountId,
-                     AcTransDetailId = x.AcTransDetailId,
-                     Remarks = x.Remarks,
-                     Bank = x.Bank,
-                     BankBranch = x.BankBranch,
-                     AcTitle = x.AcTitle,
-                     ChqTrDate = x.ChqTrDate,
-                     ChqTrIdNum = x.ChqTrIdNum,
-                     ChqTrTitle = x.ChqTrTitle,
-                     ChqTrType = x.ChqTrType,
-                     CreditAmount = x.CreditAmount,
-                     DebitAmount = x.DebitAmount,                     
+                    isFind.vM_AccountTransDetails = detail.Select(x => new VM_AccountTransDetail
+                    {
+                        AcTransMasterId = x.AcTransMasterId,
+                        AcContactId = x.AcContactId,
+                        AccountId = x.AccountId,
+                        AcTransDetailId = x.AcTransDetailId,
+                        Remarks = x.Remarks,
+                        Bank = x.Bank,
+                        BankBranch = x.BankBranch,
+                        AcTitle = x.AcTitle,
+                        ChqTrDate = x.ChqTrDate,
+                        ChqTrIdNum = x.ChqTrIdNum,
+                        ChqTrTitle = x.ChqTrTitle,
+                        ChqTrType = x.ChqTrType,
+                        CreditAmount = x.CreditAmount,
+                        DebitAmount = x.DebitAmount,
                     }).ToList();
 
 
@@ -215,49 +216,100 @@ namespace Accounts.Repository.Implementation
 
         public bool UpdateAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster)
         {
+            var isUpdate = false;
             if (_VM_AccountTransMaster.AcTransMasterId > 0)
             {
 
                 try
                 {
-                    var data = _AccuteDbContext.AccountTransMasters.FirstOrDefault(x => x.AcTransMasterId == _VM_AccountTransMaster.AcTransMasterId);
-                    if (data != null && data.IsActive == true && data.IsDeleted == false)
+                    var master = _AccuteDbContext.AccountTransMasters.FirstOrDefault(x => x.AcTransMasterId == _VM_AccountTransMaster.AcTransMasterId);
+                    if (master != null && master.IsActive == true && master.IsDeleted == false)
                     {
 
-                        //data.AcTransTypeId = _VM_AccountTransMaster.AcTransTypeId;
-                        //data.AcDocNum = _VM_AccountTransMaster.AcDocNum;
-                        data.AcTransDate = _VM_AccountTransMaster.AcTransDate;
-                        data.Remarks = _VM_AccountTransMaster.Remarks;
-                        data.FiscalYearId = _VM_AccountTransMaster.FiscalYearId;
-                        data.UpdatedBy = _VM_AccountTransMaster.UpdatedBy;
-                        data.UpdatedOn = DateTime.UtcNow;
+                        master.AcDocNum = _VM_AccountTransMaster.AcDocNum;
+                        master.AcTransDate = _VM_AccountTransMaster.AcTransDate;
+                        master.Remarks = _VM_AccountTransMaster.Remarks;
+                        master.FiscalYearId = _VM_AccountTransMaster.FiscalYearId;
+                        master.UpdatedBy = _VM_AccountTransMaster.UpdatedBy;
+                        master.UpdatedOn = DateTime.UtcNow;
 
                         long? FiscalYearId = _AccuteDbContext.AccountFiscalYears.FirstOrDefault(e => e.FiscalYearId == _VM_AccountTransMaster.FiscalYearId)?.FiscalYearId;
 
                         if (FiscalYearId != null)
                         {
-                            try
+                            _AccuteDbContext.AccountTransMasters.Update(master);
+                            _AccuteDbContext.SaveChanges();
+
+                            foreach (var item in _VM_AccountTransMaster.vM_AccountTransDetails!)
                             {
-                                _AccuteDbContext.AccountTransMasters.Update(data);
-                                return _AccuteDbContext.SaveChanges() > 0;
+                                if (item.AcTransDetailId > 0)
+                                {
+                                    var dtlTarget = _AccuteDbContext.AccountTransDetails.FirstOrDefault(e => e.AcTransDetailId == item.AcTransDetailId)!;
+                                    dtlTarget.AccountId = item.AccountId;
+                                    dtlTarget.AcContactId = item.AcContactId;
+                                    dtlTarget.AcTitle = item.AcTitle;
+                                    dtlTarget.Bank = item.Bank;
+                                    dtlTarget.BankBranch = item.BankBranch;
+                                    dtlTarget.ChqTrDate = item.ChqTrDate;
+                                    dtlTarget.ChqTrIdNum = item.ChqTrIdNum;
+                                    dtlTarget.ChqTrTitle = item.ChqTrTitle;
+                                    dtlTarget.ChqTrType = item.ChqTrType;
+                                    dtlTarget.CreditAmount = item.CreditAmount;
+                                    dtlTarget.DebitAmount = item.DebitAmount;
+                                    dtlTarget.Remarks = item.Remarks;
+                                    dtlTarget.UpdatedOn = DateTime.UtcNow;
+                                    dtlTarget.UpdatedBy = item.UpdatedBy;
+
+                                    _AccuteDbContext.AccountTransDetails.Update(dtlTarget);
+                                    return isUpdate = _AccuteDbContext.SaveChanges() > 0;
+                                    
+
+                                }
+                                else
+                                {
+                                    var accountTransDetail =
+                                       new AccountTransDetail()
+
+                                       {
+                                           AccountId = item.AccountId,
+                                           AcContactId = item.AcContactId,
+                                           Remarks = item.Remarks,
+                                           ChqTrType = item.ChqTrType,
+                                           ChqTrIdNum = item.ChqTrIdNum,
+                                           ChqTrTitle = item.ChqTrTitle,
+                                           ChqTrDate = item.ChqTrDate,
+                                           Bank = item.Bank,
+                                           BankBranch = item.BankBranch,
+                                           AcTitle = item.AcTitle,
+                                           DebitAmount = item.DebitAmount,
+                                           CreditAmount = item.CreditAmount,
+                                           CreatedBy = item.CreatedBy,
+                                           CreatedOn = DateTime.UtcNow,
+                                           PostedBy = item.PostedBy,
+                                           PostedOn = DateTime.UtcNow,
+                                           AcTransMasterId = _VM_AccountTransMaster.AcTransMasterId,
+
+                                       };
+
+                                    _AccuteDbContext.AccountTransDetails.Add(accountTransDetail);
+                                    return isUpdate =_AccuteDbContext.SaveChanges()>0;
+                                }
                             }
-                            catch (Exception ex)
-                            {
-                                return false;
-                            }
+                            return isUpdate;
                         }
-                        return false;
+                        return isUpdate;
                     }
-                    return false;
+                    return isUpdate;
                 }
+
                 catch
                 {
-                    return false;
+                    return isUpdate;
                 }
 
             }
 
-            return false;
+            return isUpdate;
         }
     }
 }
