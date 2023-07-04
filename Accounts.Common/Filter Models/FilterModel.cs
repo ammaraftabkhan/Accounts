@@ -9,8 +9,8 @@ namespace Accounts.Common.DataTable_Model
 {
     public class FilterModel
     {
-        public int PageSize { get; set; } 
-        public int PageNumber { get; set; }
+        public int? PageSize { get; set; } 
+        public int? PageNumber { get; set; }
         [StringLength(50)]
         public string? SortColumn { get; set; } = null;
         [StringLength(4)]
