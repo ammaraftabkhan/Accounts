@@ -1,5 +1,6 @@
 ﻿using Accounts.Common;
 using Accounts.Common.DataTable_Model;
+using Accounts.Common.Filter_Models;
 using Accounts.Common.Virtual_Models;
 using Accounts.Core.Context;
 using Accounts.Core.Models;
@@ -310,6 +311,36 @@ namespace Accounts.Repository.Implementation
             }
 
             return isUpdate;
+        }
+        public List<dynamic> GetTransDtls(TransactionFilter tFilter)
+        {
+            try
+            {
+                //var list = _AccuteDbContext.AccountTransMasters.Where(e => e.IsDeleted == false).ToList();
+
+                //return list;
+
+
+                IDbConnection db = new SqlConnection(configuration.GetConnectionString("Accountsdb"));
+                DynamicParameters dynamicParameters = new DynamicParameters();
+
+                dynamicParameters.Add("@PageSize", tFilter.PageSize);
+                dynamicParameters.Add("@PageNumber", tFilter.PageNumber);
+                dynamicParameters.Add("@SortColumn", tFilter.SortColumn);
+                dynamicParameters.Add("@SortOrder", tFilter.SortOrder);
+                dynamicParameters.Add("@SearchTerm", tFilter.SearchTerm);
+                dynamicParameters.Add("@MstId", tFilter.MstId);
+
+                db.Open();
+                var data = db.Query<dynamic>("GetTransDtls", dynamicParameters, commandType: CommandType.StoredProcedure).ToList();
+                db.Close();
+
+                return data;
+            }
+            catch
+            {
+                return new List<dynamic>();
+            }
         }
     }
 }

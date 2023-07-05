@@ -1,4 +1,5 @@
 ﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Filter_Models;
 using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
@@ -43,5 +44,10 @@ namespace Accounts.Services.Implementation
         {
             return _repository.UpdateAccountTransMaster(_VM_AccountTransMaster);
         }
+        public List<dynamic> GetTransDtls(TransactionFilter tFilter)
+        {
+            return _repository.GetTransDtls(tFilter);
+        }
+
     }
 }

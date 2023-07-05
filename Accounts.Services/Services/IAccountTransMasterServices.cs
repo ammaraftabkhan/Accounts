@@ -1,4 +1,5 @@
 ﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Filter_Models;
 using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using System;
@@ -16,5 +17,6 @@ namespace Accounts.Services.Services
         bool UpdateAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster);
         Task <bool> DeleteAccountTransMaster(int id);
         Task<bool> AddAccountTransMaster(VM_AccountTransMaster _VM_AccountTransMaster);
+        List<dynamic> GetTransDtls(TransactionFilter tFilter);
     }
 }

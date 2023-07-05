@@ -6,6 +6,7 @@ using Accounts.Services.Services;
 using Accounts.Common.DataTable_Model;
 using Accounts.Common.Response_Model;
 using Accounts.Services.Implementation;
+using Accounts.Common.Filter_Models;
 
 namespace Accounts.API.Controllers
 {
@@ -240,7 +241,7 @@ namespace Accounts.API.Controllers
             return BadRequest(ModelState.Values.SelectMany(x => x.Errors));
         }
 
-        [HttpGet("Get_All_AccountTransMaster")]
+        [HttpPost("Get_All_AccountTransMaster")]
         public IActionResult Get_AllAccountTransMaster(FilterModel filter)
         {
 
@@ -309,6 +310,20 @@ namespace Accounts.API.Controllers
                 return NotFound(new { msg = "Sorry, Required data not found in Database" });
             }
             return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
+        }
+        [HttpPost("GetTransDtls")]
+
+        public IActionResult Get_TransDtls(TransactionFilter tFilter)
+        {
+            responseModel.data = _IAccountTransMasterServices.GetTransDtls(tFilter);
+
+            responseModel.PageRecords = responseModel.data.Count;
+
+            if (responseModel.data != null)
+            {
+                return Ok(new { Response = responseModel });
+            }
+            return NoContent();
         }
 
 
