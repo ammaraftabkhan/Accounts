@@ -262,7 +262,7 @@ namespace Accounts.Repository.Implementation
                                     dtlTarget.UpdatedBy = item.UpdatedBy;
 
                                     _AccuteDbContext.AccountTransDetails.Update(dtlTarget);
-                                    return isUpdate = _AccuteDbContext.SaveChanges() > 0;
+                                    isUpdate = _AccuteDbContext.SaveChanges() > 0;
                                     
 
                                 }
@@ -293,7 +293,7 @@ namespace Accounts.Repository.Implementation
                                        };
 
                                     _AccuteDbContext.AccountTransDetails.Add(accountTransDetail);
-                                    return isUpdate =_AccuteDbContext.SaveChanges()>0;
+                                    isUpdate =_AccuteDbContext.SaveChanges()>0;
                                 }
                             }
                             return isUpdate;
