@@ -20,6 +20,7 @@ namespace Accounts.API.Controllers
         private readonly IAccountFiscalYearServices _IAccountFiscalYearServices;
         private readonly IAccountTransMasterServices _IAccountTransMasterServices;
         private readonly IAccountTransDetailServices _IAccountTransDetailServices;
+        private readonly IGetAcStatementServices _IGetAcStatementServices;
         private readonly DataResponse responseModel = new DataResponse();
 
         public TransactionController(
@@ -27,7 +28,8 @@ namespace Accounts.API.Controllers
             IAccountTransTypeServices iaccountTransTypeServices,
             IAccountFiscalYearServices iAccountFiscalYearServices,
             IAccountTransMasterServices iAccountTransMasterServices,
-            IAccountTransDetailServices iAccountTransDetailServices
+            IAccountTransDetailServices iAccountTransDetailServices,
+            IGetAcStatementServices iGetAcStatementServices
             )
         {
 
@@ -35,6 +37,7 @@ namespace Accounts.API.Controllers
             _IAccountFiscalYearServices = iAccountFiscalYearServices;
             _IAccountTransMasterServices = iAccountTransMasterServices;
             _IAccountTransDetailServices = iAccountTransDetailServices;
+            _IGetAcStatementServices = iGetAcStatementServices;
         }
 
 
@@ -416,5 +419,23 @@ namespace Accounts.API.Controllers
             }
             return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
         }
+        [HttpPost("GetAccountStatement")]
+
+        public IActionResult GetAcStatement(LedgerFilter LFilter)
+        {
+            {
+
+                responseModel.data = _IGetAcStatementServices.GetAcStatement(LFilter);
+
+                responseModel.PageRecords = responseModel.data.Count;
+
+                if (responseModel.data != null)
+                {
+                    return Ok(new { Response = responseModel });
+                }
+                return NoContent();
+            }
+        }
+
     }
 }

@@ -55,6 +55,9 @@ namespace Accounts.Services
             services.AddScoped<IAccountFiscalYearServices, AccountFiscalYearServices>();
             services.AddScoped<IAccountTransMasterServices, AccountTransMasterServices>();
 
+            services.AddScoped<IGetAcStatementServices, GetAcStatementServices>();
+
+
             services.AddScoped<IAccountTransDetailServices, AccountTransDetailServices>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IJwtService, JwtService>(); 

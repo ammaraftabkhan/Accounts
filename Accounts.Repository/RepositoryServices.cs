@@ -34,6 +34,7 @@ namespace Accounts.Repository
             services.AddScoped<IAccountFiscalYearRepository, AccountFiscalYearRepository>();
             services.AddScoped<IAccountTransMasterRepository, AccountTransMasterRepository>();
             services.AddScoped<IAccountTransDetailRepository, AccountTransDetailRepository>();
+            services.AddScoped<IGetAcStatementRepository, GetAcStatementRepository>();
             return services;
 
         }
