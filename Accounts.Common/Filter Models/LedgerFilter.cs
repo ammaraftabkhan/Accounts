@@ -10,7 +10,7 @@ namespace Accounts.Common.Filter_Models
     public class LedgerFilter/* : FilterModel*/
     {
         public int? AccountId { get; set; }
-        public DateOnly? DateFrom { get; set; } = null;
-        public DateOnly? DateTo { get; set; } = null;
+        public DateTime? DateFrom { get; set; } = null;
+        public DateTime? DateTo { get; set; } = null;
     }
 }
