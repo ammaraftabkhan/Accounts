@@ -334,14 +334,14 @@ namespace Accounts.API.Controllers
         [HttpPost("Update_AccountControl")]
         public IActionResult Update_AccountControl(VM_AccountControl _VM_AccountControl)
         {
-            bool flag = false;
+            ServiceResultDTO  serviceResult = new ServiceResultDTO();
             if (ModelState.IsValid)
             {
                 if (_VM_AccountControl.AcControlId > 0)
                 {
 
-                    flag = _IAccountControlServices.UpdateAccountControl(_VM_AccountControl);
-                    if (flag == true)
+                    serviceResult = _IAccountControlServices.UpdateAccountControl(_VM_AccountControl);
+                    if (serviceResult.IsSuccess == true)
                     {
                         return Ok(new { msg = "Your data has been updated...!!!" });
                     }

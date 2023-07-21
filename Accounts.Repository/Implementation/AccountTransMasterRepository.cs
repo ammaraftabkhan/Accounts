@@ -1,5 +1,6 @@
 ﻿using Accounts.Common;
 using Accounts.Common.DataTable_Model;
+using Accounts.Common.Enum;
 using Accounts.Common.Filter_Models;
 using Accounts.Common.Virtual_Models;
 using Accounts.Core.Context;
@@ -9,6 +10,7 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using NPOI.SS.Formula.Functions;
 using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Collections.Generic;
@@ -54,26 +56,65 @@ namespace Accounts.Repository.Implementation
 
                     if (vM_AccountTransMaster!.vM_AccountTransDetails != null && vM_AccountTransMaster!.vM_AccountTransDetails.Count > 0)
                     {
-                        accountTransMaster.AccountTransDetails = vM_AccountTransMaster.vM_AccountTransDetails.Select(x =>
-                        new AccountTransDetail()
+                        List<AccountTransDetail> accountTransDetailList = new List<AccountTransDetail>();
+
+                        foreach (var x in vM_AccountTransMaster.vM_AccountTransDetails)
                         {
-                            AccountId = x.AccountId,
-                            AcContactId = x.AcContactId,
-                            Remarks = x.Remarks,
-                            ChqTrType = x.ChqTrType,
-                            ChqTrIdNum = x.ChqTrIdNum,
-                            ChqTrTitle = x.ChqTrTitle,
-                            ChqTrDate = x.ChqTrDate,
-                            Bank = x.Bank,
-                            BankBranch = x.BankBranch,
-                            AcTitle = x.AcTitle,
-                            DebitAmount = x.DebitAmount,
-                            CreditAmount = x.CreditAmount,
-                            PostedBy = vM_AccountTransMaster.PostedBy,
-                            PostedOn = DateTime.UtcNow,
-                            CreatedBy = vM_AccountTransMaster.CreatedBy,
-                            CreatedOn = DateTime.UtcNow,
-                        }).ToList();
+                            AccountTransDetail ac = new AccountTransDetail();
+                            ac.AccountId = x.AccountId;
+                            ac.AcContactId = x.AcContactId;
+                            ac.Remarks = x.Remarks;
+                            ac.ChqTrType = x.ChqTrType;
+                            if (vM_AccountTransMaster.AcTransTypeId == (int)EnumAccountTransMaster.JV)
+                            {
+                                ac.ChqTrIdNum = x.ChqTrIdNum;
+                                ac.ChqTrTitle = x.ChqTrTitle;
+                                ac.ChqTrDate = x.ChqTrDate;
+                            }
+                            if (vM_AccountTransMaster.AcTransTypeId == (int)EnumAccountTransMaster.CV)
+                            {
+                                ac.ChqTrIdNum = x.ChqTrIdNum; 
+                            }
+                            if (vM_AccountTransMaster.AcTransTypeId == (int)EnumAccountTransMaster.BV)
+                            {
+                                ac.ChqTrIdNum = x.ChqTrIdNum; 
+                            } 
+
+                            ac.Bank = x.Bank;
+                            ac.BankBranch = x.BankBranch;
+                            ac.AcTitle = x.AcTitle;
+                            ac.DebitAmount = x.DebitAmount;
+                            ac.CreditAmount = x.CreditAmount;
+                            ac.PostedBy = vM_AccountTransMaster.PostedBy;
+                            ac.PostedOn = DateTime.UtcNow;
+                            ac.CreatedBy = vM_AccountTransMaster.CreatedBy;
+                            ac.CreatedOn = DateTime.UtcNow;
+
+                            accountTransDetailList.Add(ac);
+                        }
+
+                        accountTransMaster.AccountTransDetails = accountTransDetailList;
+
+                        //    vM_AccountTransMaster.vM_AccountTransDetails.Select(x =>
+                        //new AccountTransDetail()
+                        //{
+                        //    AccountId = x.AccountId,
+                        //    AcContactId = x.AcContactId,
+                        //    Remarks = x.Remarks,
+                        //    ChqTrType = x.ChqTrType,
+                        //    ChqTrIdNum = x.ChqTrIdNum,
+                        //    ChqTrTitle = x.ChqTrTitle,
+                        //    ChqTrDate = x.ChqTrDate,
+                        //    Bank = x.Bank,
+                        //    BankBranch = x.BankBranch,
+                        //    AcTitle = x.AcTitle,
+                        //    DebitAmount = x.DebitAmount,
+                        //    CreditAmount = x.CreditAmount,
+                        //    PostedBy = vM_AccountTransMaster.PostedBy,
+                        //    PostedOn = DateTime.UtcNow,
+                        //    CreatedBy = vM_AccountTransMaster.CreatedBy,
+                        //    CreatedOn = DateTime.UtcNow,
+                        //}).ToList();
                     }
 
                     await _AccuteDbContext.AccountTransMasters.AddAsync(accountTransMaster);
@@ -263,7 +304,7 @@ namespace Accounts.Repository.Implementation
 
                                     _AccuteDbContext.AccountTransDetails.Update(dtlTarget);
                                     isUpdate = _AccuteDbContext.SaveChanges() > 0;
-                                    
+
 
                                 }
                                 else
@@ -293,7 +334,7 @@ namespace Accounts.Repository.Implementation
                                        };
 
                                     _AccuteDbContext.AccountTransDetails.Add(accountTransDetail);
-                                    isUpdate =_AccuteDbContext.SaveChanges()>0;
+                                    isUpdate = _AccuteDbContext.SaveChanges() > 0;
                                 }
                             }
                             return isUpdate;

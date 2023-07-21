@@ -1,4 +1,5 @@
 ﻿using Accounts.Common.DataTable_Model;
+using Accounts.Common.Response_Model;
 using Accounts.Common.Virtual_Models;
 using Accounts.Core.Models;
 using Accounts.Repository.Repository;
@@ -13,7 +14,7 @@ namespace Accounts.Services.Implementation
 {
     public class AccountControlServices : IAccountControlServices
     {
-        private readonly IAccountControlRespository accountControlRespository; 
+        private readonly IAccountControlRespository accountControlRespository;
         public AccountControlServices(IAccountControlRespository accountControlRespository)
         {
             this.accountControlRespository = accountControlRespository;
@@ -34,14 +35,39 @@ namespace Accounts.Services.Implementation
             return accountControlRespository.FindAccountControl(id);
         }
 
-        public List<dynamic> GetAllAccountControl(FilterModel filter)
+        public ServiceResultDTO GetAllAccountControl(FilterModel filter)
         {
-            return accountControlRespository.GetAllAccountControl(filter);
+            ServiceResultDTO serviceResult = new ServiceResultDTO();
+            try
+            {
+                var response = accountControlRespository.GetAllAccountControl(filter);
+                serviceResult = new ServiceResultDTO(response);
+                return serviceResult;
+            }
+            catch (Exception ex)
+            {
+                serviceResult.CreateErrorResponse(ex);
+                return serviceResult;
+            }
         }
 
-        public bool UpdateAccountControl(VM_AccountControl _VM_AccountControl)
+        public ServiceResultDTO UpdateAccountControl(VM_AccountControl _VM_AccountControl)
         {
-            return accountControlRespository.UpdateAccountControl(_VM_AccountControl);
+            ServiceResultDTO serviceResult = new ServiceResultDTO();
+            try
+            {
+                var response = accountControlRespository.UpdateAccountControl(_VM_AccountControl);
+                if (response)
+                {
+                    serviceResult = new ServiceResultDTO(new { Msg = "Successfully updated" });
+                }  
+                return serviceResult;
+            }
+            catch (Exception ex)
+            {
+                serviceResult.CreateErrorResponse(ex);
+                return serviceResult;
+            }
         }
     }
 }
