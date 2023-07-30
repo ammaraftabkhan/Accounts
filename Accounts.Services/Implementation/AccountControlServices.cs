@@ -50,7 +50,11 @@ namespace Accounts.Services.Implementation
                 return serviceResult;
             }
         }
-
+        public class BaseREsponse
+        {
+            public int? id { get; set; }
+            public string? Message { get; set; }
+        }
         public ServiceResultDTO UpdateAccountControl(VM_AccountControl _VM_AccountControl)
         {
             ServiceResultDTO serviceResult = new ServiceResultDTO();
@@ -59,8 +63,13 @@ namespace Accounts.Services.Implementation
                 var response = accountControlRespository.UpdateAccountControl(_VM_AccountControl);
                 if (response)
                 {
-                    serviceResult = new ServiceResultDTO(new { Msg = "Successfully updated" });
-                }  
+                    serviceResult = new ServiceResultDTO(new BaseREsponse { Message = "Successfully updated" });
+                }
+                else
+                {
+                    serviceResult = new ServiceResultDTO(new { Msg = "Something went wrong X X X" });
+
+                }
                 return serviceResult;
             }
             catch (Exception ex)
