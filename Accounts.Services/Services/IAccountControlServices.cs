@@ -15,7 +15,7 @@ namespace Accounts.Services.Services
         ServiceResultDTO GetAllAccountControl(FilterModel filter);
         AccountControl FindAccountControl(long id);
         ServiceResultDTO UpdateAccountControl(VM_AccountControl _VM_AccountControl);
-        bool DeleteAccountControl(int id);
+        ServiceResultDTO DeleteAccountControl(int id);
         bool AddAccountControl(VM_AccountControl _VM_AccountControl);
     }
 }

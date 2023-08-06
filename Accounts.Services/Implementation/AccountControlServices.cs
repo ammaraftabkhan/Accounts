@@ -25,9 +25,29 @@ namespace Accounts.Services.Implementation
             return accountControlRespository.AddAccountControl(_VM_AccountControl);
         }
 
-        public bool DeleteAccountControl(int id)
+        public ServiceResultDTO DeleteAccountControl(int id)
         {
-            return accountControlRespository.DeleteAccountControl(id);
+            ServiceResultDTO serviceResult = new ServiceResultDTO();
+            try
+            {
+                var response = accountControlRespository.DeleteAccountControl(id)
+;
+                if (!response)
+                {
+                    serviceResult?.Errors?.Add("RecordNotDelete", new string[] { "Record not success" });
+                }
+                else
+                {
+                    serviceResult = new ServiceResultDTO(new { msg = "Record delete succefully" });
+                }
+
+                return serviceResult!;
+            }
+            catch (Exception ex)
+            {
+                serviceResult.CreateErrorResponse(ex);
+                return serviceResult;
+            }
         }
 
         public AccountControl FindAccountControl(long id)

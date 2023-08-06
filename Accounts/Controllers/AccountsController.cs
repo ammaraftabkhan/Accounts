@@ -359,13 +359,10 @@ namespace Accounts.API.Controllers
         {
             if (id > 0)
             {
-                bool flag = false;
-                flag = _IAccountControlServices.DeleteAccountControl(id);
-                if (flag == true)
-                {
-                    return Ok(new { msg = "Successfully Deleted...!" });
-                }
-                return NotFound(new { msg = "Sorry, Required data not found in Database" });
+                ServiceResultDTO serviceResult = _IAccountControlServices.DeleteAccountControl(id)
+;
+
+                return Ok(serviceResult);
             }
             return NotFound(new { msg = "Attention, Your ID is incorrect. Kindly Give id>0." });
         }
