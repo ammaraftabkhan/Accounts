@@ -21,7 +21,7 @@ using System.Security.Cryptography.Xml;
 
 namespace Accounts.API.Controllers
 {
-    [Authorize(Roles = UserRoles.User)]
+    //[Authorize(Roles = UserRoles.User)]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountsController : ControllerBase
@@ -110,7 +110,7 @@ namespace Accounts.API.Controllers
 
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("Get_All_AccountHeadtype")]
         public IActionResult Get_All_AccountHeadtype([FromBody] FilterModel filter)
         {
