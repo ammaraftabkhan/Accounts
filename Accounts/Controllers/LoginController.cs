@@ -44,7 +44,8 @@ namespace Accounts.API.Controllers
         public async Task<IActionResult> Login([FromBody] VM_UserLogin login)
         {
             var user = await _userManager.FindByNameAsync(login.Username);
-            if (user != null && await _userManager.CheckPasswordAsync(user, login.Password))
+            var checkPassword = await _userManager.CheckPasswordAsync(user, login.Password);
+            if (user != null && checkPassword)
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var authClaim = new List<Claim>

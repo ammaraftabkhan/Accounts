@@ -20,13 +20,18 @@ using System.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-builder.Services.AddCors(options =>
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy(name: MyAllowSpecificOrigins,
+//    policy => {
+//        policy.AllowAnyHeader().WithOrigins("https://localhost:7257").AllowAnyMethod().SetIsOriginAllowed(origin => true).AllowCredentials();
+//    });
+//});
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-    policy => {
-        policy.AllowAnyHeader().WithOrigins("https://localhost:7257").AllowAnyMethod().SetIsOriginAllowed(origin => true).AllowCredentials();
-    });
-});
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
+
 var emailConfig = builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
 builder.Services.AddSingleton(emailConfig);
 // Add services to the container.
@@ -108,7 +113,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors("corsapp");
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
